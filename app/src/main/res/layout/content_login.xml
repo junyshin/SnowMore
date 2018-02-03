@@ -32,25 +32,6 @@
             android:paddingTop="20dp"
             android:src="@drawable/logo" />
 
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <Button
-            android:id="@+id/signinbutton"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:onClick="signInButton"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingTop="20dp"
-            android:text="Sign in" />
-
         <EditText
             android:id="@+id/email"
             android:layout_width="match_parent"
@@ -58,7 +39,7 @@
             android:hint="Username/Email"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:paddingTop="20dp" />
+            android:paddingTop="50dp" />
 
         <Space
             android:layout_width="wrap_content"
@@ -80,6 +61,24 @@
             android:layout_weight="1" />
 
         <Button
+            android:id="@+id/signinbutton"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:onClick="signInButton"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="20dp"
+            android:text="Sign in" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
             android:id="@+id/registerbutton"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
@@ -91,6 +90,11 @@
             android:paddingRight="20dp"
             android:paddingTop="20dp"
             android:text="Register" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/forgotbutton"
@@ -104,11 +108,6 @@
             android:paddingRight="20dp"
             android:paddingTop="20dp"
             android:text="Forgot Password?" />
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
 
         <Space
             android:layout_width="wrap_content"
