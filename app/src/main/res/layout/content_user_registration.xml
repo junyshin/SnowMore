@@ -36,9 +36,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Full Name"
+            android:inputType="textPersonName"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="50dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:visibility="invisible"
+            android:paddingTop="10dp"
+            android:id="@+id/error_message_fullname"/>
 
         <Space
             android:layout_width="wrap_content"
@@ -50,9 +59,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
+            android:inputType="textEmailAddress"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="20dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:visibility="invisible"
+            android:paddingTop="10dp"
+            android:id="@+id/error_message_email"/>
 
         <Space
             android:layout_width="wrap_content"
@@ -64,9 +82,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
+            android:inputType="textPassword"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="20dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:visibility="invisible"
+            android:paddingTop="10dp"
+            android:id="@+id/error_message_password"/>
 
         <Space
             android:layout_width="wrap_content"
