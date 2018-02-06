@@ -35,10 +35,6 @@ public class UserRegistration extends AppCompatActivity {
     private Registration registration;
     private Dialog dialog = null;
     private Context context = null;
-    private TextView email_dialog;
-    private Button cancel_button_dialog;
-    private Button confirm_button_dialog;
-    private UserRegistration userRegistration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +44,7 @@ public class UserRegistration extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitle("Snow More");
         context = UserRegistration.this;
-        dialog = new Dialog(context);
         setUpVariables();
-        setUpDialog();
     }
 
     @Override
@@ -87,15 +81,6 @@ public class UserRegistration extends AppCompatActivity {
         signin_button = (Button) findViewById(R.id.signinbutton);
         registration_button = (Button) findViewById(R.id.registerbutton);
         registration = new Registration();
-        userRegistration = new UserRegistration();
-    }
-
-    //Dialog Initialization
-    public void setUpDialog() {
-        dialog.setContentView(R.layout.confirmation_dialog);
-        cancel_button_dialog = (Button) dialog.findViewById(R.id.cancel_button);
-        confirm_button_dialog = (Button) dialog.findViewById(R.id.confirm_button);
-        email_dialog = (TextView) dialog.findViewById(R.id.email_dialog);
     }
 
 
@@ -138,8 +123,7 @@ public class UserRegistration extends AppCompatActivity {
             }
         }
         if(registration.check_email(email.getText().toString()) && registration.check_password((password.getText().toString())) && registration.check_name(fullname.getText().toString())) {
-            email_dialog.setText(email.getText().toString());
-            dialog.show();
+            createDialog();
         }
     }
 
@@ -152,5 +136,26 @@ public class UserRegistration extends AppCompatActivity {
     public void confirmDialog(View view) {
         Intent signin = new Intent(this , Login.class);
         startActivity(signin);
+    }
+
+    public void createDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Confirm email?");
+        builder.setMessage(email.getText().toString());
+        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent signin = new Intent(context , Login.class);
+                        startActivity(signin);
+                    }
+                });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
