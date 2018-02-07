@@ -33,7 +33,7 @@
             android:src="@drawable/logo" />
 
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/emailLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Username/Email"
@@ -41,13 +41,21 @@
             android:paddingRight="20dp"
             android:paddingTop="50dp" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:visibility="invisible"
+            android:paddingTop="10dp"
+            android:id="@+id/error_message_email_login"/>
+
         <Space
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/passwordLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
@@ -55,13 +63,21 @@
             android:paddingRight="20dp"
             android:paddingTop="20dp" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:visibility="invisible"
+            android:paddingTop="10dp"
+            android:id="@+id/error_message_password_login"/>
+
         <Space
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/signinbutton"
+            android:id="@+id/loginbutton"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -79,7 +95,7 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/registerbutton"
+            android:id="@+id/registerbuttonLogin"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
