@@ -13,6 +13,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -92,7 +93,7 @@ public class UserRegistration extends AppCompatActivity {
 
     //Registration button action
     public void registerButton(View view) {
-        if(email.getText().toString() == null) {
+        if(TextUtils.isEmpty(email.getText().toString())) {
             error_message_email.setText("Please enter email");
             error_message_email.setVisibility(View.VISIBLE);
         }
@@ -105,26 +106,26 @@ public class UserRegistration extends AppCompatActivity {
                 error_message_email.setVisibility(View.INVISIBLE);
             }
         }
-        if(password.getText().toString() == null) {
+        if(TextUtils.isEmpty(password.getText().toString())) {
             error_message_password.setText("Please enter password");
             error_message_password.setVisibility(View.VISIBLE);;
         }
         else {
             if(!registration.check_password((password.getText().toString()))) {
-                error_message_password.setText("Password should be at least 8 characters long, and must contain uppercase, lowercase letters, digit, and special character.");
+                error_message_password.setText("Password should be at least 8 characters long, and must contain uppercase and lowercase letters, at least one digit and one special character");
                 error_message_password.setVisibility(View.VISIBLE);
             }
             else {
                 error_message_password.setVisibility(View.INVISIBLE);
             }
         }
-        if(fullname.getText().toString() == null) {
+        if(TextUtils.isEmpty(fullname.getText().toString())) {
             error_message_fullname.setText("Please enter your full name");
             error_message_fullname.setVisibility(View.VISIBLE);
         }
         else {
             if (!registration.check_name(fullname.getText().toString())) {
-                error_message_fullname.setText("Please enter your full name");
+                error_message_fullname.setText("Please enter a valid full name");
                 error_message_fullname.setVisibility(View.VISIBLE);
             }
             else {

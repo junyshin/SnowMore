@@ -59,6 +59,12 @@ public class Registration {
         boolean name_checked = false;
         String[] parsed = name.split(" ");
         if(parsed.length >= 2) {
+            for (int i = 0 ; i < name.length() ; i++) {
+                char x = name.charAt(i);
+                if(Character.isDigit(x)) {
+                    return name_checked;
+                }
+            }
             name_checked = true;
         }
         return name_checked;
