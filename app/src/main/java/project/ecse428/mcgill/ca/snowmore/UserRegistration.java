@@ -101,6 +101,9 @@ public class UserRegistration extends AppCompatActivity {
                 error_message_email.setText("Invalid email");
                 error_message_email.setVisibility(View.VISIBLE);
             }
+            else {
+                error_message_email.setVisibility(View.INVISIBLE);
+            }
         }
         if(password.getText().toString() == null) {
             error_message_password.setText("Please enter password");
@@ -111,6 +114,9 @@ public class UserRegistration extends AppCompatActivity {
                 error_message_password.setText("Password should be at least 8 characters long, and must contain uppercase, lowercase letters, digit, and special character.");
                 error_message_password.setVisibility(View.VISIBLE);
             }
+            else {
+                error_message_password.setVisibility(View.INVISIBLE);
+            }
         }
         if(fullname.getText().toString() == null) {
             error_message_fullname.setText("Please enter your full name");
@@ -120,6 +126,9 @@ public class UserRegistration extends AppCompatActivity {
             if (!registration.check_name(fullname.getText().toString())) {
                 error_message_fullname.setText("Please enter your full name");
                 error_message_fullname.setVisibility(View.VISIBLE);
+            }
+            else {
+                error_message_fullname.setVisibility(View.INVISIBLE);
             }
         }
         if(registration.check_email(email.getText().toString()) && registration.check_password((password.getText().toString())) && registration.check_name(fullname.getText().toString())) {
