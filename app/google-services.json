@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "389358117462",
+    "firebase_url": "https://tutorial-e51c5.firebaseio.com",
+    "project_id": "tutorial-e51c5",
+    "storage_bucket": "tutorial-e51c5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:389358117462:android:9c23e4450dcd4566",
+        "android_client_info": {
+          "package_name": "com.example.elsa.tutorial"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "389358117462-m6b6u96pg2e97ehed10a9dedvp7qh8jm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.elsa.tutorial",
+            "certificate_hash": "3a3e280818020b3abb2078ae27d020bc60c774d1"
+          }
+        },
+        {
+          "client_id": "389358117462-6f2vndnqja4hd3hehpk4imvfgfknrmoc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA41P7AAZlUlobiVnqZ3s7p2G2RTw-YZD0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "389358117462-6f2vndnqja4hd3hehpk4imvfgfknrmoc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
