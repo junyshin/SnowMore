@@ -77,11 +77,11 @@
     <TextView
         android:id="@+id/textView6"
         android:layout_width="318dp"
-        android:layout_height="88dp"
+        android:layout_height="87dp"
         android:gravity="center_vertical|center_horizontal"
-        android:text="Make a Shovelling Request"
+        android:text="Create new shoveling request"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="0dp" />
 
     <ImageView
