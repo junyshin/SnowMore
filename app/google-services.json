@@ -1,35 +1,35 @@
 {
   "project_info": {
-    "project_number": "389358117462",
-    "firebase_url": "https://tutorial-e51c5.firebaseio.com",
-    "project_id": "tutorial-e51c5",
-    "storage_bucket": "tutorial-e51c5.appspot.com"
+    "project_number": "175383677354",
+    "firebase_url": "https://snowmore-3e355.firebaseio.com",
+    "project_id": "snowmore-3e355",
+    "storage_bucket": "snowmore-3e355.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:389358117462:android:9c23e4450dcd4566",
+        "mobilesdk_app_id": "1:175383677354:android:a94469443e68c73c",
         "android_client_info": {
-          "package_name": "com.example.elsa.tutorial"
+          "package_name": "project.ecse428.mcgill.ca.snowmore"
         }
       },
       "oauth_client": [
         {
-          "client_id": "389358117462-m6b6u96pg2e97ehed10a9dedvp7qh8jm.apps.googleusercontent.com",
+          "client_id": "175383677354-ocipv6ae5l5j0vo1mi7kcbkue5a94vdq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.elsa.tutorial",
+            "package_name": "project.ecse428.mcgill.ca.snowmore",
             "certificate_hash": "3a3e280818020b3abb2078ae27d020bc60c774d1"
           }
         },
         {
-          "client_id": "389358117462-6f2vndnqja4hd3hehpk4imvfgfknrmoc.apps.googleusercontent.com",
+          "client_id": "175383677354-ao9eb2cc830obig4cir5vp3flafa9igh.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA41P7AAZlUlobiVnqZ3s7p2G2RTw-YZD0"
+          "current_key": "AIzaSyDBK2xcQOhGg-9n9KNpHDwKFh4BMm8fCrM"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "389358117462-6f2vndnqja4hd3hehpk4imvfgfknrmoc.apps.googleusercontent.com",
+              "client_id": "175383677354-ao9eb2cc830obig4cir5vp3flafa9igh.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

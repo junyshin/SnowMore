@@ -9,7 +9,7 @@ import com.firebase.client.Firebase;
  *
  */
 
-public class FireBase extends Application {
+public class Fireapp extends Application {
     public void onCreate(){
         super.onCreate();
         Firebase.setAndroidContext(this);

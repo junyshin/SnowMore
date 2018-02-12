@@ -1,5 +1,15 @@
 package backend;
 
+import com.firebase.client.Firebase;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseUser;
+import android.support.annotation.NonNull;
+import android.util.Log;
+
+
 /**
  * Created by lucien on 2018-02-05.
  */
@@ -8,6 +18,8 @@ public class Registration {
     private String password;
     private String email;
     private String name;
+    private Firebase users_table;
+
 
     public boolean check_password(String password) {
         this.password = password;
@@ -69,4 +81,5 @@ public class Registration {
         }
         return name_checked;
     }
+
 }
