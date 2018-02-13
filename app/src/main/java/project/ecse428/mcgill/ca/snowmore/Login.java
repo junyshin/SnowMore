@@ -89,7 +89,7 @@ public class Login extends AppCompatActivity {
         loginBackend = new LoginBackend();
     }
 
-    //Sign In button action
+    //Sign In button action leads to a welcome page FOR NOW! (TEST)
     public void signInButton(View view) {
         login();
         Intent welcome = new Intent(this , WelcomePage.class);
