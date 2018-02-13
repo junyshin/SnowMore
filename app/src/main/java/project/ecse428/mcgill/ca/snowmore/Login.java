@@ -48,20 +48,11 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-       // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-      //  setSupportActionBar(toolbar);
-       // toolbar.setTitle("Snow More");
+
         context = Login.this;
         setUpVariables();
     }
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        // Check if user is signed in (non-null) and update UI accordingly.
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        //updateUI(currentUser);
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -100,45 +91,12 @@ public class Login extends AppCompatActivity {
 
     //Sign In button action
     public void signInButton(View view) {
-            login();
-        Intent login = new Intent(this , WelcomePage.class);
-        startActivity(login);
-
-//        if(TextUtils.isEmpty(email_login.getText().toString())) {
-//            error_message_email_login.setText("Please enter email");
-//            error_message_email_login.setVisibility(View.VISIBLE);
-//        }
-//        else {
-//            if(!loginBackend.check_email_login(email_login.getText().toString())) {
-//                error_message_email_login.setText("Invalid email");
-//                error_message_email_login.setVisibility(View.VISIBLE);
-//            }
-//            else {
-//                error_message_email_login.setVisibility(View.INVISIBLE);
-//            }
-//        }
-//        if(TextUtils.isEmpty(password_login.getText().toString())) {
-//            error_message_password_login.setText("Please enter password");
-//            error_message_password_login.setVisibility(View.VISIBLE);;
-//        }
-//        else {
-//            if(!loginBackend.check_password_login((password_login.getText().toString()))) {
-//                error_message_password_login.setText("Invalid password");
-//                error_message_password_login.setVisibility(View.VISIBLE);
-//            }
-//            else {
-//                error_message_password_login.setVisibility(View.INVISIBLE);
-//            }
-//        }
-//
-//        if(loginBackend.check_email_login(email_login.getText().toString()) && loginBackend.check_password_login((password_login.getText().toString()))) {
-//            login();
-//            Toast toast = Toast.makeText(context, "Successfully Logged In", Toast.LENGTH_SHORT);
-//            toast.show();
-//
-//        }
+        login();
+        Intent welcome = new Intent(this , WelcomePage.class);
+        startActivity(welcome);
 
     }
+
     private void login() {
         mAuth.signInWithEmailAndPassword(email_login.getText().toString(), password_login.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -157,12 +115,6 @@ public class Login extends AppCompatActivity {
                             //updateUI(null);
                         }
 
-//                        // [START_EXCLUDE]
-//                        if (!task.isSuccessful()) {
-//                            mStatusTextView.setText(R.string.auth_failed);
-//                        }
-//                        hideProgressDialog();
-//                        // [END_EXCLUDE]END_EXCLUDE
                     }
                 });
     }
