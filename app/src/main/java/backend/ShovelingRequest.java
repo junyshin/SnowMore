@@ -23,7 +23,11 @@ public class ShovelingRequest {
         this.streetAddress = streetAddress;
         this.city = city;
         this.postalCode = postalCode;
-        this.postalCode = phoneNumber;
+        this.phoneNumber = phoneNumber;
+        streetAddress_check = false;
+        city_check = false;
+        postalCode_check = false;
+        phoneNumber_check = false;
     }
 
     public ShovelingRequest(){
@@ -110,7 +114,7 @@ public class ShovelingRequest {
         HashMap<String, Object> result = new HashMap<>();
         result.put("address", streetAddress);
         result.put("city", city);
-        result.put("postal", postalCode);
+        result.put("postalCode", postalCode);
         result.put("phone", phoneNumber);
         return result;
     }
