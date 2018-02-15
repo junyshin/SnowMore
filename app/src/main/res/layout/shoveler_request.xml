@@ -5,91 +5,146 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Street Address"
-        android:inputType="textPostalAddress"
-        app:layout_constraintEnd_toEndOf="@+id/editText2"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editText2"
-        tools:layout_editor_absoluteY="151dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="City"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="@+id/editText3"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editText3"
-        tools:layout_editor_absoluteY="205dp" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/logo"
+            android:paddingBottom="20dp"/>
 
-    <EditText
-        android:id="@+id/editText3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Postal Code"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="@+id/editText4"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editText4"
-        tools:layout_editor_absoluteY="259dp" />
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Create new shoveling request"
+            android:paddingBottom="30dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
-    <EditText
-        android:id="@+id/editText4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Phone Number"
-        android:inputType="phone"
-        tools:layout_editor_absoluteX="85dp"
-        tools:layout_editor_absoluteY="313dp" />
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="105dp"
-        android:layout_height="wrap_content"
-        android:text="Back"
-        tools:layout_editor_absoluteX="85dp"
-        tools:layout_editor_absoluteY="373dp" />
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Street Address"
+            android:inputType="textPostalAddress"
+            app:layout_constraintEnd_toEndOf="@+id/editText2"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/editText2"/>
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="105dp"
-        android:layout_height="wrap_content"
-        android:text="POST"
-        tools:layout_editor_absoluteX="195dp"
-        tools:layout_editor_absoluteY="373dp" />
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp" />
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="City"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="@+id/editText3"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/editText3" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="318dp"
-        android:layout_height="87dp"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="Create new shoveling request"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="0dp" />
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="64dp"
-        android:layout_height="58dp"
-        app:srcCompat="@drawable/logo"
-        tools:layout_editor_absoluteX="319dp"
-        tools:layout_editor_absoluteY="0dp" />
+        <EditText
+            android:id="@+id/editText3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Postal Code"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="@+id/editText4"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/editText4" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <EditText
+            android:id="@+id/editText4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Phone Number"
+            android:inputType="phone"/>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="POST"
+                style="?android:attr/borderlessButtonStyle"/>
+
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Back"
+                style="?android:attr/borderlessButtonStyle"/>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

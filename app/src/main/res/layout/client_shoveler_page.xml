@@ -27,7 +27,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:background="@android:drawable/ic_menu_add"
-            android:onClick="addButton"/>
+            android:onClick="addButton"
+            style="?android:attr/borderlessButtonStyle"/>
 
         <LinearLayout
             android:layout_width="match_parent"
