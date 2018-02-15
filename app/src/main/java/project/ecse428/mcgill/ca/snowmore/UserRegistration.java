@@ -191,12 +191,12 @@ public class UserRegistration extends AppCompatActivity {
                             //Map<String, Object> dataMap = new HashMap<String, Object>();
                             FirebaseUser fb_user = mAuth.getCurrentUser();
                             userID = fb_user.getUid();
-                            User user = new User(fullname.getText().toString(), email.getText().toString());
-                            DatabaseReference userRef = myRef.child("Users");
-                                    //.child(userID);
-                            userRef.child("Name").setValue(user.getName());
-
+//                            User user = new User(fullname.getText().toString(), email.getText().toString());
+//                            DatabaseReference userRef = myRef.child("Users");
+//                                    //.child(userID);
+//                            userRef.child("Name").setValue(user.getName());
                         } else {
+
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(UserRegistration.this, "Authentication failed.",
@@ -205,6 +205,10 @@ public class UserRegistration extends AppCompatActivity {
                         }
                     }
                 });
+        User user = new User(fullname.getText().toString(), email.getText().toString());
+        DatabaseReference userRef = myRef.child("Users");
+//                                    //.child(userID);
+        //userRef.child("Name").setValue(user.getName());
     }
 
     public void createDialog() {
