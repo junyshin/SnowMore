@@ -25,7 +25,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import backend.LoginBackend;
+
 
 
 
@@ -40,11 +40,10 @@ public class Login extends AppCompatActivity {
 
     private Button registration_button;
     private Button login_button;
-    private LoginBackend loginBackend;
     private Dialog dialog = null;
     private Context context = null;
     private FirebaseAuth mAuth;
-    private boolean succ = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,16 +86,14 @@ public class Login extends AppCompatActivity {
 
         login_button = (Button) findViewById(R.id.loginbutton);
         registration_button = (Button) findViewById(R.id.registerbuttonLogin);
-        loginBackend = new LoginBackend();
+
     }
 
     //Sign In button action leads to a welcome page FOR NOW! (TEST)
     public void signInButton(View view) {
         login();
-        if(succ){
-            Intent welcome = new Intent(this , WelcomePage.class);
-            startActivity(welcome);
-        }
+        Intent welcome = new Intent(this , WelcomePage.class);
+        startActivity(welcome);
 
 
     }
@@ -112,8 +109,6 @@ public class Login extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            succ = true;
-
                             //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
