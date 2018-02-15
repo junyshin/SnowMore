@@ -44,6 +44,7 @@ public class UserRegistration extends AppCompatActivity {
     private EditText fullname;
     private EditText email;
     private EditText password;
+    private EditText username;
     private TextView error_message_password;
     private TextView error_message_email;
     private TextView error_message_fullname;
@@ -105,9 +106,10 @@ public class UserRegistration extends AppCompatActivity {
         fullname = (EditText) findViewById(R.id.fullname);
         email = (EditText) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);
-        error_message_password = (TextView) findViewById(R.id.error_message_password);
-        error_message_email = (TextView) findViewById(R.id.error_message_email);
-        error_message_fullname = (TextView) findViewById(R.id.error_message_fullname);
+//        error_message_password = (TextView) findViewById(R.id.error_message_password);
+//        error_message_email = (TextView) findViewById(R.id.error_message_email);
+//        error_message_fullname = (TextView) findViewById(R.id.error_message_fullname);
+        username = (EditText) findViewById(R.id.username);
 
         signin_button = (Button) findViewById(R.id.signinbutton);
         registration_button = (Button) findViewById(R.id.registerbutton);
@@ -116,52 +118,47 @@ public class UserRegistration extends AppCompatActivity {
 
     //Sign In button action
     public void signInButton(View view) {
-        Intent sign_in = new Intent(this , Login.class);
+        Intent sign_in = new Intent(this, Login.class);
         startActivity(sign_in);
     }
 
     //Registration button action
     public void registerButton(View view) {
-        if(TextUtils.isEmpty(email.getText().toString())) {
+        if (TextUtils.isEmpty(email.getText().toString())) {
             error_message_email.setText("Please enter email");
             error_message_email.setVisibility(View.VISIBLE);
-        }
-        else {
-            if(!user.check_email(email.getText().toString())) {
+        } else {
+            if (!user.check_email(email.getText().toString())) {
                 error_message_email.setText("Invalid email");
                 error_message_email.setVisibility(View.VISIBLE);
-            }
-            else {
+            } else {
                 error_message_email.setVisibility(View.INVISIBLE);
             }
         }
-        if(TextUtils.isEmpty(password.getText().toString())) {
+        if (TextUtils.isEmpty(password.getText().toString())) {
             error_message_password.setText("Please enter password");
-            error_message_password.setVisibility(View.VISIBLE);;
-        }
-        else {
-            if(!user.check_password((password.getText().toString()))) {
+            error_message_password.setVisibility(View.VISIBLE);
+            ;
+        } else {
+            if (!user.check_password((password.getText().toString()))) {
                 error_message_password.setText("Password should be at least 8 characters long, and must contain uppercase and lowercase letters, at least one digit and one special character");
                 error_message_password.setVisibility(View.VISIBLE);
-            }
-            else {
+            } else {
                 error_message_password.setVisibility(View.INVISIBLE);
             }
         }
-        if(TextUtils.isEmpty(fullname.getText().toString())) {
+        if (TextUtils.isEmpty(fullname.getText().toString())) {
             error_message_fullname.setText("Please enter your full name");
             error_message_fullname.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
             if (!user.check_name(fullname.getText().toString())) {
                 error_message_fullname.setText("Please enter a valid full name");
                 error_message_fullname.setVisibility(View.VISIBLE);
-            }
-            else {
+            } else {
                 error_message_fullname.setVisibility(View.INVISIBLE);
             }
         }
-        if(user.check_email(email.getText().toString()) && user.check_password((password.getText().toString())) && user.check_name(fullname.getText().toString())) {
+        if (user.check_email(email.getText().toString()) && user.check_password((password.getText().toString())) && user.check_name(fullname.getText().toString())) {
             createDialog();
         }
     }
@@ -173,7 +170,7 @@ public class UserRegistration extends AppCompatActivity {
 
     //Dialog confirm button
     public void confirmDialog(View view) {
-        Intent signin = new Intent(this , Login.class);
+        Intent signin = new Intent(this, Login.class);
         startActivity(signin);
     }
 
@@ -212,19 +209,19 @@ public class UserRegistration extends AppCompatActivity {
         builder.setTitle("Confirm email?");
         builder.setMessage(email.getText().toString());
         builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        addNewUser();
-                        Intent signin = new Intent(context , Login.class);
-                        startActivity(signin);
-                    }
-                });
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                addNewUser();
+                Intent signin = new Intent(context, Login.class);
+                startActivity(signin);
+            }
+        });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialog.dismiss();
-                    }
-                });
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialog.dismiss();
+            }
+        });
         AlertDialog dialog = builder.create();
         dialog.show();
     }

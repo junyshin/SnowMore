@@ -25,7 +25,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import backend.LoginBackend;
+
 
 
 
@@ -40,15 +40,15 @@ public class Login extends AppCompatActivity {
 
     private Button registration_button;
     private Button login_button;
-    private LoginBackend loginBackend;
     private Dialog dialog = null;
     private Context context = null;
     private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        mAuth = FirebaseAuth.getInstance();
         context = Login.this;
         setUpVariables();
     }
@@ -86,7 +86,7 @@ public class Login extends AppCompatActivity {
 
         login_button = (Button) findViewById(R.id.loginbutton);
         registration_button = (Button) findViewById(R.id.registerbuttonLogin);
-        loginBackend = new LoginBackend();
+
     }
 
     //Sign In button action leads to a welcome page FOR NOW! (TEST)
@@ -95,13 +95,16 @@ public class Login extends AppCompatActivity {
         Intent welcome = new Intent(this , WelcomePage.class);
         startActivity(welcome);
 
+
     }
 
     private void login() {
+
         mAuth.signInWithEmailAndPassword(email_login.getText().toString(), password_login.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
@@ -117,6 +120,7 @@ public class Login extends AppCompatActivity {
 
                     }
                 });
+
     }
 
     //Registration button action
