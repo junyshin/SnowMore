@@ -188,9 +188,6 @@ public class UserRegistration extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
 
-                            //Map<String, Object> dataMap = new HashMap<String, Object>();
-                            FirebaseUser fb_user = mAuth.getCurrentUser();
-                            userID = fb_user.getUid();
 //                            User user = new User(fullname.getText().toString(), email.getText().toString());
 //                            DatabaseReference userRef = myRef.child("Users");
 //                                    //.child(userID);
@@ -205,10 +202,14 @@ public class UserRegistration extends AppCompatActivity {
                         }
                     }
                 });
+
         User user = new User(fullname.getText().toString(), email.getText().toString());
-        DatabaseReference userRef = myRef.child("Users");
-//                                    //.child(userID);
-        //userRef.child("Name").setValue(user.getName());
+        FirebaseUser fb_user = mAuth.getCurrentUser();
+        userID = fb_user.getUid();
+        DatabaseReference userRef = myRef.child("Users").child(userID);
+        Map<String, Object> dataMap = new HashMap<String, Object>();
+        dataMap.put("user_info", user.toMap());
+        userRef.updateChildren(dataMap);
     }
 
     public void createDialog() {
