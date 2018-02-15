@@ -18,6 +18,7 @@ public class Registration {
     private String password;
     private String email;
     private String name;
+    private String username;
     private Firebase users_table;
 
 
@@ -80,6 +81,12 @@ public class Registration {
             name_checked = true;
         }
         return name_checked;
+    }
+
+    public boolean check_username (String username) {
+        this.username = username;
+        boolean username_checked = false;
+        return username_checked;
     }
 
 }

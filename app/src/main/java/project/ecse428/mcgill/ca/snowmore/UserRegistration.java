@@ -44,6 +44,7 @@ public class UserRegistration extends AppCompatActivity {
     private EditText fullname;
     private EditText email;
     private EditText password;
+    private EditText username;
     private TextView error_message_password;
     private TextView error_message_email;
     private TextView error_message_fullname;
@@ -108,6 +109,7 @@ public class UserRegistration extends AppCompatActivity {
         error_message_password = (TextView) findViewById(R.id.error_message_password);
         error_message_email = (TextView) findViewById(R.id.error_message_email);
         error_message_fullname = (TextView) findViewById(R.id.error_message_fullname);
+        username = (EditText) findViewById(R.id.username);
 
         signin_button = (Button) findViewById(R.id.signinbutton);
         registration_button = (Button) findViewById(R.id.registerbutton);
