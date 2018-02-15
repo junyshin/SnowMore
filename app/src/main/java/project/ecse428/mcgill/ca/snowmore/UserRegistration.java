@@ -178,6 +178,8 @@ public class UserRegistration extends AppCompatActivity {
     }
 
     private void addNewUser() {
+        //results in permission denied!
+        myRef.child("new item").setValue("something");
         mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -186,15 +188,13 @@ public class UserRegistration extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
 
-                            //Add to Users table
-                            Map<String, Object> dataMap = new HashMap<String, Object>();
+                            //Map<String, Object> dataMap = new HashMap<String, Object>();
                             FirebaseUser fb_user = mAuth.getCurrentUser();
                             userID = fb_user.getUid();
-
                             User user = new User(fullname.getText().toString(), email.getText().toString());
-                            DatabaseReference userRef = myRef.child("users").child(userID);
-                            dataMap.put("user_info", user.toMap());
-                            userRef.updateChildren(dataMap);
+                            DatabaseReference userRef = myRef.child("Users");
+                                    //.child(userID);
+                            userRef.child("Name").setValue(user.getName());
 
                         } else {
                             // If sign in fails, display a message to the user.
