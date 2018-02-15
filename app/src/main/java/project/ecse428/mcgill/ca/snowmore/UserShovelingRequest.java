@@ -166,10 +166,11 @@ public class UserShovelingRequest extends AppCompatActivity {
     }
 
     //Sign In button action
-//    public void backButton(View view) {
-//        Intent back = new Intent(this, ClientShovelerPage.class);
-//        startActivity(back);
-//    }
+    public void backButton(View view) {
+        Intent back = new Intent(this, ClientShovelerPage.class);
+        startActivity(back);
+    }
+
     public void createRequest() {
         mRootRef = new Firebase("https://snowmore-3e355.firebaseio.com/requestPost");
         ShovelingRequest requestShoveler = new ShovelingRequest(streetAddress.getText().toString(), city.getText().toString(),
