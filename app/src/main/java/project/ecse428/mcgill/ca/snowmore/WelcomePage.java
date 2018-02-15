@@ -49,6 +49,7 @@ public class WelcomePage extends AppCompatActivity {
             }
         });
     }
+
     public void logOutFunction(View view){
         mAuth = FirebaseAuth.getInstance();
         Intent intent = new Intent(this, project.ecse428.mcgill.ca.snowmore.Login.class);
@@ -57,5 +58,8 @@ public class WelcomePage extends AppCompatActivity {
         startActivity(intent);
     }
 
-
+    public void clientButton(View view){
+        Intent intent = new Intent(this, ClientShovelerPage.class);
+        startActivity(intent);
+    }
 }

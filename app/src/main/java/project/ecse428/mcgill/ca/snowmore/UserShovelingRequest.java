@@ -110,8 +110,8 @@ public class UserShovelingRequest extends AppCompatActivity {
 
         post_Button = (Button) findViewById(R.id.postButton);
         back_Button = (Button) findViewById(R.id.backButton);
-        sr = new ShovelingRequest(streetAddress.getText().toString(), city.getText().toString(),
-                postalCode.getText().toString(), phoneNumber.getText().toString());
+
+        sr = new ShovelingRequest();
     }
 
     //Registration button action
@@ -161,99 +161,29 @@ public class UserShovelingRequest extends AppCompatActivity {
             }
         }
         if (sr.checkCity(city.getText().toString()) && sr.checkPhoneNumber(phoneNumber.getText().toString()) && sr.checkPostalCode(postalCode.getText().toString()) && sr.checkStreetAddress(streetAddress.getText().toString())) {
-
             createRequest();
-            post_Button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String inputAddress = streetAddress.getText().toString();
-                    String inputCity = city.getText().toString();
-                    String inputPostalCode = postalCode.getText().toString();
-                    String inputPhoneNumber = phoneNumber.getText().toString();
-
-//                FirebaseUser fb_user = mAuth.getCurrentUser();
-//                postID = fb_user.getUid();
-
-                    mRootRef = new Firebase("https://snowmore-3e355.firebaseio.com/requestPost");
-
-                    mRootRef.push().setValue(inputAddress);
-
-                    Map<String, Object> dataMap = new HashMap<String, Object>();
-
-//                    myRef.updateChildren(dataMap).addOnCompleteListener(this, new OnCompleteListener<Some task > ()
-//                    {
-//                        @Override
-//                        public void onComplete (@NonNull Task < Some task > task){
-//                        if (task.isSuccessful()) {
-//                            // Sign in success, update UI with the signed-in user's information
-//                            Log.d(TAG, "signInWithEmail:success");
-//
-//                        } else {
-//                            // If sign in fails, display a message to the user.
-//                            Log.w(TAG, "signInWithEmail:failure", task.getException());
-//                            Toast.makeText(UserShovelingRequest.this, "Authentication failed.",
-//                                    Toast.LENGTH_SHORT).show();
-//                            //updateUI(null);
-//                        }
-//                    }
-//                    });
-
-                    ShovelingRequest requestShoveler = new ShovelingRequest(streetAddress.getText().toString(), city.getText().toString(), postalCode.getText().toString(), phoneNumber.getText().toString());
-                    DatabaseReference postRef = myRef.child("requestPost").child(postID);
-                    dataMap.put("user_info", requestShoveler.toMap());
-                    postRef.updateChildren(dataMap);
-                }
-            });
-
-
-            Toast toast = Toast.makeText(context, "Successfully Sent Request", Toast.LENGTH_SHORT);
-            toast.show();
         }
     }
 
     //Sign In button action
-//    public void backButton(View view) {
-//        Intent back = new Intent(this, ClientShovelerPage.class);
-//        startActivity(back);
-//    }
+    public void backButton(View view) {
+        Intent back = new Intent(this, ClientShovelerPage.class);
+        startActivity(back);
+    }
 
-    private void createRequest() {
+    public void createRequest() {
+        mRootRef = new Firebase("https://snowmore-3e355.firebaseio.com/requestPost");
+        ShovelingRequest requestShoveler = new ShovelingRequest(streetAddress.getText().toString(), city.getText().toString(),
+                postalCode.getText().toString(), phoneNumber.getText().toString());
+        FirebaseUser fb_request = mAuth.getCurrentUser();
+        postID = fb_request.getUid();
+        DatabaseReference postRef = myRef.child("requestPost").child(postID);
+        Map<String, Object> dataMap = new HashMap<String, Object>();
+        dataMap.put("request_info", requestShoveler.toMap());
+        mRootRef.push().updateChildren(dataMap);
 
-        post_Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String inputAddress = streetAddress.getText().toString();
-                String inputCity = city.getText().toString();
-                String inputPostalCode = postalCode.getText().toString();
-                String inputPhoneNumber = phoneNumber.getText().toString();
-
-//                FirebaseUser fb_user = mAuth.getCurrentUser();
-//                postID = fb_user.getUid();
-
-                //myRef.child("requestPost").push().setValue(inputAddress);
-
-                Map<String, Object> dataMap = new HashMap<String, Object>();
-                ShovelingRequest requestShoveler = new ShovelingRequest(streetAddress.getText().toString(), city.getText().toString(), postalCode.getText().toString(), phoneNumber.getText().toString());
-                DatabaseReference postRef = myRef.child("requests");
-                dataMap.put("some request id", requestShoveler.toMap());
-                postRef.updateChildren(dataMap, new DatabaseReference.CompletionListener() {
-                    @Override
-                    public void onComplete(DatabaseError error, DatabaseReference postRef) {
-                        System.out.println("Value was set. Error = " + error);
-                    }
-                });
-                mRootRef = new Firebase("https://snowmore-3e355.firebaseio.com/requestPost");
-
-                mRootRef.push().setValue(inputAddress);
-
-//                Map<String, Object> dataMap = new HashMap<String, Object>();
-//                ShovelingRequest requestShoveler = new ShovelingRequest(streetAddress.getText().toString(), city.getText().toString(), postalCode.getText().toString(), phoneNumber.getText().toString());
-//                DatabaseReference postRef = myRef.child("requestPost").child(postID);
-//                dataMap.put("user_info", requestShoveler.toMap());
-//                postRef.updateChildren(dataMap);
-            }
-        });
         Toast toast = Toast.makeText(context, "Successfully Sent Request", Toast.LENGTH_SHORT);
         toast.show();
     }
+
 }

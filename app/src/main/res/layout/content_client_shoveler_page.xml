@@ -78,10 +78,11 @@
 
             <Button
                 android:id="@+id/logout"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Logout"
-                style="?android:attr/borderlessButtonStyle"/>
+                android:onClick="logoutButton"
+                android:text="Logout" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -90,10 +91,11 @@
 
             <Button
                 android:id="@+id/backButton"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Back"
-                style="?android:attr/borderlessButtonStyle"/>
+                android:onClick="backButton"
+                android:text="Back" />
 
         </LinearLayout>
 
