@@ -9,10 +9,9 @@
         android:id="@+id/textView13"
         android:layout_width="0dp"
         android:layout_height="19dp"
-        android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="@+id/frameLayout"
         app:layout_constraintStart_toStartOf="@+id/frameLayout"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout"
+        app:layout_constraintTop_toBottomOf="@+id/error_message_phoneNumber"
         tools:text="Phone Number:" />
 
     <EditText
@@ -66,11 +65,11 @@
         android:id="@+id/frameLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView13"
+        app:layout_constraintBottom_toTopOf="@+id/error_message_phoneNumber"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -177,5 +176,14 @@
 
         </android.support.constraint.ConstraintLayout>
     </FrameLayout>
+
+    <TextView
+        android:id="@+id/error_message_phoneNumber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/textView13"
+        app:layout_constraintStart_toStartOf="@+id/textView13"
+        tools:layout_editor_absoluteY="194dp" />
 
 </android.support.constraint.ConstraintLayout>
