@@ -21,7 +21,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_accept_shoveler_request" />
+    <include layout="@layout/content_accept_shovelling_request" />
 
 </android.support.design.widget.CoordinatorLayout>
 

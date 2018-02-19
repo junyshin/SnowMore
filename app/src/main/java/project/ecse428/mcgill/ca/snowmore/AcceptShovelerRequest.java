@@ -48,7 +48,7 @@ public class AcceptShovelerRequest extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_accept_shoveler_request);
+        setContentView(R.layout.activity_accept_shovelling_request);
 
         mAuth = FirebaseAuth.getInstance();
         myFirebaseDatabase = FirebaseDatabase.getInstance();
