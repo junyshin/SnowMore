@@ -22,7 +22,7 @@ import backend.AcceptRequest;
  * Created by junshin on 2018-02-18.
  */
 
-public class AcceptShovelerRequest extends AppCompatActivity {
+public class AcceptShovellingRequest extends AppCompatActivity {
 
     private EditText shovelerNumber;
     private TextView clientAddress;
@@ -59,7 +59,7 @@ public class AcceptShovelerRequest extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle("Snow More");
-        context = AcceptShovelerRequest.this;
+        context = AcceptShovellingRequest.this;
         setUpVariables();
     }
 
