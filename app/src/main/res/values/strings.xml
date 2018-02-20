@@ -3,4 +3,5 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_mock">MockActivity</string>
     <string name="title_activity_welcome_page">WelcomePage</string>
+    <string name="String">Phone Number:</string>
 </resources>
