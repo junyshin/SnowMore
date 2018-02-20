@@ -182,6 +182,9 @@ public class UserShovelingRequest extends AppCompatActivity {
         dataMap.put("request_info", requestShoveler.toMap());
         mRootRef.push().updateChildren(dataMap);
 
+        Intent back = new Intent(this, ClientShovelerPage.class);
+        startActivity(back);
+
         Toast toast = Toast.makeText(context, "Successfully Sent Request", Toast.LENGTH_SHORT);
         toast.show();
     }
