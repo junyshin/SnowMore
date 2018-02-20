@@ -4,8 +4,10 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,9 +16,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import backend.ShovelingRequest;
 
@@ -45,7 +51,7 @@ public class AcceptShovellingRequest extends AppCompatActivity {
     private FirebaseDatabase myFirebaseDatabase;
     private DatabaseReference myRef;
     private Firebase mRootRef;
-    private String postID;
+    private String postID = "-L5lxOmHA8Qa8W18aWyV";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +69,32 @@ public class AcceptShovellingRequest extends AppCompatActivity {
         toolbar.setTitle("Snow More");
         context = AcceptShovellingRequest.this;
         setUpVariables();
+
+        DatabaseReference reqRef = myRef.child("requestPost").child(postID).child("request_info");
+        reqRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot){
+
+                shovelingRequest = dataSnapshot.getValue(ShovelingRequest.class);
+                Log.d("Got Request City", shovelingRequest.getCity());
+                Log.d("Got Request Address", shovelingRequest.getStreetAddress());
+                Log.d("Got Request postal code", shovelingRequest.getPostalCode());
+                // String clientName = snapshot.getChild("clientAddress");
+                //String clientAddress = (String) dataSnapshot.child("clientAddress").getValue();
+                //Log.d("Got address ", clientAddress);
+
+                //String clientNumber = (String) dataSnapshot.child("clientNumber").getValue();
+                //String clientID = (String) dataSnapshot.child("clientID").getValue();
+                //Log.d("Got id ", clientID);
+
+
+            }
+
+            @Override
+                public void onCancelled(DatabaseError error){
+                    Log.d("Database Error", error.getMessage());
+                }
+        });
     }
 
     @Override
@@ -108,6 +140,15 @@ public class AcceptShovellingRequest extends AppCompatActivity {
         accept_button = (Button) findViewById(R.id.acceptRequestButton);
         back_button = (Button) findViewById(R.id.backButton);
         logout_button = (Button) findViewById(R.id.logoutButton);
+
+    }
+
+    public void fetchRequestData(){
+
+
+    }
+
+    public void acceptButton(View view){
 
     }
 }

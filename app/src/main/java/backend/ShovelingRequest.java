@@ -131,10 +131,10 @@ public class ShovelingRequest {
 
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
-        result.put("address", streetAddress);
+        result.put("streetAddress", streetAddress);
         result.put("city", city);
         result.put("postalCode", postalCode);
-        result.put("phone", phoneNumber);
+        result.put("phoneNumber", phoneNumber);
         return result;
     }
 }

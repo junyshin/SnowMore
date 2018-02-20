@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".UserRegistration"
+            android:name=".AcceptShovellingRequest"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -42,7 +42,7 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".AcceptShovellingRequest"
+            android:name=".UserRegistration"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
