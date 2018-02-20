@@ -21,7 +21,6 @@ public class User {
     private boolean name_checked;
     private boolean email_checked;
 
-
     public User(String fullname, String email){
         this.name = fullname;
         this.email = email;

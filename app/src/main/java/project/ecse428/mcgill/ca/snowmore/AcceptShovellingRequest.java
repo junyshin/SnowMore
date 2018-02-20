@@ -2,11 +2,13 @@ package project.ecse428.mcgill.ca.snowmore;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,7 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import backend.AcceptRequest;
+import backend.ShovelingRequest;
 
 /**
  * Created by junshin on 2018-02-18.
@@ -34,9 +36,9 @@ public class AcceptShovellingRequest extends AppCompatActivity {
     private Button accept_button;
     private Button back_button;
     private Button logout_button;
-    private AcceptRequest ar;
     private Dialog dialog = null;
     private Context context = null;
+    private ShovelingRequest shovelingRequest;
 
     private static final String TAG = "EmailPassword";
     private FirebaseAuth mAuth;
@@ -85,6 +87,12 @@ public class AcceptShovellingRequest extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //Back button action
+    public void backToClientShovelerPage(View view) {
+        Intent back = new Intent(this, ClientShovelerPage.class);
+        startActivity(back);
+    }
+
     //UI Initialization
     public void setUpVariables() {
         shovelerNumber = findViewById(R.id.shovelerPhone);
@@ -101,6 +109,5 @@ public class AcceptShovellingRequest extends AppCompatActivity {
         back_button = (Button) findViewById(R.id.backButton);
         logout_button = (Button) findViewById(R.id.logoutButton);
 
-        ar = new AcceptRequest();
     }
 }

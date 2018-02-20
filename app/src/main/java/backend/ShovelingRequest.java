@@ -19,6 +19,9 @@ public class ShovelingRequest {
     private boolean postalCode_check;
     private boolean phoneNumber_check;
 
+    private User madeRequest;
+    private User acceptedRequest;
+
     public ShovelingRequest(String streetAddress, String city, String postalCode, String phoneNumber){
         this.streetAddress = streetAddress;
         this.city = city;
@@ -94,6 +97,14 @@ public class ShovelingRequest {
         return this.phoneNumber;
     }
 
+    public User getMadeRequest() {
+        return madeRequest;
+    }
+
+    public User getAcceptedRequest() {
+        return acceptedRequest;
+    }
+
     public void setStreetAddress(String address) {
         this.streetAddress = address;
     }
@@ -108,6 +119,14 @@ public class ShovelingRequest {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public void setMadeRequest(User madeRequest) {
+        this.madeRequest = madeRequest;
+    }
+
+    public void setAcceptedRequest(User acceptedRequest) {
+        this.acceptedRequest = acceptedRequest;
     }
 
     public Map<String, Object> toMap() {
