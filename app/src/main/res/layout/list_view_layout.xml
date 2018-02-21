@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_margin="16dp">
+    android:layout_margin="16dp"
+    android:background="@drawable/custom_shape">
 
     <Space
         android:layout_width="wrap_content"
@@ -14,7 +15,7 @@
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="left"
@@ -87,20 +88,6 @@
                 android:id="@+id/phone"
                 android:inputType="phone"
                 android:layout_marginBottom="5dp"/>
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/details"
-                android:text="See details"
-                android:textColor="@color/colorAccent"
-                style="?android:attr/borderlessButtonStyle"
-                android:onClick="detailsButton"/>
 
         </LinearLayout>
 

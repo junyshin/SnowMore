@@ -92,12 +92,6 @@ public class ClientShovelerPage extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //Shoveler request button action
-    public void addButton(View view) {
-        Intent request = new Intent(this, UserShovelingRequest.class);
-        startActivity(request);
-    }
-
     //Back button action
     public void backButton(View view) {
         Intent back = new Intent(this, WelcomePage.class);
@@ -129,6 +123,12 @@ public class ClientShovelerPage extends AppCompatActivity {
             }
         };
         recyclerView.setAdapter(firebaseRecyclerAdapter);
+    }
+
+    // shoveler adds post
+    public void addPostButton(View view) {
+        Intent request = new Intent(this, UserShovelingRequest.class);
+        startActivity(request);
     }
 
 
