@@ -213,6 +213,7 @@ public class UserShovelingRequest extends AppCompatActivity {
         if (sr.checkCity(city.getText().toString()) && sr.checkPhoneNumber(phoneNumber.getText().toString())
                 && sr.checkPostalCode(postalCode.getText().toString()) && sr.checkStreetAddress(streetAddress.getText().toString())
                 && sr.checkRequestDate(requestDate.getText().toString()) && sr.checkRequestTime(requestTime.getText().toString())) {
+//            createRequest();
             postRequest(streetAddress.getText().toString() , city.getText().toString() , postalCode.getText().toString() , phoneNumber.getText().toString() , requestDate.getText().toString() , requestTime.getText().toString());
         }
     }
