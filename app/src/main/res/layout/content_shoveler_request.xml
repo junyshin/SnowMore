@@ -6,64 +6,13 @@
     android:layout_height="match_parent"
     tools:layout_editor_absoluteY="81dp">
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp" />
-
-    <EditText
-        android:id="@+id/city"
-        android:layout_width="214dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="City"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="@+id/error_message_city"
-        app:layout_constraintStart_toStartOf="@+id/error_message_city"
-        app:layout_constraintTop_toBottomOf="@+id/error_message_city" />
-
-    <EditText
-        android:id="@+id/postalCode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Postal Code"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="@+id/error_message_postCode"
-        app:layout_constraintStart_toStartOf="@+id/error_message_postCode"
-        app:layout_constraintTop_toBottomOf="@+id/error_message_postCode" />
-
-    <EditText
-        android:id="@+id/streetAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Street Address"
-        android:inputType="textPostalAddress"
-        app:layout_constraintEnd_toEndOf="@+id/error_message_streetAddress"
-        app:layout_constraintStart_toStartOf="@+id/error_message_streetAddress"
-        app:layout_constraintTop_toBottomOf="@+id/error_message_streetAddress" />
-
-    <EditText
-        android:id="@+id/phoneNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Phone Number"
-        android:inputType="phone"
-        app:layout_constraintEnd_toEndOf="@+id/error_message_phoneNumber"
-        app:layout_constraintStart_toStartOf="@+id/error_message_phoneNumber"
-        app:layout_constraintTop_toBottomOf="@+id/error_message_phoneNumber" />
-
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="49dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="16dp"
         android:gravity="center_vertical|center_horizontal"
         android:text="Create a Shoveling Request"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -75,32 +24,79 @@
         android:id="@+id/postButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="16dp"
         android:onClick="postRequest"
         android:text="post"
-        app:layout_constraintEnd_toEndOf="@+id/requestTime"
+        app:layout_constraintBottom_toBottomOf="@+id/backButton"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/backButton"
         app:layout_constraintTop_toTopOf="@+id/backButton" />
 
     <Button
         android:id="@+id/backButton"
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
         android:onClick="backButton"
         android:text="back"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/requestTime"
+        app:layout_constraintEnd_toStartOf="@+id/postButton"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/requestTime" />
+
+    <EditText
+        android:id="@+id/streetAddress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Street Address"
+        android:inputType="textPostalAddress"
+        app:layout_constraintEnd_toEndOf="@+id/error_message_streetAddress"
+        app:layout_constraintStart_toStartOf="@+id/error_message_streetAddress"
+        app:layout_constraintTop_toBottomOf="@+id/error_message_streetAddress" />
+
+    <EditText
+        android:id="@+id/city"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="City"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/error_message_city"
+        app:layout_constraintStart_toStartOf="@+id/error_message_city"
+        app:layout_constraintTop_toBottomOf="@+id/error_message_city" />
+
+    <EditText
+        android:id="@+id/postalCode"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Postal Code"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/error_message_postCode"
+        app:layout_constraintStart_toStartOf="@+id/error_message_postCode"
+        app:layout_constraintTop_toBottomOf="@+id/error_message_postCode" />
+
+    <EditText
+        android:id="@+id/phoneNumber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Phone Number"
+        android:inputType="phone"
+        app:layout_constraintEnd_toEndOf="@+id/error_message_phoneNumber"
+        app:layout_constraintStart_toStartOf="@+id/error_message_phoneNumber"
+        app:layout_constraintTop_toBottomOf="@+id/error_message_phoneNumber" />
 
     <TextView
         android:id="@+id/error_message_streetAddress"
-        android:layout_width="214dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="32dp"
         android:text="TextView"
         android:textColor="@color/red"
         android:visibility="invisible"
@@ -110,7 +106,7 @@
 
     <TextView
         android:id="@+id/error_message_city"
-        android:layout_width="214dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textColor="@color/red"
@@ -121,7 +117,7 @@
 
     <TextView
         android:id="@+id/error_message_postCode"
-        android:layout_width="214dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textColor="@color/red"
@@ -132,7 +128,7 @@
 
     <TextView
         android:id="@+id/error_message_phoneNumber"
-        android:layout_width="214dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textColor="@color/red"
@@ -146,40 +142,65 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="TextView"
+        android:textColor="@color/red"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/phoneNumber"
         app:layout_constraintStart_toStartOf="@+id/phoneNumber"
         app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
-
-    <EditText
-        android:id="@+id/requestDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Date"
-        android:inputType="date"
-        app:layout_constraintEnd_toEndOf="@+id/error_message_requestDate"
-        app:layout_constraintStart_toStartOf="@+id/error_message_requestDate"
-        app:layout_constraintTop_toBottomOf="@+id/error_message_requestDate" />
 
     <TextView
         android:id="@+id/error_message_requestTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="TextView"
+        android:textColor="@color/red"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/requestDate"
+        app:layout_constraintEnd_toEndOf="@+id/btn_date"
         app:layout_constraintStart_toStartOf="@+id/requestDate"
         app:layout_constraintTop_toBottomOf="@+id/requestDate" />
 
     <EditText
-        android:id="@+id/requestTime"
-        android:layout_width="wrap_content"
+        android:id="@+id/requestDate"
+        android:layout_width="134dp"
         android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Date"
+        android:inputType="date"
+        app:layout_constraintEnd_toStartOf="@+id/btn_date"
+        app:layout_constraintStart_toStartOf="@+id/error_message_requestDate"
+        app:layout_constraintTop_toBottomOf="@+id/error_message_requestDate" />
+
+    <Button
+        android:id="@+id/btn_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:onClick="btnDateTime"
+        android:text="Select Date"
+        app:layout_constraintBottom_toBottomOf="@+id/requestDate"
+        app:layout_constraintEnd_toEndOf="@+id/error_message_requestDate"
+        app:layout_constraintStart_toEndOf="@+id/requestDate"
+        app:layout_constraintTop_toTopOf="@+id/requestDate" />
+
+    <Button
+        android:id="@+id/btn_time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:onClick="btnDateTime"
+        android:text="Select Time"
+        app:layout_constraintBottom_toBottomOf="@+id/requestTime"
+        app:layout_constraintEnd_toEndOf="@+id/error_message_requestTime"
+        app:layout_constraintStart_toEndOf="@+id/requestTime"
+        app:layout_constraintTop_toTopOf="@+id/requestTime" />
+
+    <EditText
+        android:id="@+id/requestTime"
+        android:layout_width="134dp"
+        android:layout_height="43dp"
         android:ems="10"
         android:hint="Time"
         android:inputType="time"
-        app:layout_constraintEnd_toEndOf="@+id/error_message_requestTime"
         app:layout_constraintStart_toStartOf="@+id/error_message_requestTime"
         app:layout_constraintTop_toBottomOf="@+id/error_message_requestTime" />
 

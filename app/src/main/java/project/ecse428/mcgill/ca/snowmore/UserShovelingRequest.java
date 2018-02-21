@@ -1,6 +1,8 @@
 package project.ecse428.mcgill.ca.snowmore;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +15,10 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.firebase.client.Firebase;
@@ -27,6 +31,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,6 +64,10 @@ public class UserShovelingRequest extends AppCompatActivity {
     private DatabaseReference myRef;
     private Firebase mRootRef;
     private String postID;
+
+    Button btnDatePicker, btnTimePicker;
+    EditText txtDate, txtTime;
+    private int mYear, mMonth, mDay, mHour, mMinute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +127,14 @@ public class UserShovelingRequest extends AppCompatActivity {
 
         post_Button = (Button) findViewById(R.id.postButton);
         back_Button = (Button) findViewById(R.id.backButton);
+
+        btnDatePicker = (Button) findViewById(R.id.btn_date);
+        btnTimePicker = (Button) findViewById(R.id.btn_time);
+        txtDate = (EditText) findViewById(R.id.requestDate);
+        txtTime = (EditText) findViewById(R.id.requestTime);
+
+        btnDatePicker = (Button) findViewById(R.id.btn_date);
+        btnTimePicker = (Button) findViewById(R.id.btn_time);
 
         sr = new ShovelingRequest();
     }
@@ -219,6 +236,52 @@ public class UserShovelingRequest extends AppCompatActivity {
 
         Toast toast = Toast.makeText(context, "Successfully Sent Request", Toast.LENGTH_SHORT);
         toast.show();
+    }
+
+    public void btnDateTime(View v) {
+
+        if (v == btnDatePicker) {
+
+            // Get Current Date
+            final Calendar c = Calendar.getInstance();
+            mYear = c.get(Calendar.YEAR);
+            mMonth = c.get(Calendar.MONTH);
+            mDay = c.get(Calendar.DAY_OF_MONTH);
+
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                    new DatePickerDialog.OnDateSetListener() {
+
+                        @Override
+                        public void onDateSet(DatePicker view, int year,
+                                              int monthOfYear, int dayOfMonth) {
+
+                            txtDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+
+                        }
+                    }, mYear, mMonth, mDay);
+            datePickerDialog.show();
+        }
+        if (v == btnTimePicker) {
+
+            // Get Current Time
+            final Calendar c = Calendar.getInstance();
+            mHour = c.get(Calendar.HOUR_OF_DAY);
+            mMinute = c.get(Calendar.MINUTE);
+
+            // Launch Time Picker Dialog
+            TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                    new TimePickerDialog.OnTimeSetListener() {
+
+                        @Override
+                        public void onTimeSet(TimePicker view, int hourOfDay,
+                                              int minute) {
+
+                            txtTime.setText(hourOfDay + ":" + minute);
+                        }
+                    }, mHour, mMinute, false);
+            timePickerDialog.show();
+        }
     }
 
 }
