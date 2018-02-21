@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -64,6 +65,7 @@ public class UserShovelingRequest extends AppCompatActivity {
     private DatabaseReference myRef;
     private Firebase mRootRef;
     private String postID;
+    private DatabaseReference mRequestDB;
 
     Button btnDatePicker, btnTimePicker;
     EditText txtDate, txtTime;
@@ -77,6 +79,7 @@ public class UserShovelingRequest extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         myFirebaseDatabase = FirebaseDatabase.getInstance();
         myRef = myFirebaseDatabase.getReference();
+        mRequestDB = FirebaseDatabase.getInstance().getReference().child("requestPost");
         //FirebaseUser user = mAuth.getCurrentUser();
         //userID = user.getUid();
 
@@ -210,7 +213,7 @@ public class UserShovelingRequest extends AppCompatActivity {
         if (sr.checkCity(city.getText().toString()) && sr.checkPhoneNumber(phoneNumber.getText().toString())
                 && sr.checkPostalCode(postalCode.getText().toString()) && sr.checkStreetAddress(streetAddress.getText().toString())
                 && sr.checkRequestDate(requestDate.getText().toString()) && sr.checkRequestTime(requestTime.getText().toString())) {
-            createRequest();
+            postRequest(streetAddress.getText().toString() , city.getText().toString() , postalCode.getText().toString() , phoneNumber.getText().toString() , requestDate.getText().toString() , requestTime.getText().toString());
         }
     }
 
@@ -236,6 +239,16 @@ public class UserShovelingRequest extends AppCompatActivity {
 
         Toast toast = Toast.makeText(context, "Successfully Sent Request", Toast.LENGTH_SHORT);
         toast.show();
+    }
+
+    private void postRequest(String address , String city, String postalCode, String phone, String date , String time) {
+        ShovelingRequest shovelingRequest = new ShovelingRequest(address , city , postalCode , phone , date , time);
+        mRequestDB.push().setValue(shovelingRequest).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(UserShovelingRequest.this , "Success!" , Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     public void btnDateTime(View v) {
