@@ -1,29 +1,33 @@
 package project.ecse428.mcgill.ca.snowmore;
 
 import android.app.Dialog;
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Map;
+
+import backend.ShovelingRequest;
 
 /**
  * Created by junshin on 2018-02-14.
@@ -37,7 +41,6 @@ public class ClientShovelerPage extends AppCompatActivity {
     private DatabaseReference myRef;
     private Firebase mRootRef;
     private String postID;
-    private TextView city;
 
     private Dialog dialog = null;
     private Context context = null;
@@ -46,21 +49,11 @@ public class ClientShovelerPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_shoveler_page);
-        setUpVariables();
+
         mAuth = FirebaseAuth.getInstance();
         myFirebaseDatabase = FirebaseDatabase.getInstance();
+        myRef = myFirebaseDatabase.getReference();
         myRef = myFirebaseDatabase.getReference().child("requestPost");
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                collectData((Map<String,Object>) dataSnapshot.getValue());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // handle database error
-            }
-        });
         //FirebaseUser user = mAuth.getCurrentUser();
         //userID = user.getUid();
 
@@ -76,10 +69,6 @@ public class ClientShovelerPage extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_user_registration, menu);
         return true;
-    }
-
-    public void setUpVariables() {
-        city = (TextView) findViewById(R.id.city);
     }
 
     @Override
@@ -116,10 +105,6 @@ public class ClientShovelerPage extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mAuth.signOut();
         startActivity(intent);
-    }
-
-    // details of request button
-    public void detailsButton(View view) {
     }
 
     private void collectData(Map<String,Object> requestInfo) {
@@ -159,4 +144,105 @@ public class ClientShovelerPage extends AppCompatActivity {
 
 //        System.out.println(phoneNumbers.toString());
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseRecyclerAdapter<ShovelingRequest> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ShovelingRequest>(
+                ShovelingRequest.class,
+                R.layout.list_view_layout,
+                ShovelingRequest.class
+
+        ) {
+            @Override
+            protected void populateViewHolder(RecyclerView.ViewHolder viewHolder, Object model, int position) {
+                viewHolder.
+            }
+
+            @Override
+            protected void populateViewHolder(final StatusViewHolder viewHolder, final ShovelingRequest model, int position) {
+
+
+                viewHolder.setUserStatus(model.getUserStatus());
+
+                //query the user with the model id which is the row's user id
+                mUserDB.child(model.getUserId()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String userName = dataSnapshot.child("displayName").getValue(String.class);
+                        String photoUrl = dataSnapshot.child("photoUrl").getValue(String.class);
+
+                        viewHolder.setUserName(userName);
+
+                        try {
+                            viewHolder.setUserPhotoUrl(getApplicationContext(), photoUrl);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+                /**Listen to image button click**/
+                viewHolder.userImageButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //go to profile
+                        Intent goToProfile = new Intent(HomeActivity.this, ProfileActivity.class);
+                        goToProfile.putExtra("USER_ID", model.getUserId());
+                        startActivity(goToProfile);
+                    }
+                });
+
+
+
+
+            }
+        };
+
+        mHomeRecycler.setAdapter(firebaseRecyclerAdapter);
+
+    }
+
+
+    public static class requestPostHolder extends RecyclerView.ViewHolder{
+
+        View view;
+
+        public TextView city;
+        public TextView address;
+        public TextView postalCode;
+        public TextView phone;
+
+        public requestPostHolder(View itemView) {
+            super(itemView);
+
+            view = itemView;
+        }
+        public void setCity(String city){
+            TextView userNameTxtView = (TextView)view.findViewById(R.id.city);
+            userNameTxtView.setText(city);
+        }
+
+        public void setAddress(String address){
+            TextView userStatusTxtView = (TextView)view.findViewById(R.id.address);
+            userStatusTxtView.setText(address);
+        }
+
+        public void setPhone(String phone){
+            TextView userStatusTxtView = (TextView)view.findViewById(R.id.address);
+            userStatusTxtView.setText(phone);
+        }
+
+        public void setPostalCode(String postalCode){
+            TextView userStatusTxtView = (TextView)view.findViewById(R.id.address);
+            userStatusTxtView.setText(postalCode);
+        }
+
+    }
+
 }
