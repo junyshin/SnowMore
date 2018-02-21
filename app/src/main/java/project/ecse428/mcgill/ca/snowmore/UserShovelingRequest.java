@@ -39,10 +39,14 @@ public class UserShovelingRequest extends AppCompatActivity {
     private EditText city;
     private EditText postalCode;
     private EditText phoneNumber;
+    private EditText requestDate;
+    private EditText requestTime;
     private TextView error_message_streetAddress;
     private TextView error_message_city;
     private TextView error_message_postalCode;
     private TextView error_message_phoneNumber;
+    private TextView error_message_requestDate;
+    private TextView error_message_requestTime;
     private Button post_Button;
     private Button back_Button;
     private ShovelingRequest sr;
@@ -102,11 +106,15 @@ public class UserShovelingRequest extends AppCompatActivity {
         city = findViewById(R.id.city);
         postalCode = findViewById(R.id.postalCode);
         phoneNumber = findViewById(R.id.phoneNumber);
+        requestDate = findViewById(R.id.requestDate);
+        requestTime = findViewById(R.id.requestTime);
 
         error_message_city = (TextView) findViewById(R.id.error_message_city);
         error_message_postalCode = (TextView) findViewById(R.id.error_message_postCode);
         error_message_phoneNumber = (TextView) findViewById(R.id.error_message_phoneNumber);
         error_message_streetAddress = (TextView) findViewById(R.id.error_message_streetAddress);
+        error_message_requestDate = (TextView) findViewById(R.id.error_message_requestDate);
+        error_message_requestTime = (TextView) findViewById(R.id.error_message_requestTime);
 
         post_Button = (Button) findViewById(R.id.postButton);
         back_Button = (Button) findViewById(R.id.backButton);
@@ -160,7 +168,31 @@ public class UserShovelingRequest extends AppCompatActivity {
                 error_message_phoneNumber.setVisibility(View.INVISIBLE);
             }
         }
-        if (sr.checkCity(city.getText().toString()) && sr.checkPhoneNumber(phoneNumber.getText().toString()) && sr.checkPostalCode(postalCode.getText().toString()) && sr.checkStreetAddress(streetAddress.getText().toString())) {
+        if (TextUtils.isEmpty(requestDate.getText().toString())) {
+            error_message_requestDate.setText("Please enter the request Date");
+            error_message_requestDate.setVisibility(View.VISIBLE);
+        } else {
+            if (!sr.checkPhoneNumber(requestDate.getText().toString())) {
+                error_message_requestDate.setText("Please enter a valid Date");
+                error_message_requestDate.setVisibility(View.VISIBLE);
+            } else {
+                error_message_requestDate.setVisibility(View.INVISIBLE);
+            }
+        }
+        if (TextUtils.isEmpty(requestTime.getText().toString())) {
+            error_message_requestTime.setText("Please enter the request Time");
+            error_message_requestTime.setVisibility(View.VISIBLE);
+        } else {
+            if (!sr.checkPhoneNumber(requestTime.getText().toString())) {
+                error_message_requestTime.setText("Please enter a valid Time");
+                error_message_requestTime.setVisibility(View.VISIBLE);
+            } else {
+                error_message_requestTime.setVisibility(View.INVISIBLE);
+            }
+        }
+        if (sr.checkCity(city.getText().toString()) && sr.checkPhoneNumber(phoneNumber.getText().toString())
+                && sr.checkPostalCode(postalCode.getText().toString()) && sr.checkStreetAddress(streetAddress.getText().toString())
+                && sr.checkRequestDate(requestDate.getText().toString()) && sr.checkRequestTime(requestTime.getText().toString())) {
             createRequest();
         }
     }
@@ -174,7 +206,7 @@ public class UserShovelingRequest extends AppCompatActivity {
     public void createRequest() {
         mRootRef = new Firebase("https://snowmore-3e355.firebaseio.com/requestPost");
         ShovelingRequest requestShoveler = new ShovelingRequest(streetAddress.getText().toString(), city.getText().toString(),
-                postalCode.getText().toString(), phoneNumber.getText().toString());
+                postalCode.getText().toString(), phoneNumber.getText().toString(), requestDate.getText().toString(), requestTime.getText().toString());
         FirebaseUser fb_request = mAuth.getCurrentUser();
         postID = fb_request.getUid();
         DatabaseReference postRef = myRef.child("requestPost").child(postID);
