@@ -35,6 +35,11 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
             <Button
                 android:id="@+id/filters3"
                 android:layout_width="wrap_content"
@@ -54,17 +59,23 @@
                 android:text="Sort"
                 style="?android:attr/borderlessButtonStyle"/>
 
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
         </LinearLayout>
 
-        <ScrollView
+        <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" />
-        </ScrollView>
+                android:orientation="vertical"/>
+
+        </ListView>
 
         <Space
             android:layout_width="wrap_content"
@@ -75,6 +86,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
 
             <Button
                 android:id="@+id/logout"
@@ -96,6 +112,11 @@
                 android:layout_height="wrap_content"
                 android:onClick="backButton"
                 android:text="Back" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
 
         </LinearLayout>
 
