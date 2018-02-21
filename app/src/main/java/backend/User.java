@@ -121,4 +121,10 @@ public class User {
         result.put("email", email);
         return result;
     }
+
+    public boolean check_username (String username) {
+        this.username = username;
+        boolean username_checked = true;
+        return username_checked;
+    }
 }

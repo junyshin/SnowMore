@@ -137,12 +137,12 @@ public class UserRegistration extends AppCompatActivity {
             error_message_username.setVisibility(View.VISIBLE);
         }
         else {
-            if(!user.check_email(email.getText().toString())) {
+            if(!user.check_username(username.getText().toString())) {
                 error_message_username.setText("Username has already been used");
                 error_message_username.setVisibility(View.VISIBLE);
             }
             else {
-                error_message_email.setVisibility(View.INVISIBLE);
+                error_message_username.setVisibility(View.INVISIBLE);
             }
         }
         if(TextUtils.isEmpty(password.getText().toString())) {
