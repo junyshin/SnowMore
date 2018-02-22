@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -50,7 +52,9 @@ public class AcceptShovellingRequest extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseDatabase myFirebaseDatabase;
     private DatabaseReference myRef;
-    private Firebase mRootRef;
+    private DatabaseReference reqRef;
+
+    //TODO: get postID from previous activity
     private String postID = "-L5rIz3kPtv4eRk8Jr9B";
 
     @Override
@@ -70,10 +74,13 @@ public class AcceptShovellingRequest extends AppCompatActivity {
         context = AcceptShovellingRequest.this;
         setUpVariables();
 
-        DatabaseReference reqRef = myRef.child("requestPost").child(postID);
+        reqRef = myRef.child("requestPost").child(postID);
         reqRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot){
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //check if value exists
+                if (dataSnapshot.exists()) {
 
                 shovelingRequest = dataSnapshot.getValue(ShovelingRequest.class);
                 Log.d("Got Request City", shovelingRequest.getCity());
@@ -87,6 +94,12 @@ public class AcceptShovellingRequest extends AppCompatActivity {
 
                 requestDate.setText(shovelingRequest.getRequestDate());
                 requestTime.setText(shovelingRequest.getRequestTime());
+                }
+
+                else{
+                    Toast.makeText(AcceptShovellingRequest.this, "Request no longer available.",
+                            Toast.LENGTH_LONG).show();
+                }
 
             }
 
@@ -143,9 +156,16 @@ public class AcceptShovellingRequest extends AppCompatActivity {
 
     }
 
-
     public void acceptButton(View view){
-        //check if request still exists
-        
+        // check phone number
+        if (TextUtils.isEmpty(shovelerNumber.getText().toString())) {
+            error_message_phoneNumber.setText("Please enter your phone number");
+            error_message_phoneNumber.setVisibility(View.VISIBLE);
+        }
+        else {
+                error_message_phoneNumber.setVisibility(View.INVISIBLE);
+            }
+
+
     }
 }

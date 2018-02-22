@@ -79,7 +79,7 @@ public class ShovelingRequest {
     }
 
     public boolean checkPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+        //this.phoneNumber = phoneNumber;
         if (phoneNumber.isEmpty()) {
             phoneNumber_check = false;
         } else {
