@@ -16,6 +16,7 @@ public class User {
 
     private String name;
     private String email;
+    private String user_id;
 
     private boolean password_checked;
     private boolean name_checked;

@@ -173,9 +173,13 @@ public class UserShovelingRequest extends AppCompatActivity {
 
     public void createRequest() {
         mRootRef = new Firebase("https://snowmore-3e355.firebaseio.com/requestPost");
+        FirebaseUser fb_madeRequest = mAuth.getCurrentUser();
+        //User madeRequest = new User()
+
         ShovelingRequest requestShoveler = new ShovelingRequest(streetAddress.getText().toString(), city.getText().toString(),
-                postalCode.getText().toString(), phoneNumber.getText().toString());
-        FirebaseUser fb_request = mAuth.getCurrentUser();
+                postalCode.getText().toString(), phoneNumber.getText().toString(), madeRequest);
+
+
         postID = fb_request.getUid();
         DatabaseReference postRef = myRef.child("requestPost").child(postID);
         Map<String, Object> dataMap = new HashMap<String, Object>();

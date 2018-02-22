@@ -22,11 +22,12 @@ public class ShovelingRequest {
     private User madeRequest;
     private User acceptedRequest;
 
-    public ShovelingRequest(String streetAddress, String city, String postalCode, String phoneNumber){
+    public ShovelingRequest(String streetAddress, String city, String postalCode, String phoneNumber, User madeRequest){
         this.streetAddress = streetAddress;
         this.city = city;
         this.postalCode = postalCode;
         this.phoneNumber = phoneNumber;
+        this.madeRequest = madeRequest;
         streetAddress_check = false;
         city_check = false;
         postalCode_check = false;
@@ -135,6 +136,8 @@ public class ShovelingRequest {
         result.put("city", city);
         result.put("postalCode", postalCode);
         result.put("phoneNumber", phoneNumber);
+        result.put("madeRequest", madeRequest.toMap());
+        result.put("acceptedRequest", acceptedRequest.toMap());
         return result;
     }
 }
