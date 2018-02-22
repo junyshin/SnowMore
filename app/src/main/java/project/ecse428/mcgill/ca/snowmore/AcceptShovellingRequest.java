@@ -51,7 +51,7 @@ public class AcceptShovellingRequest extends AppCompatActivity {
     private FirebaseDatabase myFirebaseDatabase;
     private DatabaseReference myRef;
     private Firebase mRootRef;
-    private String postID = "-L5lxOmHA8Qa8W18aWyV";
+    private String postID = "-L5rIz3kPtv4eRk8Jr9B";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +70,7 @@ public class AcceptShovellingRequest extends AppCompatActivity {
         context = AcceptShovellingRequest.this;
         setUpVariables();
 
-        DatabaseReference reqRef = myRef.child("requestPost").child(postID).child("request_info");
+        DatabaseReference reqRef = myRef.child("requestPost").child(postID);
         reqRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot){
@@ -79,14 +79,14 @@ public class AcceptShovellingRequest extends AppCompatActivity {
                 Log.d("Got Request City", shovelingRequest.getCity());
                 Log.d("Got Request Address", shovelingRequest.getStreetAddress());
                 Log.d("Got Request postal code", shovelingRequest.getPostalCode());
-                // String clientName = snapshot.getChild("clientAddress");
-                //String clientAddress = (String) dataSnapshot.child("clientAddress").getValue();
-                //Log.d("Got address ", clientAddress);
 
-                //String clientNumber = (String) dataSnapshot.child("clientNumber").getValue();
-                //String clientID = (String) dataSnapshot.child("clientID").getValue();
-                //Log.d("Got id ", clientID);
+                clientAddress.setText(shovelingRequest.getStreetAddress());
+                clientAddress.append(", " + shovelingRequest.getCity());
+                clientAddress.append(", " + shovelingRequest.getPostalCode());
+                clientNumber.setText(shovelingRequest.getPhoneNumber());
 
+                requestDate.setText(shovelingRequest.getRequestDate());
+                requestTime.setText(shovelingRequest.getRequestTime());
 
             }
 
@@ -143,12 +143,9 @@ public class AcceptShovellingRequest extends AppCompatActivity {
 
     }
 
-    public void fetchRequestData(){
-
-
-    }
 
     public void acceptButton(View view){
-
+        //check if request still exists
+        
     }
 }

@@ -13,38 +13,44 @@ public class ShovelingRequest {
     private String city;
     private String postalCode;
     private String phoneNumber;
+    private String requestDate;
+    private String requestTime;
 
     private boolean streetAddress_check;
     private boolean city_check;
     private boolean postalCode_check;
     private boolean phoneNumber_check;
+    private boolean requestDate_check;
+    private boolean requestTime_check;
 
-    private User madeRequest;
-    private User acceptedRequest;
-
-    public ShovelingRequest(String streetAddress, String city, String postalCode, String phoneNumber, User madeRequest){
+    public ShovelingRequest(String streetAddress, String city, String postalCode, String phoneNumber, String requestDate, String requestTime) {
         this.streetAddress = streetAddress;
         this.city = city;
         this.postalCode = postalCode;
         this.phoneNumber = phoneNumber;
-        this.madeRequest = madeRequest;
+        this.requestTime = requestTime;
+        this.requestDate = requestDate;
         streetAddress_check = false;
         city_check = false;
         postalCode_check = false;
         phoneNumber_check = false;
+        requestDate_check = false;
+        requestTime_check = false;
     }
 
-    public ShovelingRequest(){
+    public ShovelingRequest() {
         // Default constructor
         streetAddress_check = false;
         city_check = false;
         postalCode_check = false;
         phoneNumber_check = false;
+        requestDate_check = false;
+        requestTime_check = false;
     }
 
     public boolean checkStreetAddress(String streetAddress) {
         this.streetAddress = streetAddress;
-        if (streetAddress.isEmpty()){
+        if (streetAddress.isEmpty()) {
             streetAddress_check = false;
         } else {
             streetAddress_check = true;
@@ -54,7 +60,7 @@ public class ShovelingRequest {
 
     public boolean checkCity(String city) {
         this.city = city;
-        if (city.isEmpty()){
+        if (city.isEmpty()) {
             city_check = false;
         } else {
             city_check = true;
@@ -64,8 +70,8 @@ public class ShovelingRequest {
 
     public boolean checkPostalCode(String postalCode) {
         this.postalCode = postalCode;
-        if (postalCode.isEmpty()){
-            postalCode_check =  false;
+        if (postalCode.isEmpty()) {
+            postalCode_check = false;
         } else {
             postalCode_check = true;
         }
@@ -74,12 +80,32 @@ public class ShovelingRequest {
 
     public boolean checkPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-        if (phoneNumber.isEmpty()){
+        if (phoneNumber.isEmpty()) {
             phoneNumber_check = false;
         } else {
             phoneNumber_check = true;
         }
         return phoneNumber_check;
+    }
+
+    public boolean checkRequestDate(String requestDate) {
+        this.requestDate = requestDate;
+        if (requestDate.isEmpty()) {
+            requestDate_check = false;
+        } else {
+            requestDate_check = true;
+        }
+        return requestDate_check;
+    }
+
+    public boolean checkRequestTime(String requestTime) {
+        this.requestTime = requestTime;
+        if (requestTime.isEmpty()) {
+            requestTime_check = false;
+        } else {
+            requestTime_check = true;
+        }
+        return requestTime_check;
     }
 
     public String getStreetAddress() {
@@ -98,12 +124,12 @@ public class ShovelingRequest {
         return this.phoneNumber;
     }
 
-    public User getMadeRequest() {
-        return madeRequest;
+    public String getRequestDate() {
+        return this.requestDate;
     }
 
-    public User getAcceptedRequest() {
-        return acceptedRequest;
+    public String getRequestTime() {
+        return this.requestTime;
     }
 
     public void setStreetAddress(String address) {
@@ -122,12 +148,12 @@ public class ShovelingRequest {
         this.phoneNumber = phoneNumber;
     }
 
-    public void setMadeRequest(User madeRequest) {
-        this.madeRequest = madeRequest;
+    public void setRequestDate(String requestDate) {
+        this.requestDate = requestDate;
     }
 
-    public void setAcceptedRequest(User acceptedRequest) {
-        this.acceptedRequest = acceptedRequest;
+    public void setRequestTime(String requestTime) {
+        this.requestTime = requestTime;
     }
 
     public Map<String, Object> toMap() {
@@ -136,8 +162,8 @@ public class ShovelingRequest {
         result.put("city", city);
         result.put("postalCode", postalCode);
         result.put("phoneNumber", phoneNumber);
-        result.put("madeRequest", madeRequest.toMap());
-        result.put("acceptedRequest", acceptedRequest.toMap());
+        result.put("requestDate", requestDate);
+        result.put("requestTime", requestTime);
         return result;
     }
 }

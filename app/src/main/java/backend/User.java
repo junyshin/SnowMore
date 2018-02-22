@@ -12,8 +12,6 @@ import java.util.Map;
 
 public class User {
 
-    private String user_id;
-
     private String name;
     private String email;
     private String user_id;
@@ -114,10 +112,15 @@ public class User {
         this.check_email(email);
     }
 
+    public void setUser_id(String user_id){
+        this.user_id = user_id;
+    }
+
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("name", name);
         result.put("email", email);
+        result.put("user_id", user_id);
         return result;
     }
 }

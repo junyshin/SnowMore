@@ -202,6 +202,7 @@ public class UserRegistration extends AppCompatActivity {
                             userID = fb_user.getUid();
 
                             User user = new User(fullname.getText().toString(), email.getText().toString());
+                            user.setUser_id(userID);
                             DatabaseReference userRef = myRef.child("users").child(userID);
                             dataMap.put("user_info", user.toMap());
                             userRef.updateChildren(dataMap);

@@ -176,14 +176,14 @@ public class UserShovelingRequest extends AppCompatActivity {
         FirebaseUser fb_madeRequest = mAuth.getCurrentUser();
         //User madeRequest = new User()
 
-        ShovelingRequest requestShoveler = new ShovelingRequest(streetAddress.getText().toString(), city.getText().toString(),
-                postalCode.getText().toString(), phoneNumber.getText().toString(), madeRequest);
+        //ShovelingRequest requestShoveler = new ShovelingRequest(streetAddress.getText().toString(), city.getText().toString(),
+        //        postalCode.getText().toString(), phoneNumber.getText().toString(), madeRequest);
 
 
-        postID = fb_request.getUid();
+        //postID = fb_request.getUid();
         DatabaseReference postRef = myRef.child("requestPost").child(postID);
         Map<String, Object> dataMap = new HashMap<String, Object>();
-        dataMap.put("request_info", requestShoveler.toMap());
+        //dataMap.put("request_info", requestShoveler.toMap());
         mRootRef.push().updateChildren(dataMap);
 
         Toast toast = Toast.makeText(context, "Successfully Sent Request", Toast.LENGTH_SHORT);
