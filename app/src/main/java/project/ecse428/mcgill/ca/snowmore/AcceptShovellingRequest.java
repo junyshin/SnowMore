@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.renderscript.Sampler;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -19,6 +21,8 @@ import android.widget.Toast;
 
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -53,9 +57,10 @@ public class AcceptShovellingRequest extends AppCompatActivity {
     private FirebaseDatabase myFirebaseDatabase;
     private DatabaseReference myRef;
     private DatabaseReference reqRef;
+    private ValueEventListener reqRefEventListener;
 
     //TODO: get postID from previous activity
-    private String postID = "-L5rIz3kPtv4eRk8Jr9B";
+    private String postID = "-L5zYt1hWTZjH3H4l1sQ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +80,7 @@ public class AcceptShovellingRequest extends AppCompatActivity {
         setUpVariables();
 
         reqRef = myRef.child("requestPost").child(postID);
-        reqRef.addValueEventListener(new ValueEventListener() {
+        reqRefEventListener = reqRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -90,7 +95,7 @@ public class AcceptShovellingRequest extends AppCompatActivity {
                 clientAddress.setText(shovelingRequest.getStreetAddress());
                 clientAddress.append(", " + shovelingRequest.getCity());
                 clientAddress.append(", " + shovelingRequest.getPostalCode());
-                clientNumber.setText(shovelingRequest.getPhoneNumber());
+                clientNumber.setText(shovelingRequest.getClientNumber());
 
                 requestDate.setText(shovelingRequest.getRequestDate());
                 requestTime.setText(shovelingRequest.getRequestTime());
@@ -162,10 +167,55 @@ public class AcceptShovellingRequest extends AppCompatActivity {
             error_message_phoneNumber.setText("Please enter your phone number");
             error_message_phoneNumber.setVisibility(View.VISIBLE);
         }
+        else if (shovelerNumber.getText().toString().length() != 10){
+            error_message_phoneNumber.setText("Please enter a valid 10-digit phone number");
+            error_message_phoneNumber.setVisibility(View.VISIBLE);
+        }
         else {
                 error_message_phoneNumber.setVisibility(View.INVISIBLE);
+                shovelingRequest.setShovelerNumber(shovelerNumber.getText().toString());
             }
 
+        // Should there be a confirmation dialog?
+
+        // move request from pending to accepted
+        DatabaseReference acc_req = myRef.child("accepted requests").child(postID);
+
+        // add a listener to the setValue task
+        acc_req.setValue(shovelingRequest).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                // setting request in pending requests complete
+                if (task.isSuccessful()){
+                    // if successful remove the previously set eventlistener
+                    reqRef.removeEventListener(reqRefEventListener);
+
+                    // if successful, we can remove the request from the pending table
+                    // add a listener for removing the request
+                    reqRef.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()){
+                                Toast.makeText(AcceptShovellingRequest.this, "Request Accepted Successfully!.",
+                                        Toast.LENGTH_LONG).show();
+                                //TODO: choose next activity, pass intent
+                                finish();
+                            }
+                            else{
+                                // error updating firebase
+                                Toast.makeText(AcceptShovellingRequest.this, "Error!" + task.getException().getMessage(),
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                }
+                else{
+                    // error adding request to accepted list
+                    Toast.makeText(AcceptShovellingRequest.this, "Error!" + task.getException().getMessage(),
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
     }
 }
