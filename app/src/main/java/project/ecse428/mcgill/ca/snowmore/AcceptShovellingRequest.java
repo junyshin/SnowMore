@@ -30,6 +30,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import backend.ShovelingRequest;
 
 /**
@@ -59,8 +62,7 @@ public class AcceptShovellingRequest extends AppCompatActivity {
     private DatabaseReference reqRef;
     private ValueEventListener reqRefEventListener;
 
-    //TODO: get postID from previous activity
-    private String postID = "-L5zYt1hWTZjH3H4l1sQ";
+    private String postID = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +72,11 @@ public class AcceptShovellingRequest extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         myFirebaseDatabase = FirebaseDatabase.getInstance();
         myRef = myFirebaseDatabase.getReference();
-        //FirebaseUser user = mAuth.getCurrentUser();
-        //userID = user.getUid();
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            this.postID = extras.getString("requestID");
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -79,7 +84,7 @@ public class AcceptShovellingRequest extends AppCompatActivity {
         context = AcceptShovellingRequest.this;
         setUpVariables();
 
-        reqRef = myRef.child("requestPost").child(postID);
+        reqRef = myRef.child("pending requests").child(postID);
         reqRefEventListener = reqRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -172,26 +177,31 @@ public class AcceptShovellingRequest extends AppCompatActivity {
             error_message_phoneNumber.setVisibility(View.VISIBLE);
         }
         else {
-                error_message_phoneNumber.setVisibility(View.INVISIBLE);
-                shovelingRequest.setShovelerNumber(shovelerNumber.getText().toString());
-            }
+            error_message_phoneNumber.setVisibility(View.INVISIBLE);
+            shovelingRequest.setShovelerNumber(shovelerNumber.getText().toString());
+            // add shovelerId to request Object
+            String shovelerID = mAuth.getCurrentUser().getUid();
+            shovelingRequest.setShovelerID(shovelerID);
+            Map<String, Object> reqMap;
+            reqMap = shovelingRequest.toMap();
 
-        // Should there be a confirmation dialog?
 
-        // move request from pending to accepted
-        DatabaseReference acc_req = myRef.child("accepted requests").child(postID);
+            // Should there be a confirmation dialog?
 
-        // add a listener to the setValue task
-        acc_req.setValue(shovelingRequest).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                // setting request in pending requests complete
-                if (task.isSuccessful()){
-                    // if successful remove the previously set eventlistener
-                    reqRef.removeEventListener(reqRefEventListener);
+            // move request from pending to accepted
+            DatabaseReference acc_req = myRef.child("accepted requests").child(postID);
 
-                    // if successful, we can remove the request from the pending table
-                    // add a listener for removing the request
+            // add a listener to the setValue task
+            acc_req.updateChildren(reqMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    // setting request in pending requests complete
+                    if (task.isSuccessful()) {
+                        // if successful remove the previously set eventlistener
+                        reqRef.removeEventListener(reqRefEventListener);
+
+                        // if successful, we can remove the request from the pending table
+                        // add a listener for removing the request
                     reqRef.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -208,14 +218,13 @@ public class AcceptShovellingRequest extends AppCompatActivity {
                             }
                         }
                     });
+                    } else {
+                        // error adding request to accepted list
+                        Toast.makeText(AcceptShovellingRequest.this, "Error!" + task.getException().getMessage(),
+                                Toast.LENGTH_LONG).show();
+                    }
                 }
-                else{
-                    // error adding request to accepted list
-                    Toast.makeText(AcceptShovellingRequest.this, "Error!" + task.getException().getMessage(),
-                            Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-
+            });
+        }
     }
 }

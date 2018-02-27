@@ -17,6 +17,7 @@ public class ShovelingRequest {
     private String requestDate;
     private String requestTime;
     private String userID;
+    private String shovelerID;
 
     private boolean streetAddress_check;
     private boolean city_check;
@@ -168,6 +169,7 @@ public class ShovelingRequest {
         this.requestTime = requestTime;
     }
 
+    public void setShovelerID(String shovelerID) {this.shovelerID = shovelerID;}
 
     public String getUserID() {
         return userID;
@@ -186,6 +188,7 @@ public class ShovelingRequest {
         result.put("requestDate", requestDate);
         result.put("requestTime", requestTime);
         result.put("shovelerNumber", shovelerNumber);
+        result.put("shovelerID", shovelerID);
         return result;
     }
 }
