@@ -98,6 +98,12 @@ public class ClientShovelerPage extends AppCompatActivity {
         startActivity(back);
     }
 
+    //My Requests button action
+    public void myRequests(View view) {
+        Intent myRequest = new Intent(this, MyRequests.class);
+        startActivity(myRequest);
+    }
+
     //Logout button action
     public void logoutButton(View view) {
         mAuth = FirebaseAuth.getInstance();
