@@ -1,48 +1,51 @@
 package project.ecse428.mcgill.ca.snowmore;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.firebase.client.Firebase;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
 import backend.ShovelingRequest;
-import backend.User;
 
 public class UserShovelingRequest extends AppCompatActivity {
 
     private EditText streetAddress;
-    private EditText city;
-    private EditText postalCode;
+    private EditText et_city;
+    private EditText et_postalCode;
     private EditText phoneNumber;
+    private EditText requestDate;
+    private EditText requestTime;
     private TextView error_message_streetAddress;
     private TextView error_message_city;
     private TextView error_message_postalCode;
     private TextView error_message_phoneNumber;
+    private TextView error_message_requestDate;
+    private TextView error_message_requestTime;
     private Button post_Button;
     private Button back_Button;
     private ShovelingRequest sr;
@@ -55,6 +58,11 @@ public class UserShovelingRequest extends AppCompatActivity {
     private DatabaseReference myRef;
     private Firebase mRootRef;
     private String postID;
+    private DatabaseReference mRequestDB;
+
+    Button btnDatePicker, btnTimePicker;
+    EditText txtDate, txtTime;
+    private int mYear, mMonth, mDay, mHour, mMinute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +72,7 @@ public class UserShovelingRequest extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         myFirebaseDatabase = FirebaseDatabase.getInstance();
         myRef = myFirebaseDatabase.getReference();
+        mRequestDB = FirebaseDatabase.getInstance().getReference().child("requestPost");
         //FirebaseUser user = mAuth.getCurrentUser();
         //userID = user.getUid();
 
@@ -99,19 +108,31 @@ public class UserShovelingRequest extends AppCompatActivity {
     //UI Initialization
     public void setUpVariables() {
         streetAddress = findViewById(R.id.streetAddress);
-        city = findViewById(R.id.city);
-        postalCode = findViewById(R.id.postalCode);
+        et_city = findViewById(R.id.city);
+        et_postalCode = findViewById(R.id.postalCode);
         phoneNumber = findViewById(R.id.phoneNumber);
+        requestDate = findViewById(R.id.requestDate);
+        requestTime = findViewById(R.id.requestTime);
 
         error_message_city = (TextView) findViewById(R.id.error_message_city);
         error_message_postalCode = (TextView) findViewById(R.id.error_message_postCode);
         error_message_phoneNumber = (TextView) findViewById(R.id.error_message_phoneNumber);
         error_message_streetAddress = (TextView) findViewById(R.id.error_message_streetAddress);
+        error_message_requestDate = (TextView) findViewById(R.id.error_message_requestDate);
+        error_message_requestTime = (TextView) findViewById(R.id.error_message_requestTime);
 
         post_Button = (Button) findViewById(R.id.postButton);
         back_Button = (Button) findViewById(R.id.backButton);
-        sr = new ShovelingRequest(streetAddress.getText().toString(), city.getText().toString(),
-                postalCode.getText().toString(), phoneNumber.getText().toString());
+
+        btnDatePicker = (Button) findViewById(R.id.btn_date);
+        btnTimePicker = (Button) findViewById(R.id.btn_time);
+        txtDate = (EditText) findViewById(R.id.requestDate);
+        txtTime = (EditText) findViewById(R.id.requestTime);
+
+        btnDatePicker = (Button) findViewById(R.id.btn_date);
+        btnTimePicker = (Button) findViewById(R.id.btn_time);
+
+        sr = new ShovelingRequest();
     }
 
     //Registration button action
@@ -127,22 +148,22 @@ public class UserShovelingRequest extends AppCompatActivity {
                 error_message_streetAddress.setVisibility(View.INVISIBLE);
             }
         }
-        if (TextUtils.isEmpty(city.getText().toString())) {
-            error_message_city.setText("Please enter city");
+        if (TextUtils.isEmpty(et_city.getText().toString())) {
+            error_message_city.setText("Please enter et_city");
             error_message_city.setVisibility(View.VISIBLE);
         } else {
-            if (!sr.checkCity((city.getText().toString()))) {
-                error_message_city.setText("Please enter a valid city name");
+            if (!sr.checkCity((et_city.getText().toString()))) {
+                error_message_city.setText("Please enter a valid et_city name");
                 error_message_city.setVisibility(View.VISIBLE);
             } else {
                 error_message_city.setVisibility(View.INVISIBLE);
             }
         }
-        if (TextUtils.isEmpty(postalCode.getText().toString())) {
+        if (TextUtils.isEmpty(et_postalCode.getText().toString())) {
             error_message_postalCode.setText("Please enter postal code");
             error_message_postalCode.setVisibility(View.VISIBLE);
         } else {
-            if (!sr.checkPostalCode(postalCode.getText().toString())) {
+            if (!sr.checkPostalCode(et_postalCode.getText().toString())) {
                 error_message_postalCode.setText("Please enter a valid postal code");
                 error_message_postalCode.setVisibility(View.VISIBLE);
             } else {
@@ -160,54 +181,33 @@ public class UserShovelingRequest extends AppCompatActivity {
                 error_message_phoneNumber.setVisibility(View.INVISIBLE);
             }
         }
-        if (sr.checkCity(city.getText().toString()) && sr.checkPhoneNumber(phoneNumber.getText().toString()) && sr.checkPostalCode(postalCode.getText().toString()) && sr.checkStreetAddress(streetAddress.getText().toString())) {
-
-            createRequest();
-            post_Button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String inputAddress = streetAddress.getText().toString();
-                    String inputCity = city.getText().toString();
-                    String inputPostalCode = postalCode.getText().toString();
-                    String inputPhoneNumber = phoneNumber.getText().toString();
-
-//                FirebaseUser fb_user = mAuth.getCurrentUser();
-//                postID = fb_user.getUid();
-
-                    mRootRef = new Firebase("https://snowmore-3e355.firebaseio.com/requestPost");
-
-                    mRootRef.push().setValue(inputAddress);
-
-                    Map<String, Object> dataMap = new HashMap<String, Object>();
-
-//                    myRef.updateChildren(dataMap).addOnCompleteListener(this, new OnCompleteListener<Some task > ()
-//                    {
-//                        @Override
-//                        public void onComplete (@NonNull Task < Some task > task){
-//                        if (task.isSuccessful()) {
-//                            // Sign in success, update UI with the signed-in user's information
-//                            Log.d(TAG, "signInWithEmail:success");
-//
-//                        } else {
-//                            // If sign in fails, display a message to the user.
-//                            Log.w(TAG, "signInWithEmail:failure", task.getException());
-//                            Toast.makeText(UserShovelingRequest.this, "Authentication failed.",
-//                                    Toast.LENGTH_SHORT).show();
-//                            //updateUI(null);
-//                        }
-//                    }
-//                    });
-
-                    ShovelingRequest requestShoveler = new ShovelingRequest(streetAddress.getText().toString(), city.getText().toString(), postalCode.getText().toString(), phoneNumber.getText().toString());
-                    DatabaseReference postRef = myRef.child("requestPost").child(postID);
-                    dataMap.put("user_info", requestShoveler.toMap());
-                    postRef.updateChildren(dataMap);
-                }
-            });
-
-
-            Toast toast = Toast.makeText(context, "Successfully Sent Request", Toast.LENGTH_SHORT);
-            toast.show();
+        if (TextUtils.isEmpty(requestDate.getText().toString())) {
+            error_message_requestDate.setText("Please enter the request Date");
+            error_message_requestDate.setVisibility(View.VISIBLE);
+        } else {
+            if (!sr.checkPhoneNumber(requestDate.getText().toString())) {
+                error_message_requestDate.setText("Please enter a valid Date");
+                error_message_requestDate.setVisibility(View.VISIBLE);
+            } else {
+                error_message_requestDate.setVisibility(View.INVISIBLE);
+            }
+        }
+        if (TextUtils.isEmpty(requestTime.getText().toString())) {
+            error_message_requestTime.setText("Please enter the request Time");
+            error_message_requestTime.setVisibility(View.VISIBLE);
+        } else {
+            if (!sr.checkPhoneNumber(requestTime.getText().toString())) {
+                error_message_requestTime.setText("Please enter a valid Time");
+                error_message_requestTime.setVisibility(View.VISIBLE);
+            } else {
+                error_message_requestTime.setVisibility(View.INVISIBLE);
+            }
+        }
+        if (sr.checkCity(et_city.getText().toString()) && sr.checkPhoneNumber(phoneNumber.getText().toString())
+                && sr.checkPostalCode(et_postalCode.getText().toString()) && sr.checkStreetAddress(streetAddress.getText().toString())
+                && sr.checkRequestDate(requestDate.getText().toString()) && sr.checkRequestTime(requestTime.getText().toString())) {
+//            createRequest();
+            postRequest(streetAddress.getText().toString() , et_city.getText().toString() , et_postalCode.getText().toString() , phoneNumber.getText().toString() , requestDate.getText().toString() , requestTime.getText().toString());
         }
     }
 
@@ -217,43 +217,84 @@ public class UserShovelingRequest extends AppCompatActivity {
         startActivity(back);
     }
 
-    private void createRequest(){
+    public void createRequest() {
+        mRootRef = new Firebase("https://snowmore-3e355.firebaseio.com/requestPost");
+        ShovelingRequest requestShoveler = new ShovelingRequest(streetAddress.getText().toString(), et_city.getText().toString(),
+                et_postalCode.getText().toString(), phoneNumber.getText().toString(), requestDate.getText().toString(), requestTime.getText().toString());
+        FirebaseUser fb_request = mAuth.getCurrentUser();
+        postID = fb_request.getUid();
+        DatabaseReference postRef = myRef.child("requestPost").child(postID);
+        Map<String, Object> dataMap = new HashMap<String, Object>();
+        dataMap.put("request_info", requestShoveler.toMap());
+        mRootRef.push().updateChildren(dataMap);
 
-        post_Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String inputAddress = streetAddress.getText().toString();
-                String inputCity = city.getText().toString();
-                String inputPostalCode = postalCode.getText().toString();
-                String inputPhoneNumber = phoneNumber.getText().toString();
+        Intent back = new Intent(this, ClientShovelerPage.class);
+        startActivity(back);
 
-//                FirebaseUser fb_user = mAuth.getCurrentUser();
-//                postID = fb_user.getUid();
-
-                //myRef.child("requestPost").push().setValue(inputAddress);
-
-                Map<String, Object> dataMap = new HashMap<String, Object>();
-                ShovelingRequest requestShoveler = new ShovelingRequest(streetAddress.getText().toString(), city.getText().toString(), postalCode.getText().toString(), phoneNumber.getText().toString());
-                DatabaseReference postRef = myRef.child("requests");
-                dataMap.put("some request id", requestShoveler.toMap());
-                postRef.updateChildren(dataMap, new DatabaseReference.CompletionListener() {
-                    @Override
-                    public void onComplete(DatabaseError error, DatabaseReference postRef) {
-                        System.out.println("Value was set. Error = " + error);
-                    }
-                });
-                mRootRef = new Firebase("https://snowmore-3e355.firebaseio.com/requestPost");
-
-                mRootRef.push().setValue(inputAddress);
-
-//                Map<String, Object> dataMap = new HashMap<String, Object>();
-//                ShovelingRequest requestShoveler = new ShovelingRequest(streetAddress.getText().toString(), city.getText().toString(), postalCode.getText().toString(), phoneNumber.getText().toString());
-//                DatabaseReference postRef = myRef.child("requestPost").child(postID);
-//                dataMap.put("user_info", requestShoveler.toMap());
-//                postRef.updateChildren(dataMap);
-            }
-        });
         Toast toast = Toast.makeText(context, "Successfully Sent Request", Toast.LENGTH_SHORT);
         toast.show();
     }
+
+    private void postRequest(String address , String city, String postalCode, String phone, String date , String time) {
+        ShovelingRequest shovelingRequest = new ShovelingRequest(address , city , postalCode , phone , date , time);
+        mRequestDB.push().setValue(shovelingRequest).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                streetAddress.setText(null);
+                phoneNumber.setText(null);
+                requestDate.setText(null);
+                requestTime.setText(null);
+                et_city.setText(null);
+                et_postalCode.setText(null);
+                Toast.makeText(UserShovelingRequest.this , "Success!" , Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void btnDateTime(View v) {
+
+        if (v == btnDatePicker) {
+
+            // Get Current Date
+            final Calendar c = Calendar.getInstance();
+            mYear = c.get(Calendar.YEAR);
+            mMonth = c.get(Calendar.MONTH);
+            mDay = c.get(Calendar.DAY_OF_MONTH);
+
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                    new DatePickerDialog.OnDateSetListener() {
+
+                        @Override
+                        public void onDateSet(DatePicker view, int year,
+                                              int monthOfYear, int dayOfMonth) {
+
+                            txtDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+
+                        }
+                    }, mYear, mMonth, mDay);
+            datePickerDialog.show();
+        }
+        if (v == btnTimePicker) {
+
+            // Get Current Time
+            final Calendar c = Calendar.getInstance();
+            mHour = c.get(Calendar.HOUR_OF_DAY);
+            mMinute = c.get(Calendar.MINUTE);
+
+            // Launch Time Picker Dialog
+            TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                    new TimePickerDialog.OnTimeSetListener() {
+
+                        @Override
+                        public void onTimeSet(TimePicker view, int hourOfDay,
+                                              int minute) {
+
+                            txtTime.setText(hourOfDay + ":" + minute);
+                        }
+                    }, mHour, mMinute, false);
+            timePickerDialog.show();
+        }
+    }
+
 }

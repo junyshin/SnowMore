@@ -21,13 +21,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
-        <Button
+        <ImageButton
             android:id="@+id/add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:background="@android:drawable/ic_menu_add"
-            android:onClick="addButton"
+            app:srcCompat="@android:drawable/ic_input_add"
+            android:onClick="addPostButton"
             style="?android:attr/borderlessButtonStyle"/>
 
         <LinearLayout
@@ -56,20 +56,11 @@
 
         </LinearLayout>
 
-        <ScrollView
+        <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
-        </ScrollView>
-
-        <Space
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:id="@+id/recycler"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -78,10 +69,11 @@
 
             <Button
                 android:id="@+id/logout"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Logout"
-                style="?android:attr/borderlessButtonStyle"/>
+                android:onClick="logoutButton"
+                android:text="Logout" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -90,10 +82,11 @@
 
             <Button
                 android:id="@+id/backButton"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Back"
-                style="?android:attr/borderlessButtonStyle"/>
+                android:onClick="backButton"
+                android:text="Back" />
 
         </LinearLayout>
 

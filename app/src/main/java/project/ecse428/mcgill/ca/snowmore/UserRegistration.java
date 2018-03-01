@@ -1,30 +1,24 @@
 package project.ecse428.mcgill.ca.snowmore;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -36,7 +30,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Map;
 
-import backend.Registration;
 import backend.User;
 
 public class UserRegistration extends AppCompatActivity {
@@ -48,6 +41,7 @@ public class UserRegistration extends AppCompatActivity {
     private TextView error_message_password;
     private TextView error_message_email;
     private TextView error_message_fullname;
+    private TextView error_message_username;
     private Button registration_button;
     private Button signin_button;
     private User user;
@@ -109,6 +103,7 @@ public class UserRegistration extends AppCompatActivity {
         error_message_password = (TextView) findViewById(R.id.error_message_password);
         error_message_email = (TextView) findViewById(R.id.error_message_email);
         error_message_fullname = (TextView) findViewById(R.id.error_message_fullname);
+        error_message_username = (TextView) findViewById(R.id.error_message_username);
         username = (EditText) findViewById(R.id.username);
 
         signin_button = (Button) findViewById(R.id.signinbutton);
@@ -135,6 +130,19 @@ public class UserRegistration extends AppCompatActivity {
             }
             else {
                 error_message_email.setVisibility(View.INVISIBLE);
+            }
+        }
+        if(TextUtils.isEmpty(username.getText().toString())) {
+            error_message_username.setText("Please enter username");
+            error_message_username.setVisibility(View.VISIBLE);
+        }
+        else {
+            if(!user.check_username(username.getText().toString())) {
+                error_message_username.setText("Username has already been used");
+                error_message_username.setVisibility(View.VISIBLE);
+            }
+            else {
+                error_message_username.setVisibility(View.INVISIBLE);
             }
         }
         if(TextUtils.isEmpty(password.getText().toString())) {
@@ -180,6 +188,8 @@ public class UserRegistration extends AppCompatActivity {
     }
 
     private void addNewUser() {
+        //results in permission denied!
+        myRef.child("new item").setValue("something");
         mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -188,17 +198,12 @@ public class UserRegistration extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
 
-                            //Add to Users table
-                            Map<String, Object> dataMap = new HashMap<String, Object>();
-                            FirebaseUser fb_user = mAuth.getCurrentUser();
-                            userID = fb_user.getUid();
-
-                            User user = new User(fullname.getText().toString(), email.getText().toString());
-                            DatabaseReference userRef = myRef.child("users").child(userID);
-                            dataMap.put("user_info", user.toMap());
-                            userRef.updateChildren(dataMap);
-
+//                            User user = new User(fullname.getText().toString(), email.getText().toString());
+//                            DatabaseReference userRef = myRef.child("Users");
+//                                    //.child(userID);
+//                            userRef.child("Name").setValue(user.getName());
                         } else {
+
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(UserRegistration.this, "Authentication failed.",
@@ -207,6 +212,14 @@ public class UserRegistration extends AppCompatActivity {
                         }
                     }
                 });
+
+        User user = new User(fullname.getText().toString(), email.getText().toString());
+        FirebaseUser fb_user = mAuth.getCurrentUser();
+        userID = fb_user.getUid();
+        DatabaseReference userRef = myRef.child("Users").child(userID);
+        Map<String, Object> dataMap = new HashMap<String, Object>();
+        dataMap.put("user_info", user.toMap());
+        userRef.updateChildren(dataMap);
     }
 
     public void createDialog() {
@@ -214,19 +227,19 @@ public class UserRegistration extends AppCompatActivity {
         builder.setTitle("Confirm email?");
         builder.setMessage(email.getText().toString());
         builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        addNewUser();
-                        Intent signin = new Intent(context , Login.class);
-                        startActivity(signin);
-                    }
-                });
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                addNewUser();
+                Intent signin = new Intent(context , Login.class);
+                startActivity(signin);
+            }
+        });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialog.dismiss();
-                    }
-                });
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialog.dismiss();
+            }
+        });
         AlertDialog dialog = builder.create();
         dialog.show();
     }

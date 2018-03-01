@@ -16,6 +16,7 @@ public class User {
 
     private String name;
     private String email;
+    private String username;
 
     private boolean password_checked;
     private boolean name_checked;
@@ -119,5 +120,11 @@ public class User {
         result.put("name", name);
         result.put("email", email);
         return result;
+    }
+
+    public boolean check_username (String username) {
+        this.username = username;
+        boolean username_checked = true;
+        return username_checked;
     }
 }
