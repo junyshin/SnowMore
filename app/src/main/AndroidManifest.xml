@@ -3,6 +3,7 @@
     package="project.ecse428.mcgill.ca.snowmore">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name="backend.Fireapp"
         android:allowBackup="true"
@@ -61,5 +62,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MyRequests"
+            android:label="@string/title_activity_my_requests"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
+
 </manifest>
