@@ -52,7 +52,6 @@ public class UserShovelingRequest extends AppCompatActivity {
     private Dialog dialog = null;
     private Context context = null;
 
-    private static final String TAG = "EmailPassword";
     private FirebaseAuth mAuth;
     private FirebaseDatabase myFirebaseDatabase;
     private DatabaseReference myRef;
@@ -215,6 +214,7 @@ public class UserShovelingRequest extends AppCompatActivity {
         Intent back = new Intent(this, ClientShovelerPage.class);
         startActivity(back);
     }
+
 
     private void postRequest(String address , String city, String postalCode, String phone, String date , String time , String userID) {
         ShovelingRequest shovelingRequest = new ShovelingRequest(address , city , postalCode , phone , date , time , userID);

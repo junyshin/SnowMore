@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.provider.SyncStateContract;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -48,6 +49,7 @@ public class ClientShovelerPage extends AppCompatActivity {
     private RecyclerView recyclerView;
     private Dialog dialog = null;
     private Context context = null;
+    private static FirebaseRecyclerAdapter<ShovelingRequest , requestPostHolder> firebaseRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +81,7 @@ public class ClientShovelerPage extends AppCompatActivity {
 
     public void setUpVariables() {
         mAuth = FirebaseAuth.getInstance();
-        mRequestDB = FirebaseDatabase.getInstance().getReference().child("requestPost");
+        mRequestDB = FirebaseDatabase.getInstance().getReference().child("pending requests");
         mUserDB = FirebaseDatabase.getInstance().getReference().child("Users");
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
@@ -130,15 +132,20 @@ public class ClientShovelerPage extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        FirebaseRecyclerAdapter<ShovelingRequest , requestPostHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ShovelingRequest, requestPostHolder>(ShovelingRequest.class , R.layout.list_view_layout , requestPostHolder.class , mRequestDB) {
+        this.firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ShovelingRequest, requestPostHolder>(ShovelingRequest.class , R.layout.list_view_layout , requestPostHolder.class , mRequestDB) {
             @Override
             protected void populateViewHolder(final requestPostHolder viewHolder, ShovelingRequest model, int position) {
                 viewHolder.setAddress(model.getStreetAddress());
                 viewHolder.setCity(model.getCity());
                 viewHolder.setDate(model.getRequestDate());
                 viewHolder.setTime(model.getRequestTime());
-                viewHolder.setPhone(model.getPhoneNumber());
+                viewHolder.setPhone(model.getClientNumber());
                 viewHolder.setPostalCode(model.getPostalCode());
+
+                // set the request id in the item view
+                DatabaseReference ref = ClientShovelerPage.firebaseRecyclerAdapter.getRef(position);
+                String reqID = ref.getKey();
+                viewHolder.setReqID(reqID);
                 mUserDB.child(model.getUserID()).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -150,6 +157,7 @@ public class ClientShovelerPage extends AppCompatActivity {
                     public void onCancelled(DatabaseError databaseError) {
 
                     }
+
                 });
             }
         };
@@ -164,13 +172,13 @@ public class ClientShovelerPage extends AppCompatActivity {
 
 
     public static class requestPostHolder extends RecyclerView.ViewHolder{
-
         View view;
 
         public requestPostHolder(View itemView) {
             super(itemView);
             view = itemView;
         }
+
         public void setCity(String city){
             TextView userNameTxtView = (TextView)view.findViewById(R.id.city);
             userNameTxtView.setText("City: " + city);
@@ -205,5 +213,20 @@ public class ClientShovelerPage extends AppCompatActivity {
             TextView userNameTextView = (TextView)view.findViewById(R.id.user_tv);
             userNameTextView.setText("User: " + name);
         }
+
+        public void setReqID (String reqId){
+            TextView reqIDTextView = (TextView)view.findViewById(R.id.reqID);
+            reqIDTextView.setText(reqId);
+        }
+
     }
+
+    public void onRequestClick(View v) {
+        TextView reqIDTextView = (TextView)v.findViewById(R.id.reqID);
+        CharSequence reqID = reqIDTextView.getText();
+        Intent acceptIntent = new Intent(ClientShovelerPage.this, AcceptShovellingRequest.class);
+        acceptIntent.putExtra("requestID", (String) reqID);
+        startActivity(acceptIntent);
+    }
+
 }
