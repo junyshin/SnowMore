@@ -125,7 +125,7 @@ public class ShovelingRequest {
     public String getPhoneNumber() {
         return this.phoneNumber;
     }
-
+  
     public String getRequestDate() {
         return this.requestDate;
     }
@@ -149,7 +149,7 @@ public class ShovelingRequest {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
+      
     public void setRequestDate(String requestDate) {
         this.requestDate = requestDate;
     }
@@ -168,7 +168,7 @@ public class ShovelingRequest {
 
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
-        result.put("address", streetAddress);
+        result.put("streetAddress", streetAddress);
         result.put("city", city);
         result.put("postalCode", postalCode);
         result.put("phone", phoneNumber);
