@@ -167,17 +167,15 @@ public class AcceptShovellingRequest extends AppCompatActivity {
 
     }
   
-    public void acceptButton(View view){
+    public void acceptButton(View view) {
         // check phone number
         if (TextUtils.isEmpty(shovelerNumber.getText().toString())) {
             error_message_phoneNumber.setText("Please enter your phone number");
             error_message_phoneNumber.setVisibility(View.VISIBLE);
-        }
-        else if (shovelerNumber.getText().toString().length() != 10){
+        } else if (shovelerNumber.getText().toString().length() != 10) {
             error_message_phoneNumber.setText("Please enter a valid 10-digit phone number");
             error_message_phoneNumber.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
             error_message_phoneNumber.setVisibility(View.INVISIBLE);
             shovelingRequest.setShovelerNumber(shovelerNumber.getText().toString());
             // add shovelerId to request Object
@@ -203,22 +201,21 @@ public class AcceptShovellingRequest extends AppCompatActivity {
 
                         // if successful, we can remove the request from the pending table
                         // add a listener for removing the request
-                    reqRef.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()){
-                                Toast.makeText(AcceptShovellingRequest.this, "Request Accepted Successfully!.",
-                                        Toast.LENGTH_LONG).show();
-                                //TODO: choose next activity, pass intent
-                                finish();
+                        reqRef.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(AcceptShovellingRequest.this, "Request Accepted Successfully!.",
+                                            Toast.LENGTH_LONG).show();
+                                    //TODO: choose next activity, pass intent
+                                    finish();
+                                } else {
+                                    // error updating firebase
+                                    Toast.makeText(AcceptShovellingRequest.this, "Error!" + task.getException().getMessage(),
+                                            Toast.LENGTH_LONG).show();
+                                }
                             }
-                            else{
-                                // error updating firebase
-                                Toast.makeText(AcceptShovellingRequest.this, "Error!" + task.getException().getMessage(),
-                                        Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
+                        });
                     } else {
                         // error adding request to accepted list
                         Toast.makeText(AcceptShovellingRequest.this, "Error!" + task.getException().getMessage(),
@@ -227,12 +224,5 @@ public class AcceptShovellingRequest extends AppCompatActivity {
                 }
             });
         }
-
-    public void fetchRequestData(){
-
-    }
-
-    public void acceptButton(View view){
-
     }
 }
