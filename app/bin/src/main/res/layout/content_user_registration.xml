@@ -35,7 +35,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Full Name"
-            android:inputType="textPersonName"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="50dp" />
@@ -78,7 +77,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
-            android:inputType="textEmailAddress"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="20dp" />
@@ -100,7 +98,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
-            android:inputType="textPassword"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="20dp" />

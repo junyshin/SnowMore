@@ -20,10 +20,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -34,10 +36,10 @@ import backend.User;
 
 public class UserRegistration extends AppCompatActivity {
 
-    private EditText fullname;
-    private EditText email;
-    private EditText password;
-    private EditText username;
+    private EditText name_edittxt;
+    private EditText email_edittxt;
+    private EditText password_edittxt;
+    private EditText username_edittxt;
     private TextView error_message_password;
     private TextView error_message_email;
     private TextView error_message_fullname;
@@ -53,16 +55,14 @@ public class UserRegistration extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseDatabase myFirebaseDatabase;
     private DatabaseReference myRef;
+    private DatabaseReference mUsersDB;
     private String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_registration);
-
-        mAuth = FirebaseAuth.getInstance();
-        myFirebaseDatabase = FirebaseDatabase.getInstance();
-        myRef = myFirebaseDatabase.getReference();
+        setUpVariables();
         //FirebaseUser user = mAuth.getCurrentUser();
         //userID = user.getUid();
 
@@ -70,7 +70,6 @@ public class UserRegistration extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitle("Snow More");
         context = UserRegistration.this;
-        setUpVariables();
     }
 
     @Override
@@ -97,18 +96,21 @@ public class UserRegistration extends AppCompatActivity {
 
     //UI Initialization
     public void setUpVariables() {
-        fullname = (EditText) findViewById(R.id.fullname);
-        email = (EditText) findViewById(R.id.email);
-        password = (EditText) findViewById(R.id.password);
+        name_edittxt = (EditText) findViewById(R.id.fullname);
+        email_edittxt = (EditText) findViewById(R.id.email);
+        password_edittxt = (EditText) findViewById(R.id.password);
+        username_edittxt = (EditText) findViewById(R.id.username);
         error_message_password = (TextView) findViewById(R.id.error_message_password);
         error_message_email = (TextView) findViewById(R.id.error_message_email);
         error_message_fullname = (TextView) findViewById(R.id.error_message_fullname);
         error_message_username = (TextView) findViewById(R.id.error_message_username);
-        username = (EditText) findViewById(R.id.username);
-
         signin_button = (Button) findViewById(R.id.signinbutton);
         registration_button = (Button) findViewById(R.id.registerbutton);
         user = new User();
+        mAuth = FirebaseAuth.getInstance();
+        myFirebaseDatabase = FirebaseDatabase.getInstance();
+        myRef = myFirebaseDatabase.getReference();
+        mUsersDB = FirebaseDatabase.getInstance().getReference().child("Users");
     }
 
     //Sign In button action
@@ -119,12 +121,12 @@ public class UserRegistration extends AppCompatActivity {
 
     //Registration button action
     public void registerButton(View view) {
-        if(TextUtils.isEmpty(email.getText().toString())) {
+        if(TextUtils.isEmpty(email_edittxt.getText().toString())) {
             error_message_email.setText("Please enter email");
             error_message_email.setVisibility(View.VISIBLE);
         }
         else {
-            if(!user.check_email(email.getText().toString())) {
+            if(!user.check_email(email_edittxt.getText().toString())) {
                 error_message_email.setText("Invalid email");
                 error_message_email.setVisibility(View.VISIBLE);
             }
@@ -132,25 +134,25 @@ public class UserRegistration extends AppCompatActivity {
                 error_message_email.setVisibility(View.INVISIBLE);
             }
         }
-        if(TextUtils.isEmpty(username.getText().toString())) {
+        if(TextUtils.isEmpty(username_edittxt.getText().toString())) {
             error_message_username.setText("Please enter username");
             error_message_username.setVisibility(View.VISIBLE);
         }
         else {
-            if(!user.check_email(email.getText().toString())) {
+            if(!user.check_username(username_edittxt.getText().toString())) {
                 error_message_username.setText("Username has already been used");
                 error_message_username.setVisibility(View.VISIBLE);
             }
             else {
-                error_message_email.setVisibility(View.INVISIBLE);
+                error_message_username.setVisibility(View.INVISIBLE);
             }
         }
-        if(TextUtils.isEmpty(password.getText().toString())) {
+        if(TextUtils.isEmpty(password_edittxt.getText().toString())) {
             error_message_password.setText("Please enter password");
             error_message_password.setVisibility(View.VISIBLE);;
         }
         else {
-            if(!user.check_password((password.getText().toString()))) {
+            if(!user.check_password((password_edittxt.getText().toString()))) {
                 error_message_password.setText("Password should be at least 8 characters long, and must contain uppercase and lowercase letters, at least one digit and one special character");
                 error_message_password.setVisibility(View.VISIBLE);
             }
@@ -158,12 +160,12 @@ public class UserRegistration extends AppCompatActivity {
                 error_message_password.setVisibility(View.INVISIBLE);
             }
         }
-        if(TextUtils.isEmpty(fullname.getText().toString())) {
+        if(TextUtils.isEmpty(name_edittxt.getText().toString())) {
             error_message_fullname.setText("Please enter your full name");
             error_message_fullname.setVisibility(View.VISIBLE);
         }
         else {
-            if (!user.check_name(fullname.getText().toString())) {
+            if (!user.check_name(name_edittxt.getText().toString())) {
                 error_message_fullname.setText("Please enter a valid full name");
                 error_message_fullname.setVisibility(View.VISIBLE);
             }
@@ -171,7 +173,7 @@ public class UserRegistration extends AppCompatActivity {
                 error_message_fullname.setVisibility(View.INVISIBLE);
             }
         }
-        if(user.check_email(email.getText().toString()) && user.check_password((password.getText().toString())) && user.check_name(fullname.getText().toString())) {
+        if(user.check_email(email_edittxt.getText().toString()) && user.check_password((password_edittxt.getText().toString())) && user.check_name(name_edittxt.getText().toString())) {
             createDialog();
         }
     }
@@ -187,46 +189,57 @@ public class UserRegistration extends AppCompatActivity {
         startActivity(signin);
     }
 
-    private void addNewUser() {
-        mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithEmail:success");
+    private void showAlertDialog(String title , String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.create().show();
+    }
 
-                            //Add to Users table
-                            Map<String, Object> dataMap = new HashMap<String, Object>();
-                            FirebaseUser fb_user = mAuth.getCurrentUser();
-                            userID = fb_user.getUid();
-
-                            User user = new User(fullname.getText().toString(), email.getText().toString());
-                            DatabaseReference userRef = myRef.child("users").child(userID);
-                            dataMap.put("user_info", user.toMap());
-                            userRef.updateChildren(dataMap);
-
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(UserRegistration.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            //updateUI(null);
+    private void addNewUser(final String name , String email , String password , final String username) {
+        mAuth.createUserWithEmailAndPassword(email , password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(!task.isSuccessful()) {
+                    // error registering user
+                    showAlertDialog("Error!" , task.getException().getMessage());
+                }
+                else {
+                    //success
+                    final FirebaseUser currentUser = task.getResult().getUser();
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(name)
+                            .build();
+                    currentUser.updateProfile(profileUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            User newUser = new User(currentUser.getDisplayName() , currentUser.getEmail() , currentUser.getUid() , username);
+                            mUsersDB.child(currentUser.getUid()).setValue(newUser);
+                            // take the user home
+                            finish();
+                            startActivity(new Intent(UserRegistration.this , Login.class));
                         }
-                    }
-                });
+                    });
+                }
+            }
+        });
     }
 
     public void createDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Confirm email?");
-        builder.setMessage(email.getText().toString());
+        builder.setMessage(email_edittxt.getText().toString());
         builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                addNewUser();
-                Intent signin = new Intent(context , Login.class);
-                startActivity(signin);
+                addNewUser(name_edittxt.getText().toString() , email_edittxt.getText().toString() , password_edittxt.getText().toString() , username_edittxt.getText().toString());
+//                startActivity(new Intent(UserRegistration.this , Login.class));
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

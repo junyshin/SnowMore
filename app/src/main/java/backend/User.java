@@ -12,18 +12,22 @@ import java.util.Map;
 
 public class User {
 
-    private String user_id;
 
     private String name;
     private String email;
+    private String username;
+    private String userID;
 
     private boolean password_checked;
     private boolean name_checked;
     private boolean email_checked;
 
-    public User(String fullname, String email){
-        this.name = fullname;
+    public User(String name, String email , String userID , String username){
+        this.name = name;
         this.email = email;
+        this.userID = userID;
+        this.username = username;
+
         password_checked = false;
         name_checked = false;
         email_checked = false;
@@ -113,10 +117,32 @@ public class User {
         this.check_email(email);
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("name", name);
         result.put("email", email);
         return result;
+    }
+
+    public boolean check_username (String username) {
+        this.username = username;
+        boolean username_checked = true;
+        return username_checked;
     }
 }

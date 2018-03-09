@@ -25,8 +25,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-
-
+import backend.User;
 
 
 public class Login extends AppCompatActivity {
@@ -37,6 +36,8 @@ public class Login extends AppCompatActivity {
     private EditText password_login;
     private TextView error_message_password_login;
     private TextView error_message_email_login;
+
+    private User user;
 
     private Button registration_button;
     private Button login_button;
@@ -86,20 +87,47 @@ public class Login extends AppCompatActivity {
 
         login_button = (Button) findViewById(R.id.loginbutton);
         registration_button = (Button) findViewById(R.id.registerbuttonLogin);
-
+        user = new User();
     }
 
     //Sign In button action leads to a welcome page FOR NOW! (TEST)
     public void signInButton(View view) {
         login();
-        Intent welcome = new Intent(this , WelcomePage.class);
-        startActivity(welcome);
-
-
     }
 
     private void login() {
+        if(TextUtils.isEmpty(email_login.getText().toString())) {
+            error_message_email_login.setText("Please enter email");
+            error_message_email_login.setVisibility(View.VISIBLE);
+        }
+        else {
+            if(!user.check_email(email_login.getText().toString())) {
+                error_message_email_login.setText("Invalid email");
+                error_message_email_login.setVisibility(View.VISIBLE);
+            }
+            else {
+                error_message_email_login.setVisibility(View.INVISIBLE);
+            }
+        }
+        if(TextUtils.isEmpty(password_login.getText().toString())) {
+            error_message_password_login.setText("Please enter email");
+            error_message_password_login.setVisibility(View.VISIBLE);
+        }
+        else {
+            if(!user.check_password(password_login.getText().toString())) {
+                error_message_password_login.setText("Invalid email");
+                error_message_password_login.setVisibility(View.VISIBLE);
+            }
+            else {
+                error_message_password_login.setVisibility(View.INVISIBLE);
+            }
+        }
+        if(!TextUtils.isEmpty(email_login.getText().toString()) && !TextUtils.isEmpty(password_login.getText().toString())) {
+            checkLogin();
+        }
+    }
 
+    public void checkLogin(){
         mAuth.signInWithEmailAndPassword(email_login.getText().toString(), password_login.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -110,6 +138,8 @@ public class Login extends AppCompatActivity {
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             //updateUI(user);
+                            Intent welcome = new Intent(context , WelcomePage.class);
+                            startActivity(welcome);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
@@ -120,7 +150,6 @@ public class Login extends AppCompatActivity {
 
                     }
                 });
-
     }
 
     //Registration button action
