@@ -16,16 +16,17 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.firebase.client.DataSnapshot;
+import com.google.firebase.database.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
 import com.firebase.client.authentication.Constants;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.Query;
 
 import org.w3c.dom.Text;
 
@@ -43,6 +44,7 @@ public class ClientShovelerPage extends AppCompatActivity {
     private static final String TAG = "EmailPassword";
     private FirebaseAuth mAuth;
     private DatabaseReference mRequestDB;
+    private DatabaseReference mUserDB;
     private RecyclerView recyclerView;
     private Dialog dialog = null;
     private Context context = null;
@@ -51,23 +53,40 @@ public class ClientShovelerPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_shoveler_page);
+        setUpVariables();
+        if(mAuth.getCurrentUser() == null) {
+            goToLogin();
+        }
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setTitle("Snow More");
+        context = ClientShovelerPage.this;
+        //setUpVariables();
+    }
 
+    private void goToLogin() {
+        startActivity(new Intent(ClientShovelerPage.this , Login.class));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(mAuth.getCurrentUser() == null) {
+            goToLogin();
+        }
+    }
+
+
+    public void setUpVariables() {
         mAuth = FirebaseAuth.getInstance();
         mRequestDB = FirebaseDatabase.getInstance().getReference().child("requestPost");
+        mUserDB = FirebaseDatabase.getInstance().getReference().child("Users");
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(linearLayoutManager);
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
-        //FirebaseUser user = mAuth.getCurrentUser();
-        //userID = user.getUid();
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setTitle("Snow More");
-        context = ClientShovelerPage.this;
-        //setUpVariables();
     }
 
     @Override
@@ -113,13 +132,25 @@ public class ClientShovelerPage extends AppCompatActivity {
 
         FirebaseRecyclerAdapter<ShovelingRequest , requestPostHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ShovelingRequest, requestPostHolder>(ShovelingRequest.class , R.layout.list_view_layout , requestPostHolder.class , mRequestDB) {
             @Override
-            protected void populateViewHolder(requestPostHolder viewHolder, ShovelingRequest model, int position) {
+            protected void populateViewHolder(final requestPostHolder viewHolder, ShovelingRequest model, int position) {
                 viewHolder.setAddress(model.getStreetAddress());
                 viewHolder.setCity(model.getCity());
                 viewHolder.setDate(model.getRequestDate());
                 viewHolder.setTime(model.getRequestTime());
                 viewHolder.setPhone(model.getPhoneNumber());
                 viewHolder.setPostalCode(model.getPostalCode());
+                mUserDB.child(model.getUserID()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String username = dataSnapshot.child("name").getValue(String.class);
+                        viewHolder.setUserName(username);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
         };
         recyclerView.setAdapter(firebaseRecyclerAdapter);
@@ -135,13 +166,6 @@ public class ClientShovelerPage extends AppCompatActivity {
     public static class requestPostHolder extends RecyclerView.ViewHolder{
 
         View view;
-
-        public TextView city;
-        public TextView address;
-        public TextView postalCode;
-        public TextView phone;
-        private TextView date;
-        private TextView time;
 
         public requestPostHolder(View itemView) {
             super(itemView);
@@ -177,6 +201,9 @@ public class ClientShovelerPage extends AppCompatActivity {
             userStatusTxtView.setText("Time: " + time);
         }
 
+        public void setUserName (String name) {
+            TextView userNameTextView = (TextView)view.findViewById(R.id.user_tv);
+            userNameTextView.setText("User: " + name);
+        }
     }
-
 }
