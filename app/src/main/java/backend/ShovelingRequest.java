@@ -12,9 +12,12 @@ public class ShovelingRequest {
     private String streetAddress;
     private String city;
     private String postalCode;
-    private String phoneNumber;
+    private String shovelerNumber;
+    private String clientNumber;
     private String requestDate;
     private String requestTime;
+    private String userID;
+    private String shovelerID;
 
     private boolean streetAddress_check;
     private boolean city_check;
@@ -23,13 +26,14 @@ public class ShovelingRequest {
     private boolean requestDate_check;
     private boolean requestTime_check;
 
-    public ShovelingRequest(String streetAddress, String city, String postalCode, String phoneNumber, String requestDate, String requestTime) {
+    public ShovelingRequest(String streetAddress, String city, String postalCode, String phoneNumber, String requestDate, String requestTime , String userID) {
         this.streetAddress = streetAddress;
         this.city = city;
         this.postalCode = postalCode;
-        this.phoneNumber = phoneNumber;
+        this.clientNumber = phoneNumber;
         this.requestTime = requestTime;
         this.requestDate = requestDate;
+        this.userID = userID;
         streetAddress_check = false;
         city_check = false;
         postalCode_check = false;
@@ -79,11 +83,12 @@ public class ShovelingRequest {
     }
 
     public boolean checkPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+
         if (phoneNumber.isEmpty()) {
             phoneNumber_check = false;
         } else {
             phoneNumber_check = true;
+            //this.clientNumber = phoneNumber;
         }
         return phoneNumber_check;
     }
@@ -120,10 +125,14 @@ public class ShovelingRequest {
         return this.postalCode;
     }
 
-    public String getPhoneNumber() {
-        return this.phoneNumber;
+    public String getClientNumber() {
+        return this.clientNumber;
     }
 
+    public String getShovelerNumber() {
+        return this.shovelerNumber;
+    }
+  
     public String getRequestDate() {
         return this.requestDate;
     }
@@ -144,10 +153,14 @@ public class ShovelingRequest {
         this.postalCode = postalCode;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setClientNumber(String phoneNumber) {
+        this.clientNumber = phoneNumber;
     }
 
+    public void setShovelerNumber(String shovelerNumber) {
+        this.shovelerNumber = shovelerNumber;
+    }
+      
     public void setRequestDate(String requestDate) {
         this.requestDate = requestDate;
     }
@@ -156,14 +169,26 @@ public class ShovelingRequest {
         this.requestTime = requestTime;
     }
 
+    public void setShovelerID(String shovelerID) {this.shovelerID = shovelerID;}
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
-        result.put("address", streetAddress);
+        result.put("streetAddress", streetAddress);
         result.put("city", city);
         result.put("postalCode", postalCode);
-        result.put("phone", phoneNumber);
-        result.put("date", requestDate);
-        result.put("time", requestTime);
+        result.put("clientNumber", clientNumber);
+        result.put("requestDate", requestDate);
+        result.put("requestTime", requestTime);
+        result.put("shovelerNumber", shovelerNumber);
+        result.put("shovelerID", shovelerID);
         return result;
     }
 }

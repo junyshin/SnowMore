@@ -52,7 +52,6 @@ public class UserShovelingRequest extends AppCompatActivity {
     private Dialog dialog = null;
     private Context context = null;
 
-    private static final String TAG = "EmailPassword";
     private FirebaseAuth mAuth;
     private FirebaseDatabase myFirebaseDatabase;
     private DatabaseReference myRef;
@@ -206,8 +205,7 @@ public class UserShovelingRequest extends AppCompatActivity {
         if (sr.checkCity(et_city.getText().toString()) && sr.checkPhoneNumber(phoneNumber.getText().toString())
                 && sr.checkPostalCode(et_postalCode.getText().toString()) && sr.checkStreetAddress(streetAddress.getText().toString())
                 && sr.checkRequestDate(requestDate.getText().toString()) && sr.checkRequestTime(requestTime.getText().toString())) {
-//            createRequest();
-            postRequest(streetAddress.getText().toString() , et_city.getText().toString() , et_postalCode.getText().toString() , phoneNumber.getText().toString() , requestDate.getText().toString() , requestTime.getText().toString());
+            postRequest(streetAddress.getText().toString() , et_city.getText().toString() , et_postalCode.getText().toString() , phoneNumber.getText().toString() , requestDate.getText().toString() , requestTime.getText().toString() , FirebaseAuth.getInstance().getCurrentUser().getUid());
         }
     }
 
@@ -217,26 +215,9 @@ public class UserShovelingRequest extends AppCompatActivity {
         startActivity(back);
     }
 
-    public void createRequest() {
-        mRootRef = new Firebase("https://snowmore-3e355.firebaseio.com/requestPost");
-        ShovelingRequest requestShoveler = new ShovelingRequest(streetAddress.getText().toString(), et_city.getText().toString(),
-                et_postalCode.getText().toString(), phoneNumber.getText().toString(), requestDate.getText().toString(), requestTime.getText().toString());
-        FirebaseUser fb_request = mAuth.getCurrentUser();
-        postID = fb_request.getUid();
-        DatabaseReference postRef = myRef.child("requestPost").child(postID);
-        Map<String, Object> dataMap = new HashMap<String, Object>();
-        dataMap.put("request_info", requestShoveler.toMap());
-        mRootRef.push().updateChildren(dataMap);
 
-        Intent back = new Intent(this, ClientShovelerPage.class);
-        startActivity(back);
-
-        Toast toast = Toast.makeText(context, "Successfully Sent Request", Toast.LENGTH_SHORT);
-        toast.show();
-    }
-
-    private void postRequest(String address , String city, String postalCode, String phone, String date , String time) {
-        ShovelingRequest shovelingRequest = new ShovelingRequest(address , city , postalCode , phone , date , time);
+    private void postRequest(String address , String city, String postalCode, String phone, String date , String time , String userID) {
+        ShovelingRequest shovelingRequest = new ShovelingRequest(address , city , postalCode , phone , date , time , userID);
         mRequestDB.push().setValue(shovelingRequest).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
