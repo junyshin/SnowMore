@@ -12,9 +12,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +34,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
@@ -44,10 +47,13 @@ public class MyRequests extends AppCompatActivity {
     private static final String TAG = "EmailPassword";
     private FirebaseAuth mAuth;
     private DatabaseReference mRequestDB;
+    private DatabaseReference mAcceptedRequestDB;
     private DatabaseReference mUserDB;
     private RecyclerView recyclerView;
     private Dialog dialog = null;
     private Context context = null;
+    private Query mQueryRequestDB;
+    private Query mQueryAcceptedRequestDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +84,7 @@ public class MyRequests extends AppCompatActivity {
 
     public void setUpVariables() {
         mAuth = FirebaseAuth.getInstance();
-        mRequestDB = FirebaseDatabase.getInstance().getReference().child("requestPost");
+
         mUserDB = FirebaseDatabase.getInstance().getReference().child("Users");
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_myRequest);
@@ -86,6 +92,14 @@ public class MyRequests extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
+
+        String currentUserID = mAuth.getCurrentUser().getUid();
+        mRequestDB = FirebaseDatabase.getInstance().getReference().child("requestPost");
+        mAcceptedRequestDB = FirebaseDatabase.getInstance().getReference().child("accepted requests");
+
+        mQueryRequestDB = mRequestDB.orderByChild("userID").equalTo(currentUserID);
+        mQueryAcceptedRequestDB = mAcceptedRequestDB.orderByChild("userID").equalTo(currentUserID);
+
     }
 
     @Override
@@ -129,7 +143,10 @@ public class MyRequests extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        FirebaseRecyclerAdapter<ShovelingRequest , requestPostHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ShovelingRequest, requestPostHolder>(ShovelingRequest.class , R.layout.list_view_layout , requestPostHolder.class , mRequestDB) {
+        FirebaseRecyclerAdapter<ShovelingRequest , requestPostHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ShovelingRequest, requestPostHolder>(ShovelingRequest.class , R.layout.list_view_layout , requestPostHolder.class , mQueryAcceptedRequestDB) {
+
+
+
             @Override
             protected void populateViewHolder(final requestPostHolder viewHolder, ShovelingRequest model, int position) {
                 viewHolder.setAddress(model.getStreetAddress());
