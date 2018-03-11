@@ -88,7 +88,8 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="20dp"
-            android:text="Sign in" />
+            android:text="Sign in"
+            android:textColor="@color/colorAccent"/>
 
         <Space
             android:layout_width="wrap_content"
@@ -106,7 +107,8 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="20dp"
-            android:text="Register" />
+            android:text="Register"
+            android:textColor="@color/colorAccent"/>
 
         <Space
             android:layout_width="wrap_content"
@@ -124,7 +126,8 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="20dp"
-            android:text="Forgot Password?" />
+            android:text="Forgot Password?"
+            android:textColor="@color/colorAccent"/>
 
         <Space
             android:layout_width="wrap_content"
