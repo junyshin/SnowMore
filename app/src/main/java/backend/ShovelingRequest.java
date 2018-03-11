@@ -15,6 +15,7 @@ public class ShovelingRequest {
     private String phoneNumber;
     private String requestDate;
     private String requestTime;
+    private String userID;
 
     private boolean streetAddress_check;
     private boolean city_check;
@@ -154,6 +155,14 @@ public class ShovelingRequest {
 
     public void setRequestTime(String requestTime) {
         this.requestTime = requestTime;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     public Map<String, Object> toMap() {
