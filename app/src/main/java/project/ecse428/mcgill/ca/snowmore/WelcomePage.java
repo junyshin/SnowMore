@@ -62,4 +62,9 @@ public class WelcomePage extends AppCompatActivity {
         Intent intent = new Intent(this, ClientShovelerPage.class);
         startActivity(intent);
     }
+
+    public void requestButton(View view){
+        Intent intent = new Intent(this, UserShovelingRequest.class);
+        startActivity(intent);
+    }
 }

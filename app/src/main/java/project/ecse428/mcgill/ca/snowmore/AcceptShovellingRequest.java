@@ -84,7 +84,7 @@ public class AcceptShovellingRequest extends AppCompatActivity {
         context = AcceptShovellingRequest.this;
         setUpVariables();
 
-        reqRef = myRef.child("pending requests").child(postID);
+        reqRef = myRef.child("requestPost").child(postID);
         reqRefEventListener = reqRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

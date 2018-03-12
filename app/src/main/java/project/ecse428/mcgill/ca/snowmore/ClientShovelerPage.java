@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -81,7 +82,7 @@ public class ClientShovelerPage extends AppCompatActivity {
 
     public void setUpVariables() {
         mAuth = FirebaseAuth.getInstance();
-        mRequestDB = FirebaseDatabase.getInstance().getReference().child("pending requests");
+        mRequestDB = FirebaseDatabase.getInstance().getReference().child("requestPost");
         mUserDB = FirebaseDatabase.getInstance().getReference().child("Users");
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
@@ -135,6 +136,12 @@ public class ClientShovelerPage extends AppCompatActivity {
         this.firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ShovelingRequest, requestPostHolder>(ShovelingRequest.class , R.layout.list_view_layout , requestPostHolder.class , mRequestDB) {
             @Override
             protected void populateViewHolder(final requestPostHolder viewHolder, ShovelingRequest model, int position) {
+                Log.d("Get address : ", model.getStreetAddress());
+                Log.d("Get City : ", model.getCity());
+                Log.d("Get Date : ", model.getRequestDate());
+                Log.d("Get Phone : ", model.getClientNumber());
+                Log.d("Get userid: ", model.getUserID());
+
                 viewHolder.setAddress(model.getStreetAddress());
                 viewHolder.setCity(model.getCity());
                 viewHolder.setDate(model.getRequestDate());
