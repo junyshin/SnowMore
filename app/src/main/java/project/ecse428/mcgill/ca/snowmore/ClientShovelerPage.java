@@ -176,8 +176,7 @@ public class ClientShovelerPage extends AppCompatActivity {
         Intent request = new Intent(this, UserShovelingRequest.class);
         startActivity(request);
     }
-
-
+    
     public static class requestPostHolder extends RecyclerView.ViewHolder{
         View view;
 
