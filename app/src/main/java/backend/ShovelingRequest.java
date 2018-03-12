@@ -173,7 +173,7 @@ public class ShovelingRequest {
     public void setShovelerID(String shovelerID) {this.shovelerID = shovelerID;}
 
     public String getUserID() {
-        return userID;
+        return this.userID;
     }
 
     public void setUserID(String userID) {
@@ -190,6 +190,7 @@ public class ShovelingRequest {
         result.put("requestTime", requestTime);
         result.put("shovelerNumber", shovelerNumber);
         result.put("shovelerID", shovelerID);
+        result.put("UserID", userID);
         return result;
     }
 }
