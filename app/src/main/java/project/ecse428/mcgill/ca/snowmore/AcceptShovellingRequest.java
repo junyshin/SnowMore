@@ -32,7 +32,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import backend.ShovelingRequest;
 
 /**
@@ -64,6 +63,9 @@ public class AcceptShovellingRequest extends AppCompatActivity {
 
     private String postID = null;
 
+    //private Firebase mRootRef;
+    //private String postID = "-L5lxOmHA8Qa8W18aWyV";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +93,6 @@ public class AcceptShovellingRequest extends AppCompatActivity {
 
                 //check if value exists
                 if (dataSnapshot.exists()) {
-
                 shovelingRequest = dataSnapshot.getValue(ShovelingRequest.class);
                 Log.d("Got Request City", shovelingRequest.getCity());
                 Log.d("Got Request Address", shovelingRequest.getStreetAddress());
@@ -165,7 +166,7 @@ public class AcceptShovellingRequest extends AppCompatActivity {
         logout_button = (Button) findViewById(R.id.logoutButton);
 
     }
-
+  
     public void acceptButton(View view){
         // check phone number
         if (TextUtils.isEmpty(shovelerNumber.getText().toString())) {
@@ -226,5 +227,12 @@ public class AcceptShovellingRequest extends AppCompatActivity {
                 }
             });
         }
+
+    public void fetchRequestData(){
+
+    }
+
+    public void acceptButton(View view){
+
     }
 }
