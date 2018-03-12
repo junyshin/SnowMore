@@ -205,7 +205,8 @@ public class UserShovelingRequest extends AppCompatActivity {
         if (sr.checkCity(et_city.getText().toString()) && sr.checkPhoneNumber(phoneNumber.getText().toString())
                 && sr.checkPostalCode(et_postalCode.getText().toString()) && sr.checkStreetAddress(streetAddress.getText().toString())
                 && sr.checkRequestDate(requestDate.getText().toString()) && sr.checkRequestTime(requestTime.getText().toString())) {
-            postRequest(streetAddress.getText().toString() , et_city.getText().toString() , et_postalCode.getText().toString() , phoneNumber.getText().toString() , requestDate.getText().toString() , requestTime.getText().toString() , FirebaseAuth.getInstance().getCurrentUser().getUid());
+            String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            postRequest(streetAddress.getText().toString() , et_city.getText().toString() , et_postalCode.getText().toString() , phoneNumber.getText().toString() , requestDate.getText().toString() , requestTime.getText().toString() , userID);
         }
     }
 
