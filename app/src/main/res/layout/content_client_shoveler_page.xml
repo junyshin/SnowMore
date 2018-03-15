@@ -40,8 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Filter"
-                style="?android:attr/borderlessButtonStyle"
-                android:textColor="@color/colorAccent"/>
+                style="?android:attr/borderlessButtonStyle"/>
 
             <Space
                 android:layout_width="wrap_content"
@@ -53,8 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sort"
-                style="?android:attr/borderlessButtonStyle"
-                android:textColor="@color/colorAccent"/>
+                style="?android:attr/borderlessButtonStyle"/>
 
         </LinearLayout>
 
@@ -76,8 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="logoutButton"
-                android:text="Logout"
-                android:textColor="@color/colorAccent"/>
+                android:text="Logout" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -90,8 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="backButton"
-                android:text="Back"
-                android:textColor="@color/colorAccent"/>
+                android:text="Back" />
 
         </LinearLayout>
 

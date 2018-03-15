@@ -36,7 +36,7 @@
             android:id="@+id/emailLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"
+            android:hint="Username/Email"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="50dp" />
@@ -88,8 +88,7 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="20dp"
-            android:text="Sign in"
-            android:textColor="@color/colorAccent"/>
+            android:text="Sign in" />
 
         <Space
             android:layout_width="wrap_content"
@@ -107,8 +106,7 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="20dp"
-            android:text="Register"
-            android:textColor="@color/colorAccent"/>
+            android:text="Register" />
 
         <Space
             android:layout_width="wrap_content"
@@ -126,8 +124,7 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="20dp"
-            android:text="Forgot Password?"
-            android:textColor="@color/colorAccent"/>
+            android:text="Forgot Password?" />
 
         <Space
             android:layout_width="wrap_content"

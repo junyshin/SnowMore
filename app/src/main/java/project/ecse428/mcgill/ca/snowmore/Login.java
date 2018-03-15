@@ -110,12 +110,12 @@ public class Login extends AppCompatActivity {
             }
         }
         if(TextUtils.isEmpty(password_login.getText().toString())) {
-            error_message_password_login.setText("Please enter password");
+            error_message_password_login.setText("Please enter email");
             error_message_password_login.setVisibility(View.VISIBLE);
         }
         else {
             if(!user.check_password(password_login.getText().toString())) {
-                error_message_password_login.setText("Invalid password");
+                error_message_password_login.setText("Invalid email");
                 error_message_password_login.setVisibility(View.VISIBLE);
             }
             else {

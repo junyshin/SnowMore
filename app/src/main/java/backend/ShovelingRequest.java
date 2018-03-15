@@ -34,7 +34,6 @@ public class ShovelingRequest {
         this.requestTime = requestTime;
         this.requestDate = requestDate;
         this.userID = userID;
-
         streetAddress_check = false;
         city_check = false;
         postalCode_check = false;

@@ -30,9 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.852"
-        android:textColor="@color/colorAccent"
-        style="?android:attr/borderlessButtonStyle"/>
+        app:layout_constraintVertical_bias="0.852" />
 
     <Button
         android:id="@+id/Client"
@@ -47,7 +45,5 @@
         app:layout_constraintBottom_toTopOf="@+id/logoutButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        style="?android:attr/borderlessButtonStyle"
-        android:textColor="@color/colorAccent"/>
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 </android.support.constraint.ConstraintLayout>

@@ -20,7 +20,6 @@ public class WelcomePage extends AppCompatActivity {
 
     private static Button logout_button;
     private FirebaseAuth mAuth;
-    private Button clientButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +30,7 @@ public class WelcomePage extends AppCompatActivity {
         setContentView(R.layout.activity_welcome_page);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        clientButton = (Button) findViewById(R.id.Client);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         logout_button = (Button) findViewById(R.id.logoutButton);
 

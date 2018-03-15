@@ -128,8 +128,7 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="20dp"
-            android:text="Register New Account"
-            android:textColor="@color/colorAccent"/>
+            android:text="Register New Account" />
 
         <Space
             android:layout_width="wrap_content"
@@ -147,8 +146,7 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="20dp"
-            android:text="Sign in"
-            android:textColor="@color/colorAccent"/>
+            android:text="Sign in" />
 
         <Space
             android:layout_width="wrap_content"
