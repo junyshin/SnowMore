@@ -63,6 +63,16 @@ public class WelcomePage extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void myAccRequestsButton(View view){
+        Intent intent = new Intent(this, AcceptedRequestsTab.class);
+        startActivity(intent);
+    }
+
+    public void myPendRequestsButton(View view){
+        Intent intent = new Intent(this, PendingRequestsTab.class);
+        startActivity(intent);
+    }
+
     public void requestButton(View view){
         Intent intent = new Intent(this, UserShovelingRequest.class);
         startActivity(intent);
