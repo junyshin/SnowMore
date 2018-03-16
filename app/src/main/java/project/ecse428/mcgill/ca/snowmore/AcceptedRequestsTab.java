@@ -96,7 +96,7 @@ public class AcceptedRequestsTab extends AppCompatActivity {
         String currentUserID = mAuth.getCurrentUser().getUid();
         mRequestDB = FirebaseDatabase.getInstance().getReference();
 
-        mQueryAcceptedRequestDB = mRequestDB.child("accepted requests").orderByChild("shovelerID").equalTo(currentUserID);
+        mQueryAcceptedRequestDB = mRequestDB.child("accepted requests").orderByChild("UserID").equalTo(currentUserID);
 
     }
 
@@ -166,7 +166,7 @@ public class AcceptedRequestsTab extends AppCompatActivity {
                 viewHolder.setPostalCode(model.getPostalCode());
 
 
-                mUserDB.child(model.getUserID()).addValueEventListener(new ValueEventListener() {
+                mUserDB.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         String username = dataSnapshot.child("name").getValue(String.class);
