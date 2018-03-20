@@ -114,12 +114,6 @@ public class ClientShovelerPage extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //Back button action
-    public void backButton(View view) {
-        Intent back = new Intent(this, WelcomePage.class);
-        startActivity(back);
-    }
-
     //Logout button action
     public void logoutButton(View view) {
         mAuth = FirebaseAuth.getInstance();

@@ -138,7 +138,7 @@ public class Login extends AppCompatActivity {
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             //updateUI(user);
-                            Intent welcome = new Intent(context , WelcomePage.class);
+                            Intent welcome = new Intent(context , ClientShovelerPage.class);
                             startActivity(welcome);
                         } else {
                             // If sign in fails, display a message to the user.
