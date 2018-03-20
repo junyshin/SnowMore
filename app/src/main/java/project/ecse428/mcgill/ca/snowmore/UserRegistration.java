@@ -178,17 +178,6 @@ public class UserRegistration extends AppCompatActivity {
         }
     }
 
-    //Dialog cancel button
-    public void cancelDialog(View view) {
-        dialog.dismiss();
-    }
-
-    //Dialog confirm button
-    public void confirmDialog(View view) {
-        Intent signin = new Intent(this , Login.class);
-        startActivity(signin);
-    }
-
     private void showAlertDialog(String title , String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(title);
