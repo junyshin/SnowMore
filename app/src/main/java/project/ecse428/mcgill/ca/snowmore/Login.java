@@ -41,7 +41,7 @@ public class Login extends AppCompatActivity {
 
     private Button registration_button;
     private Button login_button;
-    private Dialog dialog = null;
+    private AlertDialog dialog;
     private Context context = null;
     private FirebaseAuth mAuth;
 
@@ -160,8 +160,32 @@ public class Login extends AppCompatActivity {
 
     //Forgot Password button action
     public void forgotButton(View view) {
+        if(TextUtils.isEmpty(email_login.getText().toString())) {
+            createDialog("ERROR" , "Please enter email address");
+        }
+        else {
+            mAuth.sendPasswordResetEmail(email_login.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "Email sent.");
+                        createDialog("Email sent" , "Reset password link successfully sent to the following email: " + email_login.getText().toString());
+                    }
+                }
+            });
+        }
     }
-
-
-
+    public void createDialog(String title , String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialog.dismiss();
+            }
+        });
+        dialog = builder.create();
+        dialog.show();
+    }
 }
