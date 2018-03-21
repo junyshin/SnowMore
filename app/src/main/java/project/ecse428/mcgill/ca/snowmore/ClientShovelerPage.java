@@ -216,7 +216,7 @@ public class ClientShovelerPage extends AppCompatActivity {
 
         public void setReqID (String reqId){
             TextView reqIDTextView = (TextView)view.findViewById(R.id.reqID);
-            reqIDTextView.setText(reqId);
+            reqIDTextView.setText("Request ID: " + reqId);
         }
 
     }
