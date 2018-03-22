@@ -63,12 +63,6 @@ public class UserRegistration extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_registration);
         setUpVariables();
-        //FirebaseUser user = mAuth.getCurrentUser();
-        //userID = user.getUid();
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setTitle("Snow More");
         context = UserRegistration.this;
     }
 

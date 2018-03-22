@@ -63,9 +63,6 @@ public class AcceptedRequestsTab extends AppCompatActivity {
         if(mAuth.getCurrentUser() == null) {
             goToLogin();
         }
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setTitle("Snow More");
         context = AcceptedRequestsTab.this;
 
     }
@@ -98,28 +95,6 @@ public class AcceptedRequestsTab extends AppCompatActivity {
 
         mQueryAcceptedRequestDB = mRequestDB.child("accepted requests").orderByChild("UserID").equalTo(currentUserID);
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_user_registration, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     //Back button action
