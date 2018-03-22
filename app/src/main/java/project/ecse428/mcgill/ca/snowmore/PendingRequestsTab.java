@@ -54,6 +54,8 @@ public class PendingRequestsTab extends AppCompatActivity {
     private Dialog dialog = null;
     private Context context = null;
     private Query mQuerypostRequestDB;
+    private static FirebaseRecyclerAdapter<ShovelingRequest , requestPostHolder> firebaseRecyclerAdapter;
+
 
 
     @Override
@@ -147,27 +149,18 @@ public class PendingRequestsTab extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        FirebaseRecyclerAdapter<ShovelingRequest , requestPostHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ShovelingRequest, requestPostHolder>(
-                ShovelingRequest.class ,
-                R.layout.list_view_layout ,
-                requestPostHolder.class ,
-                mQuerypostRequestDB         //use for pending requests of current user
-                //mQueryAcceptedRequestDB     // use for accepted requests of current user
-        )
-        {
-
-
-
+        this.firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ShovelingRequest, requestPostHolder>(ShovelingRequest.class , R.layout.list_view_layout , requestPostHolder.class , mQuerypostRequestDB) {         //use for pending requests of current user)
             @Override
             protected void populateViewHolder(final requestPostHolder viewHolder, ShovelingRequest model, int position) {
                 viewHolder.setAddress(model.getStreetAddress());
                 viewHolder.setCity(model.getCity());
                 viewHolder.setDate(model.getRequestDate());
                 viewHolder.setTime(model.getRequestTime());
-                //viewHolder.setPhone(model.getClientNumber());
-                //viewHolder.setPhone(model.getShovelerNumber());
+                viewHolder.setPhone(model.getClientNumber());
                 viewHolder.setPostalCode(model.getPostalCode());
-
+                DatabaseReference ref = PendingRequestsTab.firebaseRecyclerAdapter.getRef(position);
+                String reqID = ref.getKey();
+                viewHolder.setReqID(reqID);
 
                 mUserDB.child(model.getUserID()).addValueEventListener(new ValueEventListener() {
                     @Override
@@ -263,6 +256,11 @@ public class PendingRequestsTab extends AppCompatActivity {
         public void setUserName (String name) {
             TextView userNameTextView = (TextView)view.findViewById(R.id.user_tv);
             userNameTextView.setText("User: " + name);
+        }
+
+        public void setReqID (String reqId){
+            TextView reqIDTextView = (TextView)view.findViewById(R.id.reqID);
+            reqIDTextView.setText("Request ID: " + reqId);
         }
     }
 }

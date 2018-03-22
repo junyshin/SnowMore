@@ -170,7 +170,12 @@ public class ClientShovelerPage extends AppCompatActivity {
         Intent request = new Intent(this, UserShovelingRequest.class);
         startActivity(request);
     }
-    
+
+    public void backButton(View view) {
+        Intent welcomePage = new Intent(this , WelcomePage.class);
+        startActivity(welcomePage);
+    }
+
     public static class requestPostHolder extends RecyclerView.ViewHolder{
         View view;
 
