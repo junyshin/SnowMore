@@ -26,13 +26,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
 
-        <TextView
+        <ImageView
             android:id="@+id/title_tv"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SnowMore"
-            android:textSize="50dp"
-            android:gravity="center_horizontal"/>
+            android:gravity="center_horizontal"
+            android:src="@drawable/logo_v2_reduced"
+            android:layout_gravity="center_horizontal"/>
 
         <Space
             android:layout_width="wrap_content"

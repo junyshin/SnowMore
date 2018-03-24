@@ -1,6 +1,7 @@
 package project.ecse428.mcgill.ca.snowmore;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -36,6 +37,7 @@ public class Login extends AppCompatActivity {
     private EditText password_login;
     private TextView error_message_password_login;
     private TextView error_message_email_login;
+    private ProgressDialog progressDialog;
 
     private User user;
 
@@ -78,13 +80,11 @@ public class Login extends AppCompatActivity {
     }
 
     public void setUpVariables() {
-
+        progressDialog = new ProgressDialog(this);
         email_login = (EditText) findViewById(R.id.emailLogin);
         password_login = (EditText) findViewById(R.id.passwordLogin);
         error_message_password_login = (TextView) findViewById(R.id.error_message_password_login);
         error_message_email_login = (TextView) findViewById(R.id.error_message_email_login);
-
-
         login_button = (Button) findViewById(R.id.loginbutton);
         registration_button = (Button) findViewById(R.id.registerbuttonLogin);
         user = new User();
@@ -96,6 +96,8 @@ public class Login extends AppCompatActivity {
     }
 
     private void login() {
+        progressDialog.setMessage("Please wait...");
+        progressDialog.show();
         if(TextUtils.isEmpty(email_login.getText().toString())) {
             error_message_email_login.setText("Please enter email");
             error_message_email_login.setVisibility(View.VISIBLE);
@@ -132,7 +134,7 @@ public class Login extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-
+                        progressDialog.dismiss();
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");

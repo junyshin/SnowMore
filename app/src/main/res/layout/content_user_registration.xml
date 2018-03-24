@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:paddingTop="20dp"
-            android:src="@drawable/logo" />
+            android:src="@drawable/logo_v2_reduced" />
 
 
         <EditText
