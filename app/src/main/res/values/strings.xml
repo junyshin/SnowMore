@@ -4,4 +4,9 @@
     <string name="title_activity_mock">MockActivity</string>
     <string name="title_activity_welcome_page">WelcomePage</string>
     <string name="String">Phone Number:</string>
+    <string name="title_activity_request">RequestActivity</string>
+    <string name="tab_text_1">All Requests</string>
+    <string name="tab_text_2">Accepted Requests</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_splash">SplashActivity</string>
 </resources>

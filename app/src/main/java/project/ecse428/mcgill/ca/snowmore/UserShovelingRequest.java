@@ -227,7 +227,10 @@ public class UserShovelingRequest extends AppCompatActivity {
                 requestTime.setText(null);
                 et_city.setText(null);
                 et_postalCode.setText(null);
-                Toast.makeText(UserShovelingRequest.this , "Success!" , Toast.LENGTH_LONG).show();
+                finish();
+                Intent intent = new Intent(UserShovelingRequest.this , ClientShovelerPage.class);
+                startActivity(intent);
+//                Toast.makeText(UserShovelingRequest.this , "Success!" , Toast.LENGTH_LONG).show();
             }
         });
     }

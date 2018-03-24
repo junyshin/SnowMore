@@ -1,6 +1,7 @@
 package project.ecse428.mcgill.ca.snowmore;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -36,12 +37,13 @@ public class Login extends AppCompatActivity {
     private EditText password_login;
     private TextView error_message_password_login;
     private TextView error_message_email_login;
+    private ProgressDialog progressDialog;
 
     private User user;
 
     private Button registration_button;
     private Button login_button;
-    private Dialog dialog = null;
+    private AlertDialog dialog;
     private Context context = null;
     private FirebaseAuth mAuth;
 
@@ -78,13 +80,11 @@ public class Login extends AppCompatActivity {
     }
 
     public void setUpVariables() {
-
+        progressDialog = new ProgressDialog(this);
         email_login = (EditText) findViewById(R.id.emailLogin);
         password_login = (EditText) findViewById(R.id.passwordLogin);
         error_message_password_login = (TextView) findViewById(R.id.error_message_password_login);
         error_message_email_login = (TextView) findViewById(R.id.error_message_email_login);
-
-
         login_button = (Button) findViewById(R.id.loginbutton);
         registration_button = (Button) findViewById(R.id.registerbuttonLogin);
         user = new User();
@@ -96,6 +96,8 @@ public class Login extends AppCompatActivity {
     }
 
     private void login() {
+        progressDialog.setMessage("Please wait...");
+        progressDialog.show();
         if(TextUtils.isEmpty(email_login.getText().toString())) {
             error_message_email_login.setText("Please enter email");
             error_message_email_login.setVisibility(View.VISIBLE);
@@ -132,19 +134,18 @@ public class Login extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-
+                        progressDialog.dismiss();
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             //updateUI(user);
-                            Intent welcome = new Intent(context , WelcomePage.class);
+                            Intent welcome = new Intent(context , ClientShovelerPage    .class);
                             startActivity(welcome);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(Login.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            createDialog("Authentication Failed" , "Wrong Email or Password");
                             //updateUI(null);
                         }
 
@@ -160,8 +161,32 @@ public class Login extends AppCompatActivity {
 
     //Forgot Password button action
     public void forgotButton(View view) {
+        if(TextUtils.isEmpty(email_login.getText().toString())) {
+            createDialog("ERROR" , "Please enter email address");
+        }
+        else {
+            mAuth.sendPasswordResetEmail(email_login.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "Email sent.");
+                        createDialog("Email sent" , "Reset password link successfully sent to the following email: " + email_login.getText().toString());
+                    }
+                }
+            });
+        }
     }
-
-
-
+    public void createDialog(String title , String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialog.dismiss();
+            }
+        });
+        dialog = builder.create();
+        dialog.show();
+    }
 }

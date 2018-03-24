@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="project.ecse428.mcgill.ca.snowmore.PendingRequestsTab"
+    tools:showIn="@layout/activity_my_pending_requests">
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity = "fill"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
@@ -21,49 +25,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
-        <ImageButton
-            android:id="@+id/add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            app:srcCompat="@android:drawable/ic_input_add"
-            android:onClick="addPostButton"
-            style="?android:attr/borderlessButtonStyle"/>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Pending Requests"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
-            <Button
-                android:id="@+id/filters3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Filter"
-                android:textColor="@color/colorAccent"
-                style="?android:attr/borderlessButtonStyle"/>
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"/>
-
-            <Button
-                android:id="@+id/sort"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sort"
-                android:textColor="@color/colorAccent"
-                style="?android:attr/borderlessButtonStyle"/>
-
-        </LinearLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:clickable="true" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_myRequest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:clickable="true"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -93,8 +68,11 @@
                 android:text="Logout"
                 android:textColor="@color/colorAccent"/>
 
+
         </LinearLayout>
 
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
+
+
