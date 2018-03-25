@@ -78,6 +78,7 @@ public class AcceptShovellingRequest extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             this.postID = extras.getString("requestID");
+            Log.d("Got request ID: ", this.postID);
         }
 
         context = AcceptShovellingRequest.this;

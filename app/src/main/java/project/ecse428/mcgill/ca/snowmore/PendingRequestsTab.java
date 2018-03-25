@@ -45,8 +45,6 @@ import java.util.Map;
 
 public class PendingRequestsTab extends AppCompatActivity {
 
-
-    private static final String TAG = "EmailPassword";
     private FirebaseAuth mAuth;
     private DatabaseReference mRequestDB;
     private DatabaseReference mUserDB;
@@ -117,7 +115,11 @@ public class PendingRequestsTab extends AppCompatActivity {
     }
 
     public void onRequestClick(View view) {
-        createDialog();
+        TextView reqIDTextView = (TextView)view.findViewById(R.id.reqID);
+        CharSequence reqID = reqIDTextView.getText();
+        // parse to get JUST the request ID
+        reqID = reqID.subSequence(12, reqID.length());
+        createDialog(reqID);
     }
 
     @Override
@@ -157,7 +159,7 @@ public class PendingRequestsTab extends AppCompatActivity {
     }
 
 
-    public void createDialog() {
+    public void createDialog(final CharSequence requestID) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Remove this request?");
@@ -166,15 +168,10 @@ public class PendingRequestsTab extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 //REMOVE THIS REQUEST FROM FIREBASE
-                //REMOVE THIS REQUEST FROM FIREBASE
-                //REMOVE THIS REQUEST FROM FIREBASE
-                //REMOVE THIS REQUEST FROM FIREBASE
-                //REMOVE THIS REQUEST FROM FIREBASE
+                mRequestDB.child("requestPost").child((String)requestID).removeValue();
 
                 //THIS REMOVES ALL THE PENDING REQUEST NOT JUST ONE
                 //mRequestDB.child("requestPost").removeValue();
-
-
 
             }
         });
