@@ -126,7 +126,11 @@ public class PendingRequestsTab extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        this.firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ShovelingRequest, requestPostHolder>(ShovelingRequest.class , R.layout.list_view_layout , requestPostHolder.class , mQuerypostRequestDB) {         //use for pending requests of current user)
+        this.firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ShovelingRequest, requestPostHolder>(
+                ShovelingRequest.class,
+                R.layout.list_view_layout,
+                requestPostHolder.class,
+                mQuerypostRequestDB) {         //use for accepted requests of current user)
             @Override
             protected void populateViewHolder(final requestPostHolder viewHolder, ShovelingRequest model, int position) {
                 viewHolder.setAddress(model.getStreetAddress());

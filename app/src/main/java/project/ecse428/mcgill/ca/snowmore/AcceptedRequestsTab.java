@@ -38,12 +38,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.HashMap;
 import java.util.Map;
 
 
-public class AcceptedRequestsTab extends AppCompatActivity {
+public class AcceptedRequestsTab extends AppCompatActivity{
 
 
     private static final String TAG = "EmailPassword";
@@ -54,6 +55,9 @@ public class AcceptedRequestsTab extends AppCompatActivity {
     private Dialog dialog = null;
     private Context context = null;
     private Query mQueryAcceptedRequestDB;
+    public static FirebaseRecyclerAdapter<ShovelingRequest , requestPostHolder> firebaseRecyclerAdapter;
+    String token = FirebaseInstanceId.getInstance().getToken();
+    private static final String regToken = "regToken";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,14 +117,18 @@ public class AcceptedRequestsTab extends AppCompatActivity {
     }
 
     public void onRequestClick(View view) {
-        createDialog();
+        TextView reqIDTextView = (TextView)view.findViewById(R.id.reqID);
+        CharSequence reqID = reqIDTextView.getText();
+        // parse to get JUST the request ID
+        reqID = reqID.subSequence(12, reqID.length());
+        createDialog(reqID);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        FirebaseRecyclerAdapter<ShovelingRequest , requestPostHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ShovelingRequest, requestPostHolder>(
+        this.firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ShovelingRequest, requestPostHolder>(
                 ShovelingRequest.class ,
                 R.layout.list_view_layout ,
                 requestPostHolder.class ,
@@ -139,7 +147,9 @@ public class AcceptedRequestsTab extends AppCompatActivity {
                 //viewHolder.setPhone(model.getClientNumber());
                 //viewHolder.setPhone(model.getShovelerNumber());
                 viewHolder.setPostalCode(model.getPostalCode());
-
+                DatabaseReference ref = AcceptedRequestsTab.firebaseRecyclerAdapter.getRef(position);
+                String reqID = ref.getKey();
+                viewHolder.setReqID(reqID);
 
                 mUserDB.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                     @Override
@@ -161,7 +171,7 @@ public class AcceptedRequestsTab extends AppCompatActivity {
     }
 
 
-    public void createDialog() {
+    public void createDialog(final CharSequence requestID) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Remove this request?");
@@ -169,17 +179,7 @@ public class AcceptedRequestsTab extends AppCompatActivity {
         builder.setPositiveButton("Remove", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                //REMOVE THIS REQUEST FROM FIREBASE
-                //REMOVE THIS REQUEST FROM FIREBASE
-                //REMOVE THIS REQUEST FROM FIREBASE
-                //REMOVE THIS REQUEST FROM FIREBASE
-                //REMOVE THIS REQUEST FROM FIREBASE
-
-
-                //THIS REMOVES ALL THE ACCEPTED REQUEST NOT JUST ONE
-                //mRequestDB.child("accepted requests").removeValue();
-
-
+                mRequestDB.child("accepted requests").child((String)requestID).removeValue();
 
             }
         });
@@ -236,6 +236,11 @@ public class AcceptedRequestsTab extends AppCompatActivity {
         public void setUserName (String name) {
             TextView userNameTextView = (TextView)view.findViewById(R.id.user_tv);
             userNameTextView.setText("User: " + name);
+        }
+
+        public void setReqID (String reqId){
+            TextView reqIDTextView = (TextView)view.findViewById(R.id.reqID);
+            reqIDTextView.setText("Request ID: " + reqId);
         }
     }
 }
