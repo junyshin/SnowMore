@@ -112,12 +112,12 @@ public class Login extends AppCompatActivity {
             }
         }
         if(TextUtils.isEmpty(password_login.getText().toString())) {
-            error_message_password_login.setText("Please enter email");
+            error_message_password_login.setText("Please enter password");
             error_message_password_login.setVisibility(View.VISIBLE);
         }
         else {
             if(!user.check_password(password_login.getText().toString())) {
-                error_message_password_login.setText("Invalid email");
+                error_message_password_login.setText("Invalid password");
                 error_message_password_login.setVisibility(View.VISIBLE);
             }
             else {
@@ -140,7 +140,7 @@ public class Login extends AppCompatActivity {
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             //updateUI(user);
-                            Intent welcome = new Intent(context , ClientShovelerPage    .class);
+                            Intent welcome = new Intent(context , WelcomePage.class);
                             startActivity(welcome);
                         } else {
                             // If sign in fails, display a message to the user.

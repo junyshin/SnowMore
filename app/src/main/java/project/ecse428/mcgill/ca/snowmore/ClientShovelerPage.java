@@ -60,11 +60,7 @@ public class ClientShovelerPage extends AppCompatActivity {
         if(mAuth.getCurrentUser() == null) {
             goToLogin();
         }
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setTitle("Snow More");
         context = ClientShovelerPage.this;
-        //setUpVariables();
     }
 
     private void goToLogin() {

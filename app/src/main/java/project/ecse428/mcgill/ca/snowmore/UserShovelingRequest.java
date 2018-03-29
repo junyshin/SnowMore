@@ -75,9 +75,6 @@ public class UserShovelingRequest extends AppCompatActivity {
         //FirebaseUser user = mAuth.getCurrentUser();
         //userID = user.getUid();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setTitle("Snow More");
         context = UserShovelingRequest.this;
         setUpVariables();
     }
