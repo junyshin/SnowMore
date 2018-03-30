@@ -40,14 +40,14 @@ public class RevampingUIPathTest {
 
     }
 
- /*   @Test
+    @Test
     public void LoginTest() throws Exception {
 
         onView(withId(R.id.emailLogin)).perform(typeText("test@hotmail.com"));
         onView(withId(R.id.passwordLogin)).perform(typeText("Test@1234"));
         onView(withId(R.id.loginbutton)).perform(click());
     }
-    */
+
 
 
 
