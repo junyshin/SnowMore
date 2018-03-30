@@ -27,6 +27,77 @@ public class RevampingUIPathTest {
     @Rule
     public ActivityTestRule<Login> mActivityRule =
             new ActivityTestRule(Login.class);
+    @Test
+    public void LoginTest1() throws Exception {
+        //user enters credentials then logs out
+
+        onView(withId(R.id.emailLogin)).perform(typeText("test@mail.com"));
+        onView(withId(R.id.passwordLogin)).perform(typeText("Test@1234")).perform(closeSoftKeyboard());
+        onView(withId(R.id.loginbutton)).perform(click());
+        Thread.sleep(5000);
+        onView(withId(R.id.Client)).perform(click());
+        Thread.sleep(5000);
+        onView(withId(R.id.logout)).perform(click());
+
+
+    }
+
+
+    @Test
+    public void LoginTest2() throws Exception {
+        //user enters credentials then  goes back
+
+        onView(withId(R.id.emailLogin)).perform(typeText("test@mail.com"));
+        onView(withId(R.id.passwordLogin)).perform(typeText("Test@1234")).perform(closeSoftKeyboard());
+        onView(withId(R.id.loginbutton)).perform(click());
+        Thread.sleep(5000);
+        onView(withId(R.id.Client)).perform(click());
+        Thread.sleep(2000);
+        onView(withId(R.id.backButton)).perform(click());
+        Thread.sleep(2000);
+
+
+    }
+
+    @Test
+    public void LoginTest3() throws Exception {
+        //user enters credentials then  logs out
+
+        onView(withId(R.id.emailLogin)).perform(typeText("test@mail.com"));
+        onView(withId(R.id.passwordLogin)).perform(typeText("Test@1234")).perform(closeSoftKeyboard());
+        onView(withId(R.id.loginbutton)).perform(click());
+        Thread.sleep(5000);
+        onView(withId(R.id.logoutButton)).perform(click());
+        Thread.sleep(2000);
+
+
+    }
+
+    @Test
+    public void postingRequestTest() throws Exception {
+        //user enters credentials then  posts a shoveling request
+
+        onView(withId(R.id.emailLogin)).perform(typeText("test@mail.com"));
+        onView(withId(R.id.passwordLogin)).perform(typeText("Test@1234")).perform(closeSoftKeyboard());
+        onView(withId(R.id.loginbutton)).perform(click());
+        Thread.sleep(10000);
+        onView(withId(R.id.Client)).perform(click());
+        Thread.sleep(2000);
+        onView(withId(R.id.add)).perform(click());
+        Thread.sleep(2000);
+        onView(withId(R.id.streetAddress)).perform(typeText("Saint-Catherine"));
+        onView(withId(R.id.city)).perform(typeText("Montreal")).perform(closeSoftKeyboard());
+        onView(withId(R.id.postalCode)).perform(typeText("H2X3P9")).perform(closeSoftKeyboard());
+        onView(withId(R.id.phoneNumber)).perform(typeText("5149699222")).perform(closeSoftKeyboard());
+        onView(withId(R.id.requestDate)).perform(typeText("7-3-2018")).perform(closeSoftKeyboard());
+        onView(withId(R.id.requestTime)).perform(typeText("19:1")).perform(closeSoftKeyboard());
+        onView(withId(R.id.postButton)).perform(click());
+        Thread.sleep(2000);
+
+
+    }
+
+
 
     @Test
     public void RegisterTest() throws Exception {
@@ -40,23 +111,5 @@ public class RevampingUIPathTest {
 
     }
 
-    @Test
-    public void LoginTest() throws Exception {
 
-        onView(withId(R.id.emailLogin)).perform(typeText("test@hotmail.com"));
-        onView(withId(R.id.passwordLogin)).perform(typeText("Test@1234"));
-        onView(withId(R.id.loginbutton)).perform(click());
-    }
-
-
-
-
-  /*  @Test
-    public void useAppContext() throws Exception {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getTargetContext();
-
-        assertEquals("project.ecse428.mcgill.ca.snowmore", appContext.getPackageName());
-    }
-    */
 }
