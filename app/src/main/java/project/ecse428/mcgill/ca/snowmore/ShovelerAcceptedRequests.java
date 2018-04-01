@@ -142,10 +142,11 @@ public class ShovelerAcceptedRequests extends AppCompatActivity{
                 viewHolder.setCity(model.getCity());
                 viewHolder.setDate(model.getRequestDate());
                 viewHolder.setTime(model.getRequestTime());
-                //viewHolder.setPhone(model.getClientNumber());
+                viewHolder.setPhone(model.getClientNumber());
+                viewHolder.setStatus(model.getisCancelled());
                 //viewHolder.setPhone(model.getShovelerNumber());
                 viewHolder.setPostalCode(model.getPostalCode());
-                DatabaseReference ref = AcceptedRequestsTab.firebaseRecyclerAdapter.getRef(position);
+                DatabaseReference ref = ShovelerAcceptedRequests.firebaseRecyclerAdapter.getRef(position);
                 String reqID = ref.getKey();
                 viewHolder.setReqID(reqID);
 

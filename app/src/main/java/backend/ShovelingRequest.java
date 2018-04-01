@@ -16,7 +16,7 @@ public class ShovelingRequest {
     private String clientNumber;
     private String requestDate;
     private String requestTime;
-    private String userID;
+    private String UserID;
     private String shovelerID;
     private String isCancelled = "Valid";
 
@@ -34,7 +34,7 @@ public class ShovelingRequest {
         this.clientNumber = phoneNumber;
         this.requestTime = requestTime;
         this.requestDate = requestDate;
-        this.userID = userID;
+        this.UserID = userID;
         this.isCancelled = "Valid";
         streetAddress_check = false;
         city_check = false;
@@ -143,6 +143,10 @@ public class ShovelingRequest {
         return this.requestTime;
     }
 
+    public String getshovelerID() {return this.shovelerID;}
+
+    public String getisCancelled() {return this.isCancelled;}
+
     public void setStreetAddress(String address) {
         this.streetAddress = address;
     }
@@ -171,9 +175,9 @@ public class ShovelingRequest {
         this.requestTime = requestTime;
     }
 
-    public void setShovelerID(String shovelerID) {this.shovelerID = shovelerID;}
+    public void setshovelerID(String shovelerID) {this.shovelerID = shovelerID;}
 
-    public void setStatus(String status){
+    public void setisCancelled(String status){
         if (status.equals("Cancelled") || status.equals("cancelled")){
             this.isCancelled = "Cancelled";
         }
@@ -187,11 +191,11 @@ public class ShovelingRequest {
     }
 
     public String getUserID() {
-        return this.userID;
+        return this.UserID;
     }
 
     public void setUserID(String userID) {
-        this.userID = userID;
+        this.UserID = userID;
     }
 
     public Map<String, Object> toMap() {
@@ -204,7 +208,7 @@ public class ShovelingRequest {
         result.put("requestTime", requestTime);
         result.put("shovelerNumber", shovelerNumber);
         result.put("shovelerID", shovelerID);
-        result.put("UserID", userID);
+        result.put("UserID", UserID);
         result.put("isCancelled", isCancelled);
         return result;
     }

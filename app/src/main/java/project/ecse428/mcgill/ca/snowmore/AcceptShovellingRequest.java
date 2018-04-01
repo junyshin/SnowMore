@@ -156,7 +156,7 @@ public class AcceptShovellingRequest extends AppCompatActivity {
             shovelingRequest.setShovelerNumber(shovelerNumber.getText().toString());
             // add shovelerId to request Object
             String shovelerID = mAuth.getCurrentUser().getUid();
-            shovelingRequest.setShovelerID(shovelerID);
+            shovelingRequest.setshovelerID(shovelerID);
             Map<String, Object> reqMap;
             reqMap = shovelingRequest.toMap();
 
