@@ -62,7 +62,7 @@ public class ShovelerAcceptedRequests extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_accepted_requests);
+        setContentView(R.layout.activity_shoveler_accepted_requests);
         setUpVariables();
         if(mAuth.getCurrentUser() == null) {
             goToLogin();

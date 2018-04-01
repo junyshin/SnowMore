@@ -16,19 +16,20 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="1.0">
+
 
         <ImageButton
             android:id="@+id/add"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            app:srcCompat="@android:drawable/ic_input_add"
             android:onClick="addPostButton"
-            style="?android:attr/borderlessButtonStyle"/>
+            app:srcCompat="@android:drawable/ic_input_add" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,24 +38,24 @@
 
             <Button
                 android:id="@+id/filters3"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Filter"
-                android:textColor="@color/colorAccent"
-                style="?android:attr/borderlessButtonStyle"/>
+                android:textColor="@color/colorAccent" />
 
             <Space
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <Button
                 android:id="@+id/sort"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sort"
-                android:textColor="@color/colorAccent"
-                style="?android:attr/borderlessButtonStyle"/>
+                android:textColor="@color/colorAccent" />
 
         </LinearLayout>
 
@@ -77,12 +78,12 @@
                 android:layout_height="wrap_content"
                 android:onClick="backButton"
                 android:text="Back"
-                android:textColor="@color/colorAccent"/>
+                android:textColor="@color/colorAccent" />
 
             <Space
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <Button
                 android:id="@+id/logout"
@@ -91,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:onClick="logoutButton"
                 android:text="Logout"
-                android:textColor="@color/colorAccent"/>
+                android:textColor="@color/colorAccent" />
 
         </LinearLayout>
 
