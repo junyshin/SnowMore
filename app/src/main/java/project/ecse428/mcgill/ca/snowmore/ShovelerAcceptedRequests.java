@@ -46,8 +46,6 @@ import java.util.Map;
 
 public class ShovelerAcceptedRequests extends AppCompatActivity{
 
-
-    private static final String TAG = "EmailPassword";
     private FirebaseAuth mAuth;
     private DatabaseReference mRequestDB;
     private DatabaseReference mUserDB;
@@ -130,7 +128,7 @@ public class ShovelerAcceptedRequests extends AppCompatActivity{
 
         this.firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ShovelingRequest, requestPostHolder>(
                 ShovelingRequest.class ,
-                R.layout.list_view_layout ,
+                R.layout.shoveler_list_view_layout ,
                 requestPostHolder.class ,
                 //mQueryRequestDB         //use for posts made by current user
                 mQueryAcceptedRequestDB     // use for accepted requests of current user
@@ -173,24 +171,45 @@ public class ShovelerAcceptedRequests extends AppCompatActivity{
 
     public void createDialog(final CharSequence requestID) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Remove this request?");
-
-        builder.setPositiveButton("Remove", new DialogInterface.OnClickListener() {
+        DatabaseReference thisReqRef = mRequestDB.child("accepted requests").child((String) requestID);
+        ValueEventListener thisReqRefEventListener = thisReqRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                mRequestDB.child("accepted requests").child((String)requestID).removeValue();
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
+                //check if value exists
+                if (dataSnapshot.exists()) {
+                    ShovelingRequest shovelingRequest = dataSnapshot.getValue(ShovelingRequest.class);
+
+                    if (shovelingRequest.getStatus() == "Cancelled") {
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ShovelerAcceptedRequests.this);
+                        builder.setTitle("Remove this request?");
+
+                        builder.setPositiveButton("Remove", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                mRequestDB.child("accepted requests").child((String) requestID).removeValue();
+
+                            }
+                        });
+                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //dialog.dismiss();
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Log.d("Database Error", error.getMessage());
             }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                //dialog.dismiss();
-            }
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
     }
 
     public static class requestPostHolder extends RecyclerView.ViewHolder{
@@ -201,6 +220,11 @@ public class ShovelerAcceptedRequests extends AppCompatActivity{
         public requestPostHolder(View itemView) {
             super(itemView);
             view = itemView;
+        }
+
+        public void setStatus(String status){
+            TextView statusTxtView = (TextView)view.findViewById(R.id.status);
+            statusTxtView.setText("Status: " + status);
         }
 
         public void setCity(String city){

@@ -172,6 +172,7 @@ public class PendingRequestsTab extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 //REMOVE THIS REQUEST FROM FIREBASE
+                // Since pending requests were not accepted by any shoveler, they can be easily removed
                 mRequestDB.child("requestPost").child((String)requestID).removeValue();
 
                 //THIS REMOVES ALL THE PENDING REQUEST NOT JUST ONE

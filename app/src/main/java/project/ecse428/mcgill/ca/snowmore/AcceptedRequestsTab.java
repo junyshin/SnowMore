@@ -179,7 +179,9 @@ public class AcceptedRequestsTab extends AppCompatActivity{
         builder.setPositiveButton("Remove", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                mRequestDB.child("accepted requests").child((String)requestID).removeValue();
+                // don't remove this request yet! change the status until the shoveler sees that it was removed
+                mRequestDB.child("accepted requests").child((String)requestID).child("isCancelled").setValue("Cancelled");
+                //mRequestDB.child("accepted requests").child((String)requestID).removeValue();
 
             }
         });

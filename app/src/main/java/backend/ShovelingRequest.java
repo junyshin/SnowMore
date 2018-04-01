@@ -18,6 +18,7 @@ public class ShovelingRequest {
     private String requestTime;
     private String userID;
     private String shovelerID;
+    private String isCancelled = "Valid";
 
     private boolean streetAddress_check;
     private boolean city_check;
@@ -34,6 +35,7 @@ public class ShovelingRequest {
         this.requestTime = requestTime;
         this.requestDate = requestDate;
         this.userID = userID;
+        this.isCancelled = "Valid";
         streetAddress_check = false;
         city_check = false;
         postalCode_check = false;
@@ -171,6 +173,19 @@ public class ShovelingRequest {
 
     public void setShovelerID(String shovelerID) {this.shovelerID = shovelerID;}
 
+    public void setStatus(String status){
+        if (status.equals("Cancelled") || status.equals("cancelled")){
+            this.isCancelled = "Cancelled";
+        }
+        else{
+            this.isCancelled = "Valid";
+        }
+    }
+
+    public String getStatus(){
+        return this.isCancelled;
+    }
+
     public String getUserID() {
         return this.userID;
     }
@@ -190,6 +205,7 @@ public class ShovelingRequest {
         result.put("shovelerNumber", shovelerNumber);
         result.put("shovelerID", shovelerID);
         result.put("UserID", userID);
+        result.put("isCancelled", isCancelled);
         return result;
     }
 }
