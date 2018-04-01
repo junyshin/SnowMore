@@ -8,12 +8,6 @@
     tools:context="project.ecse428.mcgill.ca.snowmore.Login"
     android:background="@drawable/background">
 
-    <include layout="@layout/content_client_shoveler_page" />
+    <include layout="@layout/content_shoveler_client_page" />
 
 </android.support.design.widget.CoordinatorLayout>
-
-
-
-
-
-

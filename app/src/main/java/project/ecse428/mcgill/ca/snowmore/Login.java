@@ -1,6 +1,5 @@
 package project.ecse428.mcgill.ca.snowmore;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -18,7 +16,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -38,6 +35,7 @@ public class Login extends AppCompatActivity {
     private TextView error_message_password_login;
     private TextView error_message_email_login;
     private ProgressDialog progressDialog;
+    private int state;
 
     private User user;
 
@@ -92,10 +90,11 @@ public class Login extends AppCompatActivity {
 
     //Sign In button action leads to a welcome page FOR NOW! (TEST)
     public void signInButton(View view) {
-        login();
+        state = 0;
+        loginShoveler();
     }
 
-    private void login() {
+    private void loginShoveler() {
         progressDialog.setMessage("Please wait...");
         progressDialog.show();
         if(TextUtils.isEmpty(email_login.getText().toString())) {
@@ -125,11 +124,11 @@ public class Login extends AppCompatActivity {
             }
         }
         if(!TextUtils.isEmpty(email_login.getText().toString()) && !TextUtils.isEmpty(password_login.getText().toString())) {
-            checkLogin();
+            checkLoginShoveler();
         }
     }
 
-    public void checkLogin(){
+    public void checkLoginShoveler(){
         mAuth.signInWithEmailAndPassword(email_login.getText().toString(), password_login.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -140,7 +139,67 @@ public class Login extends AppCompatActivity {
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             //updateUI(user);
-                            Intent welcome = new Intent(context , WelcomePage.class);
+                            Intent welcome = new Intent(context , ClientShovelerPage.class);
+                            welcome.putExtra("state" , state);
+                            startActivity(welcome);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            createDialog("Authentication Failed" , "Wrong Email or Password");
+                            //updateUI(null);
+                        }
+
+                    }
+                });
+    }
+
+    private void loginClient() {
+        progressDialog.setMessage("Please wait...");
+        progressDialog.show();
+        if(TextUtils.isEmpty(email_login.getText().toString())) {
+            error_message_email_login.setText("Please enter email");
+            error_message_email_login.setVisibility(View.VISIBLE);
+        }
+        else {
+            if(!user.check_email(email_login.getText().toString())) {
+                error_message_email_login.setText("Invalid email");
+                error_message_email_login.setVisibility(View.VISIBLE);
+            }
+            else {
+                error_message_email_login.setVisibility(View.INVISIBLE);
+            }
+        }
+        if(TextUtils.isEmpty(password_login.getText().toString())) {
+            error_message_password_login.setText("Please enter password");
+            error_message_password_login.setVisibility(View.VISIBLE);
+        }
+        else {
+            if(!user.check_password(password_login.getText().toString())) {
+                error_message_password_login.setText("Invalid password");
+                error_message_password_login.setVisibility(View.VISIBLE);
+            }
+            else {
+                error_message_password_login.setVisibility(View.INVISIBLE);
+            }
+        }
+        if(!TextUtils.isEmpty(email_login.getText().toString()) && !TextUtils.isEmpty(password_login.getText().toString())) {
+            checkLoginClient();
+        }
+    }
+
+    public void checkLoginClient(){
+        mAuth.signInWithEmailAndPassword(email_login.getText().toString(), password_login.getText().toString())
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        progressDialog.dismiss();
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            //updateUI(user);
+                            Intent welcome = new Intent(context , ClientShovelerPage.class);
+                            welcome.putExtra("state" , state);
                             startActivity(welcome);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -188,5 +247,10 @@ public class Login extends AppCompatActivity {
         });
         dialog = builder.create();
         dialog.show();
+    }
+
+    public void signInButtonClient(View view) {
+        state = 1;
+        loginClient();
     }
 }

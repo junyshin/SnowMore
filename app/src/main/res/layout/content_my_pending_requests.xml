@@ -48,12 +48,12 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/backButton"
+                android:id="@+id/allRequestsButton"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="backButton"
-                android:text="Back"
+                android:onClick="allRequestsButton"
+                android:text="All Requests"
                 android:textColor="#0000FF"
                 android:textStyle="bold"/>
 
