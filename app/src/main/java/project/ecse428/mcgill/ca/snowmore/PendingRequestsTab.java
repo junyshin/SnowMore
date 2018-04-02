@@ -27,8 +27,6 @@ import com.google.firebase.database.ValueEventListener;
 
 public class PendingRequestsTab extends AppCompatActivity {
 
-
-    private static final String TAG = "EmailPassword";
     private FirebaseAuth mAuth;
     private DatabaseReference mRequestDB;
     private DatabaseReference mUserDB;
@@ -100,14 +98,22 @@ public class PendingRequestsTab extends AppCompatActivity {
     }
 
     public void onRequestClick(View view) {
-        createDialog();
+        TextView reqIDTextView = (TextView)view.findViewById(R.id.reqID);
+        CharSequence reqID = reqIDTextView.getText();
+        // parse to get JUST the request ID
+        reqID = reqID.subSequence(12, reqID.length());
+        createDialog(reqID);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        this.firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ShovelingRequest, requestPostHolder>(ShovelingRequest.class , R.layout.list_view_layout , requestPostHolder.class , mQuerypostRequestDB) {         //use for pending requests of current user)
+        this.firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ShovelingRequest, requestPostHolder>(
+                ShovelingRequest.class,
+                R.layout.list_view_layout,
+                requestPostHolder.class,
+                mQuerypostRequestDB) {         //use for accepted requests of current user)
             @Override
             protected void populateViewHolder(final requestPostHolder viewHolder, ShovelingRequest model, int position) {
                 viewHolder.setAddress(model.getStreetAddress());
@@ -140,7 +146,7 @@ public class PendingRequestsTab extends AppCompatActivity {
     }
 
 
-    public void createDialog() {
+    public void createDialog(final CharSequence requestID) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Remove this request?");
@@ -149,15 +155,11 @@ public class PendingRequestsTab extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 //REMOVE THIS REQUEST FROM FIREBASE
-                //REMOVE THIS REQUEST FROM FIREBASE
-                //REMOVE THIS REQUEST FROM FIREBASE
-                //REMOVE THIS REQUEST FROM FIREBASE
-                //REMOVE THIS REQUEST FROM FIREBASE
+                // Since pending requests were not accepted by any shoveler, they can be easily removed
+                mRequestDB.child("requestPost").child((String)requestID).removeValue();
 
                 //THIS REMOVES ALL THE PENDING REQUEST NOT JUST ONE
                 //mRequestDB.child("requestPost").removeValue();
-
-
 
             }
         });

@@ -27,8 +27,18 @@
             android:id="@+id/reqID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="reqID"
-            android:textColor="@color/white"/>
+            android:text="reqID" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="status"/>
 
         <Space
             android:layout_width="wrap_content"
@@ -41,8 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:inputType="textPersonName"
-            android:text="Username"
-            android:textColor="@color/white"/>
+            android:text="Username" />
 
         <Space
             android:layout_width="wrap_content"
@@ -55,8 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:inputType="textPostalAddress"
-            android:text="Montreal"
-            android:textColor="@color/white"/>
+            android:text="Montreal" />
 
         <Space
             android:layout_width="wrap_content"
@@ -69,8 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:inputType="date"
-            android:text="12-02-2018"
-            android:textColor="@color/white"/>
+            android:text="12-02-2018" />
 
         <Space
             android:layout_width="wrap_content"
@@ -83,8 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:inputType="time"
-            android:text="10:22"
-            android:textColor="@color/white"/>
+            android:text="10:22" />
 
         <Space
             android:layout_width="wrap_content"
@@ -97,8 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:inputType="textPostalAddress"
-            android:text="H3G2A5"
-            android:textColor="@color/white"/>
+            android:text="H3G2A5" />
 
         <TextView
             android:id="@+id/address"
@@ -106,8 +111,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:inputType="textPostalAddress"
-            android:text="3546 Peel street"
-            android:textColor="@color/white"/>
+            android:text="3546 Peel street" />
 
         <Space
             android:layout_width="wrap_content"
@@ -120,8 +124,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:inputType="phone"
-            android:text="5144308272"
-            android:textColor="@color/white"/>
+            android:text="5144308272" />
 
     </LinearLayout>
 

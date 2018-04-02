@@ -226,6 +226,8 @@ public class ClientShovelerPage extends AppCompatActivity {
     public void onRequestClick(View v) {
         TextView reqIDTextView = (TextView)v.findViewById(R.id.reqID);
         CharSequence reqID = reqIDTextView.getText();
+        // parse to get JUST the request ID
+        reqID = reqID.subSequence(12, reqID.length());
         Intent acceptIntent = new Intent(ClientShovelerPage.this, AcceptShovellingRequest.class);
         acceptIntent.putExtra("requestID", (String) reqID);
         startActivity(acceptIntent);
