@@ -23,7 +23,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-
 import backend.ShovelingRequest;
 
 import com.firebase.client.Firebase;
@@ -44,7 +43,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class ShovelerAcceptedRequests extends AppCompatActivity{
+public class ShovelerAcceptedRequests extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private DatabaseReference mRequestDB;
@@ -53,7 +52,7 @@ public class ShovelerAcceptedRequests extends AppCompatActivity{
     private Dialog dialog = null;
     private Context context = null;
     private Query mQueryAcceptedRequestDB;
-    public static FirebaseRecyclerAdapter<ShovelingRequest , requestPostHolder> firebaseRecyclerAdapter;
+    public static FirebaseRecyclerAdapter<ShovelingRequest, requestPostHolder> firebaseRecyclerAdapter;
     String token = FirebaseInstanceId.getInstance().getToken();
     private static final String regToken = "regToken";
 
@@ -62,7 +61,7 @@ public class ShovelerAcceptedRequests extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_accepted_requests);
         setUpVariables();
-        if(mAuth.getCurrentUser() == null) {
+        if (mAuth.getCurrentUser() == null) {
             goToLogin();
         }
         context = ShovelerAcceptedRequests.this;
@@ -70,15 +69,21 @@ public class ShovelerAcceptedRequests extends AppCompatActivity{
     }
 
     private void goToLogin() {
-        startActivity(new Intent(ShovelerAcceptedRequests.this , Login.class));
+        startActivity(new Intent(ShovelerAcceptedRequests.this, Login.class));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(mAuth.getCurrentUser() == null) {
+        if (mAuth.getCurrentUser() == null) {
             goToLogin();
         }
+    }
+
+    public void requestsButton(View view) {
+        Intent requests = new Intent(ShovelerAcceptedRequests.this, ClientShovelerPage.class);
+//        requests.putExtra("state", state);
+        startActivity(requests);
     }
 
     public void setUpVariables() {
@@ -115,7 +120,7 @@ public class ShovelerAcceptedRequests extends AppCompatActivity{
     }
 
     public void onRequestClick(View view) {
-        TextView reqIDTextView = (TextView)view.findViewById(R.id.reqID);
+        TextView reqIDTextView = (TextView) view.findViewById(R.id.reqID);
         CharSequence reqID = reqIDTextView.getText();
         // parse to get JUST the request ID
         reqID = reqID.subSequence(12, reqID.length());
@@ -127,13 +132,12 @@ public class ShovelerAcceptedRequests extends AppCompatActivity{
         super.onStart();
 
         this.firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ShovelingRequest, requestPostHolder>(
-                ShovelingRequest.class ,
-                R.layout.shoveler_list_view_layout ,
-                requestPostHolder.class ,
+                ShovelingRequest.class,
+                R.layout.shoveler_list_view_layout,
+                requestPostHolder.class,
                 //mQueryRequestDB         //use for posts made by current user
                 mQueryAcceptedRequestDB     // use for accepted requests of current user
-        )
-        {
+        ) {
 
 
             @Override
@@ -213,7 +217,7 @@ public class ShovelerAcceptedRequests extends AppCompatActivity{
         });
     }
 
-    public static class requestPostHolder extends RecyclerView.ViewHolder{
+    public static class requestPostHolder extends RecyclerView.ViewHolder {
 
         View view;
 
@@ -223,48 +227,48 @@ public class ShovelerAcceptedRequests extends AppCompatActivity{
             view = itemView;
         }
 
-        public void setStatus(String status){
-            TextView statusTxtView = (TextView)view.findViewById(R.id.status);
+        public void setStatus(String status) {
+            TextView statusTxtView = (TextView) view.findViewById(R.id.status);
             statusTxtView.setText("Status: " + status);
         }
 
-        public void setCity(String city){
-            TextView userNameTxtView = (TextView)view.findViewById(R.id.city);
+        public void setCity(String city) {
+            TextView userNameTxtView = (TextView) view.findViewById(R.id.city);
             userNameTxtView.setText("City: " + city);
         }
 
-        public void setAddress(String address){
-            TextView userStatusTxtView = (TextView)view.findViewById(R.id.address);
+        public void setAddress(String address) {
+            TextView userStatusTxtView = (TextView) view.findViewById(R.id.address);
             userStatusTxtView.setText("Address: " + address);
         }
 
-        public void setPhone(String phone){
-            TextView userStatusTxtView = (TextView)view.findViewById(R.id.phone);
+        public void setPhone(String phone) {
+            TextView userStatusTxtView = (TextView) view.findViewById(R.id.phone);
             userStatusTxtView.setText("Phone Number: " + phone);
         }
 
-        public void setPostalCode(String postalCode){
-            TextView userStatusTxtView = (TextView)view.findViewById(R.id.postalCode);
+        public void setPostalCode(String postalCode) {
+            TextView userStatusTxtView = (TextView) view.findViewById(R.id.postalCode);
             userStatusTxtView.setText("Postal Code: " + postalCode);
         }
 
-        public void setDate(String date){
-            TextView userStatusTxtView = (TextView)view.findViewById(R.id.date_tv);
+        public void setDate(String date) {
+            TextView userStatusTxtView = (TextView) view.findViewById(R.id.date_tv);
             userStatusTxtView.setText("Date: " + date);
         }
 
-        public void setTime(String time){
-            TextView userStatusTxtView = (TextView)view.findViewById(R.id.time_tv);
+        public void setTime(String time) {
+            TextView userStatusTxtView = (TextView) view.findViewById(R.id.time_tv);
             userStatusTxtView.setText("Time: " + time);
         }
 
-        public void setUserName (String name) {
-            TextView userNameTextView = (TextView)view.findViewById(R.id.user_tv);
+        public void setUserName(String name) {
+            TextView userNameTextView = (TextView) view.findViewById(R.id.user_tv);
             userNameTextView.setText("User: " + name);
         }
 
-        public void setReqID (String reqId){
-            TextView reqIDTextView = (TextView)view.findViewById(R.id.reqID);
+        public void setReqID(String reqId) {
+            TextView reqIDTextView = (TextView) view.findViewById(R.id.reqID);
             reqIDTextView.setText("Request ID: " + reqId);
         }
     }
