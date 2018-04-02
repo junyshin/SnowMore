@@ -230,7 +230,7 @@ public class UserShovelingRequest extends AppCompatActivity {
                 et_city.setText(null);
                 et_postalCode.setText(null);
                 finish();
-                Intent intent = new Intent(UserShovelingRequest.this , ClientShovelerPage.class);
+                Intent intent = new Intent(UserShovelingRequest.this , PendingRequestsTab.class);
                 startActivity(intent);
 //                Toast.makeText(UserShovelingRequest.this , "Success!" , Toast.LENGTH_LONG).show();
             }

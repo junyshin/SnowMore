@@ -164,7 +164,7 @@ public class ClientShovelerPage extends AppCompatActivity {
     }
 
     public void acceptedRequestsButton(View view) {
-        Intent acceptedRequests = new Intent(ClientShovelerPage.this , AcceptedRequestsTab.class);
+        Intent acceptedRequests = new Intent(ClientShovelerPage.this , ShovelerAcceptedRequests.class);
         startActivity(acceptedRequests);
     }
 
