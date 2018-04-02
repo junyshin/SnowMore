@@ -177,7 +177,7 @@ public class AcceptedRequestsTab extends AppCompatActivity {
     }
 
     public void requestsButton(View view) {
-        Intent requests = new Intent(AcceptedRequestsTab.this , ClientShovelerPage.class);
+        Intent requests = new Intent(AcceptedRequestsTab.this , PendingRequestsTab.class);
         requests.putExtra("state" , state);
         startActivity(requests);
     }
