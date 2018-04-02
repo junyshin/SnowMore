@@ -26,13 +26,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
 
-        <TextView
+        <ImageView
             android:id="@+id/title_tv"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SnowMore"
-            android:textSize="50dp"
-            android:gravity="center_horizontal"/>
+            android:gravity="center_horizontal"
+            android:src="@mipmap/logo_borders"
+            android:layout_gravity="center_horizontal"/>
 
         <Space
             android:layout_width="wrap_content"
@@ -46,7 +46,8 @@
             android:layout_height="wrap_content"
             android:onClick="clientButton"
             android:text="All Requests"
-            android:textColor="@color/colorAccent"
+            android:textColor="#0000FF"
+            android:textStyle="bold"
             android:layout_gravity="center_horizontal"/>
 
         <Space
@@ -59,10 +60,11 @@
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorAccent"
-            android:text="My Pending Requests"
+            android:layout_gravity="center_horizontal"
             android:onClick="myPendRequestsButton"
-            android:layout_gravity="center_horizontal"/>
+            android:text="My Pending Requests"
+            android:textColor="#0000FF"
+            android:textStyle="bold"/>
 
         <Space
             android:layout_width="wrap_content"
@@ -74,7 +76,8 @@
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorAccent"
+            android:textColor="#0000FF"
+            android:textStyle="bold"
             android:text="My Accepted Requests"
             android:onClick="myAccRequestsButton"
             android:layout_gravity="center_horizontal"/>
@@ -89,7 +92,8 @@
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorAccent"
+            android:textColor="#0000FF"
+            android:textStyle="bold"
             android:text="Logout"
             android:onClick="logOutFunction"
             android:layout_gravity="center_horizontal"/>

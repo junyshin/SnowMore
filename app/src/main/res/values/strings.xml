@@ -8,4 +8,6 @@
     <string name="tab_text_1">All Requests</string>
     <string name="tab_text_2">Accepted Requests</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_welcome_page_client">WelcomePageClient</string>
 </resources>

@@ -30,12 +30,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:paddingTop="20dp"
-            android:src="@drawable/logo" />
+            android:src="@mipmap/logo_borders" />
 
         <EditText
             android:id="@+id/emailLogin"
+            android:theme="@style/MyEditTextStyle2"
+            android:textColorHint="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
             android:hint="Email"
             android:paddingTop="50dp" />
 
@@ -56,6 +59,9 @@
             android:id="@+id/passwordLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:theme="@style/MyEditTextStyle2"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
             android:hint="Password"
             android:inputType="textPassword"/>
 
@@ -72,16 +78,53 @@
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
-        <Button
-            android:id="@+id/loginbutton"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:onClick="signInButton"
-            android:text="Sign in"
-            android:textColor="@color/colorAccent"/>
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/loginbutton"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:onClick="signInButton"
+                android:text="Shoveler Sign in"
+                android:textColor="#0000FF"
+                android:textStyle="bold"/>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+
+            <Button
+                android:id="@+id/loginbuttonclient"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:onClick="signInButtonClient"
+                android:text="Client Sign in"
+                android:textColor="#0000FF"
+                android:textStyle="bold"/>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+        </LinearLayout>
 
         <Space
             android:layout_width="wrap_content"
@@ -97,7 +140,8 @@
             android:gravity="center"
             android:onClick="registerButton"
             android:text="Register"
-            android:textColor="@color/colorAccent"/>
+            android:textColor="#0000FF"
+            android:textStyle="bold"/>
 
         <Space
             android:layout_width="wrap_content"
@@ -113,7 +157,8 @@
             android:gravity="center"
             android:onClick="forgotButton"
             android:text="Forgot Password?"
-            android:textColor="@color/colorAccent"/>
+            android:textColor="#0000FF"
+            android:textStyle="bold"/>
 
         <Space
             android:layout_width="wrap_content"

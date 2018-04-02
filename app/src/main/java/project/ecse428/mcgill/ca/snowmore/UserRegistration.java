@@ -1,6 +1,7 @@
 package project.ecse428.mcgill.ca.snowmore;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -49,6 +50,7 @@ public class UserRegistration extends AppCompatActivity {
     private User user;
     private Dialog dialog = null;
     private Context context = null;
+    private ProgressDialog progressDialog;
 
     private static final String TAG = "EmailPassword";
     private FirebaseAuth mAuth;
@@ -90,6 +92,7 @@ public class UserRegistration extends AppCompatActivity {
 
     //UI Initialization
     public void setUpVariables() {
+        progressDialog = new ProgressDialog(this);
         name_edittxt = (EditText) findViewById(R.id.fullname);
         email_edittxt = (EditText) findViewById(R.id.email);
         password_edittxt = (EditText) findViewById(R.id.password);
@@ -115,6 +118,8 @@ public class UserRegistration extends AppCompatActivity {
 
     //Registration button action
     public void registerButton(View view) {
+        progressDialog.setMessage("Please wait...");
+        progressDialog.show();
         if(TextUtils.isEmpty(email_edittxt.getText().toString())) {
             error_message_email.setText("Please enter email");
             error_message_email.setVisibility(View.VISIBLE);
@@ -189,6 +194,7 @@ public class UserRegistration extends AppCompatActivity {
         mAuth.createUserWithEmailAndPassword(email , password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+                progressDialog.dismiss();
                 if(!task.isSuccessful()) {
                     // error registering user
                     showAlertDialog("Error!" , task.getException().getMessage());

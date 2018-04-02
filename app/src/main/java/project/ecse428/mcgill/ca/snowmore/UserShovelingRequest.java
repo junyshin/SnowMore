@@ -62,12 +62,16 @@ public class UserShovelingRequest extends AppCompatActivity {
     Button btnDatePicker, btnTimePicker;
     EditText txtDate, txtTime;
     private int mYear, mMonth, mDay, mHour, mMinute;
+    private int state;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shoveler_request);
-
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null) {
+            state = bundle.getInt("state");
+        }
         mAuth = FirebaseAuth.getInstance();
         myFirebaseDatabase = FirebaseDatabase.getInstance();
         myRef = myFirebaseDatabase.getReference();
@@ -75,9 +79,6 @@ public class UserShovelingRequest extends AppCompatActivity {
         //FirebaseUser user = mAuth.getCurrentUser();
         //userID = user.getUid();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setTitle("Snow More");
         context = UserShovelingRequest.this;
         setUpVariables();
     }
@@ -212,6 +213,7 @@ public class UserShovelingRequest extends AppCompatActivity {
     //Sign In button action
     public void backButton(View view) {
         Intent back = new Intent(this, ClientShovelerPage.class);
+        back.putExtra("state" , state);
         startActivity(back);
     }
 

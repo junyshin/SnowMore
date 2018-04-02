@@ -27,7 +27,8 @@
             android:id="@+id/reqID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="reqID" />
+            android:text="reqID"
+            android:textColor="@color/white"/>
 
         <Space
             android:layout_width="wrap_content"
@@ -40,7 +41,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:inputType="textPersonName"
-            android:text="Username" />
+            android:text="Username"
+            android:textColor="@color/white"/>
 
         <Space
             android:layout_width="wrap_content"
@@ -53,7 +55,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:inputType="textPostalAddress"
-            android:text="Montreal" />
+            android:text="Montreal"
+            android:textColor="@color/white"/>
 
         <Space
             android:layout_width="wrap_content"
@@ -66,7 +69,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:inputType="date"
-            android:text="12-02-2018" />
+            android:text="12-02-2018"
+            android:textColor="@color/white"/>
 
         <Space
             android:layout_width="wrap_content"
@@ -79,7 +83,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:inputType="time"
-            android:text="10:22" />
+            android:text="10:22"
+            android:textColor="@color/white"/>
 
         <Space
             android:layout_width="wrap_content"
@@ -92,7 +97,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:inputType="textPostalAddress"
-            android:text="H3G2A5" />
+            android:text="H3G2A5"
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/address"
@@ -100,7 +106,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:inputType="textPostalAddress"
-            android:text="3546 Peel street" />
+            android:text="3546 Peel street"
+            android:textColor="@color/white"/>
 
         <Space
             android:layout_width="wrap_content"
@@ -113,7 +120,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:inputType="phone"
-            android:text="5144308272" />
+            android:text="5144308272"
+            android:textColor="@color/white"/>
 
     </LinearLayout>
 

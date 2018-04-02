@@ -5,32 +5,17 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
 
 
 import backend.ShovelingRequest;
 
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,9 +24,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class AcceptedRequestsTab extends AppCompatActivity{
@@ -58,6 +40,8 @@ public class AcceptedRequestsTab extends AppCompatActivity{
     public static FirebaseRecyclerAdapter<ShovelingRequest , requestPostHolder> firebaseRecyclerAdapter;
     String token = FirebaseInstanceId.getInstance().getToken();
     private static final String regToken = "regToken";
+    private int state = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,6 +177,12 @@ public class AcceptedRequestsTab extends AppCompatActivity{
         });
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    public void requestsButton(View view) {
+        Intent requests = new Intent(AcceptedRequestsTab.this , PendingRequestsTab.class);
+        requests.putExtra("state" , state);
+        startActivity(requests);
     }
 
     public static class requestPostHolder extends RecyclerView.ViewHolder{
