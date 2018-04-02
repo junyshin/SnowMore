@@ -2,52 +2,35 @@ package project.ecse428.mcgill.ca.snowmore;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import backend.LogOutButton;
-
-
-
 
 public class WelcomePage extends AppCompatActivity {
 
-    private static Button logout_button;
     private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_page);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        mAuth = FirebaseAuth.getInstance();
+        if(mAuth.getCurrentUser() == null) {
+            goToLogin();
+        }
+    }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        logout_button = (Button) findViewById(R.id.logoutButton);
+    private void goToLogin() {
+        startActivity(new Intent(WelcomePage.this , Login.class));
+    }
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        logout_button.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                logOutFunction(v);
-
-            }
-        });
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(mAuth.getCurrentUser() == null) {
+            goToLogin();
+        }
     }
 
     public void logOutFunction(View view){
@@ -60,6 +43,16 @@ public class WelcomePage extends AppCompatActivity {
 
     public void clientButton(View view){
         Intent intent = new Intent(this, ClientShovelerPage.class);
+        startActivity(intent);
+    }
+
+    public void myAccRequestsButton(View view){
+        Intent intent = new Intent(this, AcceptedRequestsTab.class);
+        startActivity(intent);
+    }
+
+    public void myPendRequestsButton(View view){
+        Intent intent = new Intent(this, PendingRequestsTab.class);
         startActivity(intent);
     }
 }

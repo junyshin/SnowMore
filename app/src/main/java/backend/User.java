@@ -77,7 +77,7 @@ public class User {
         if(parsed.length == 2) {
             System.out.println(parsed[1]);
             String[] splitted = parsed[1].split("\\.");
-            if(splitted.length == 2){
+            if(splitted.length >= 2){
                 this.email_checked = true;
                 this.email = email;
             }

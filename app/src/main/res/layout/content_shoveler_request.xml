@@ -3,205 +3,270 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:layout_editor_absoluteY="81dp">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="49dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="Create a Shoveling Request"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/postButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginStart="16dp"
-        android:onClick="postRequest"
-        android:text="post"
-        app:layout_constraintBottom_toBottomOf="@+id/backButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/backButton"
-        app:layout_constraintTop_toTopOf="@+id/backButton" />
-
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:onClick="backButton"
-        android:text="back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/postButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/requestTime" />
-
-    <EditText
-        android:id="@+id/streetAddress"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Street Address"
-        android:inputType="textPostalAddress"
-        app:layout_constraintEnd_toEndOf="@+id/error_message_streetAddress"
-        app:layout_constraintStart_toStartOf="@+id/error_message_streetAddress"
-        app:layout_constraintTop_toBottomOf="@+id/error_message_streetAddress" />
-
-    <EditText
-        android:id="@+id/city"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="City"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="@+id/error_message_city"
-        app:layout_constraintStart_toStartOf="@+id/error_message_city"
-        app:layout_constraintTop_toBottomOf="@+id/error_message_city" />
-
-    <EditText
-        android:id="@+id/postalCode"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Postal Code"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="@+id/error_message_postCode"
-        app:layout_constraintStart_toStartOf="@+id/error_message_postCode"
-        app:layout_constraintTop_toBottomOf="@+id/error_message_postCode" />
-
-    <EditText
-        android:id="@+id/phoneNumber"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Phone Number"
-        android:inputType="phone"
-        app:layout_constraintEnd_toEndOf="@+id/error_message_phoneNumber"
-        app:layout_constraintStart_toStartOf="@+id/error_message_phoneNumber"
-        app:layout_constraintTop_toBottomOf="@+id/error_message_phoneNumber" />
-
-    <TextView
-        android:id="@+id/error_message_streetAddress"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="TextView"
-        android:textColor="@color/red"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/error_message_city"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textColor="@color/red"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/streetAddress"
-        app:layout_constraintStart_toStartOf="@+id/streetAddress"
-        app:layout_constraintTop_toBottomOf="@+id/streetAddress" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Create a Shoveling Request"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-    <TextView
-        android:id="@+id/error_message_postCode"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textColor="@color/red"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/city"
-        app:layout_constraintStart_toStartOf="@+id/city"
-        app:layout_constraintTop_toBottomOf="@+id/city" />
+        <EditText
+            android:id="@+id/streetAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Street Address"
+            android:theme="@style/MyEditTextStyle2"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:inputType="textPostalAddress"
+            android:layout_marginTop="30dp"/>
 
-    <TextView
-        android:id="@+id/error_message_phoneNumber"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textColor="@color/red"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/postalCode"
-        app:layout_constraintStart_toStartOf="@+id/postalCode"
-        app:layout_constraintTop_toBottomOf="@+id/postalCode" />
+        <TextView
+            android:id="@+id/error_message_streetAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="@color/red"
+            android:visibility="invisible"/>
 
-    <TextView
-        android:id="@+id/error_message_requestDate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textColor="@color/red"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/phoneNumber"
-        app:layout_constraintStart_toStartOf="@+id/phoneNumber"
-        app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
 
-    <TextView
-        android:id="@+id/error_message_requestTime"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textColor="@color/red"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/btn_date"
-        app:layout_constraintStart_toStartOf="@+id/requestDate"
-        app:layout_constraintTop_toBottomOf="@+id/requestDate" />
+        <EditText
+            android:id="@+id/city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/MyEditTextStyle2"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:hint="City"
+            android:inputType="text" />
 
-    <EditText
-        android:id="@+id/requestDate"
-        android:layout_width="134dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Date"
-        android:inputType="date"
-        app:layout_constraintEnd_toStartOf="@+id/btn_date"
-        app:layout_constraintStart_toStartOf="@+id/error_message_requestDate"
-        app:layout_constraintTop_toBottomOf="@+id/error_message_requestDate" />
+        <TextView
+            android:id="@+id/error_message_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="@color/red"
+            android:visibility="invisible"/>
 
-    <Button
-        android:id="@+id/btn_date"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:onClick="btnDateTime"
-        android:text="Select Date"
-        app:layout_constraintBottom_toBottomOf="@+id/requestDate"
-        app:layout_constraintEnd_toEndOf="@+id/error_message_requestDate"
-        app:layout_constraintStart_toEndOf="@+id/requestDate"
-        app:layout_constraintTop_toTopOf="@+id/requestDate" />
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
 
-    <Button
-        android:id="@+id/btn_time"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:onClick="btnDateTime"
-        android:text="Select Time"
-        app:layout_constraintBottom_toBottomOf="@+id/requestTime"
-        app:layout_constraintEnd_toEndOf="@+id/error_message_requestTime"
-        app:layout_constraintStart_toEndOf="@+id/requestTime"
-        app:layout_constraintTop_toTopOf="@+id/requestTime" />
+        <EditText
+            android:id="@+id/postalCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/MyEditTextStyle2"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:hint="Postal Code"
+            android:inputType="text"/>
 
-    <EditText
-        android:id="@+id/requestTime"
-        android:layout_width="134dp"
-        android:layout_height="43dp"
-        android:ems="10"
-        android:hint="Time"
-        android:inputType="time"
-        app:layout_constraintStart_toStartOf="@+id/error_message_requestTime"
-        app:layout_constraintTop_toBottomOf="@+id/error_message_requestTime" />
+        <TextView
+            android:id="@+id/error_message_postCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="@color/red"
+            android:visibility="invisible"/>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <EditText
+            android:id="@+id/phoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/MyEditTextStyle2"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:hint="Phone Number"
+            android:inputType="phone"/>
+
+        <TextView
+            android:id="@+id/error_message_phoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="@color/red"
+            android:visibility="invisible"/>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <EditText
+                android:id="@+id/requestDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/MyEditTextStyle2"
+                android:textColorHint="@color/white"
+                android:textColor="@color/white"
+                android:hint="Date"
+                android:inputType="date" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/btn_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="btnDateTime"
+                android:text="Select Date"
+                android:textColor="#0000FF"
+                android:textStyle="bold"
+                style="?android:attr/borderlessButtonStyle" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/error_message_requestDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="@color/red"
+            android:visibility="invisible"/>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <EditText
+                android:id="@+id/requestTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/MyEditTextStyle2"
+                android:textColorHint="@color/white"
+                android:textColor="@color/white"
+                android:hint="Time"
+                android:inputType="time"/>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/btn_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="btnDateTime"
+                android:text="Select Time"
+                android:textColor="#0000FF"
+                android:textStyle="bold"
+                style="?android:attr/borderlessButtonStyle"/>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/error_message_requestTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="@color/red"
+            android:visibility="invisible"/>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="backButton"
+                android:text="back"
+                android:textColor="#0000FF"
+                android:textStyle="bold"
+                style="?android:attr/borderlessButtonStyle"/>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/postButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="postRequest"
+                android:text="post"
+                android:textColor="#0000FF"
+                android:textStyle="bold"
+                style="?android:attr/borderlessButtonStyle"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
