@@ -24,6 +24,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical|center_horizontal"
             android:text="Create a Shoveling Request"
+            android:textStyle="bold"
+            android:textColor="@color/white"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <EditText
@@ -31,6 +33,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Street Address"
+            android:theme="@style/MyEditTextStyle2"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
             android:inputType="textPostalAddress"
             android:layout_marginTop="30dp"/>
 
@@ -51,6 +56,9 @@
             android:id="@+id/city"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:theme="@style/MyEditTextStyle2"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
             android:hint="City"
             android:inputType="text" />
 
@@ -71,6 +79,9 @@
             android:id="@+id/postalCode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:theme="@style/MyEditTextStyle2"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:hint="Postal Code"
             android:inputType="text"/>
 
@@ -91,6 +102,9 @@
             android:id="@+id/phoneNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:theme="@style/MyEditTextStyle2"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
             android:hint="Phone Number"
             android:inputType="phone"/>
 
@@ -122,6 +136,9 @@
                 android:id="@+id/requestDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:theme="@style/MyEditTextStyle2"
+                android:textColorHint="@color/white"
+                android:textColor="@color/white"
                 android:hint="Date"
                 android:inputType="date" />
 
@@ -136,7 +153,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="btnDateTime"
                 android:text="Select Date"
-                android:textColor="@color/colorAccent"
+                android:textColor="#0000FF"
+                android:textStyle="bold"
                 style="?android:attr/borderlessButtonStyle" />
 
             <Space
@@ -174,6 +192,9 @@
                 android:id="@+id/requestTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:theme="@style/MyEditTextStyle2"
+                android:textColorHint="@color/white"
+                android:textColor="@color/white"
                 android:hint="Time"
                 android:inputType="time"/>
 
@@ -188,7 +209,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="btnDateTime"
                 android:text="Select Time"
-                android:textColor="@color/colorAccent"
+                android:textColor="#0000FF"
+                android:textStyle="bold"
                 style="?android:attr/borderlessButtonStyle"/>
 
             <Space
@@ -223,7 +245,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="backButton"
                 android:text="back"
-                android:textColor="@color/colorAccent"
+                android:textColor="#0000FF"
+                android:textStyle="bold"
                 style="?android:attr/borderlessButtonStyle"/>
 
             <Space
@@ -237,7 +260,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="postRequest"
                 android:text="post"
-                android:textColor="@color/colorAccent"
+                android:textColor="#0000FF"
+                android:textStyle="bold"
                 style="?android:attr/borderlessButtonStyle"/>
 
         </LinearLayout>

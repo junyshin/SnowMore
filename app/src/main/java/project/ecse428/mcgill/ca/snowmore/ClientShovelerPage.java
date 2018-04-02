@@ -4,36 +4,22 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.provider.SyncStateContract;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.authentication.Constants;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.Query;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.Map;
 
 import backend.ShovelingRequest;
 
@@ -51,20 +37,26 @@ public class ClientShovelerPage extends AppCompatActivity {
     private Dialog dialog = null;
     private Context context = null;
     private static FirebaseRecyclerAdapter<ShovelingRequest , requestPostHolder> firebaseRecyclerAdapter;
+    private int state;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_client_shoveler_page);
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null) {
+            state = bundle.getInt("state");
+        }
+        if(state == 1) {
+            setContentView(R.layout.activity_client_shoveler_page);
+        }
+        else {
+            setContentView(R.layout.activity_shoveler_client_page);
+        }
         setUpVariables();
         if(mAuth.getCurrentUser() == null) {
             goToLogin();
         }
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setTitle("Snow More");
         context = ClientShovelerPage.this;
-        //setUpVariables();
     }
 
     private void goToLogin() {
@@ -78,7 +70,6 @@ public class ClientShovelerPage extends AppCompatActivity {
             goToLogin();
         }
     }
-
 
     public void setUpVariables() {
         mAuth = FirebaseAuth.getInstance();
@@ -168,12 +159,18 @@ public class ClientShovelerPage extends AppCompatActivity {
     // shoveler adds post
     public void addPostButton(View view) {
         Intent request = new Intent(this, UserShovelingRequest.class);
+        request.putExtra("state" , state);
         startActivity(request);
     }
 
-    public void backButton(View view) {
-        Intent welcomePage = new Intent(this , WelcomePage.class);
-        startActivity(welcomePage);
+    public void acceptedRequestsButton(View view) {
+        Intent acceptedRequests = new Intent(ClientShovelerPage.this , AcceptedRequestsTab.class);
+        startActivity(acceptedRequests);
+    }
+
+    public void myRequestsButton(View view) {
+        Intent myRequests = new Intent(ClientShovelerPage.this , PendingRequestsTab.class);
+        startActivity(myRequests);
     }
 
     public static class requestPostHolder extends RecyclerView.ViewHolder{
