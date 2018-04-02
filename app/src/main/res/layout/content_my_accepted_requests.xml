@@ -53,9 +53,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="requestsButton"
-                android:text="All Requests"
+                android:text="Back to Pending"
                 android:textColor="#0000FF"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <Space
                 android:layout_width="wrap_content"
