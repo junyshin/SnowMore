@@ -88,6 +88,13 @@ public class PendingRequestsTab extends AppCompatActivity {
         startActivity(back);
     }
 
+    // client adds post
+    public void addPostButton(View view) {
+        Intent request = new Intent(this, UserShovelingRequest.class);
+        request.putExtra("state" , state);
+        startActivity(request);
+    }
+
     //Logout button action
     public void logoutButton(View view) {
         mAuth = FirebaseAuth.getInstance();

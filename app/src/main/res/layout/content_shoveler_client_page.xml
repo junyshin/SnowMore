@@ -31,14 +31,14 @@
             android:textColor="@color/white"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
-        <ImageButton
-            android:id="@+id/add"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="addPostButton"
-            android:layout_gravity="right"
-            app:srcCompat="@android:drawable/ic_input_add" />
+        <!--<ImageButton-->
+            <!--android:id="@+id/add"-->
+            <!--style="?android:attr/borderlessButtonStyle"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:onClick="addPostButton"-->
+            <!--android:layout_gravity="right"-->
+            <!--app:srcCompat="@android:drawable/ic_input_add" />-->
 
         <LinearLayout
             android:layout_width="match_parent"

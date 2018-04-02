@@ -134,7 +134,7 @@ public class ShovelingRequest {
     public String getShovelerNumber() {
         return this.shovelerNumber;
     }
-  
+
     public String getRequestDate() {
         return this.requestDate;
     }
@@ -166,7 +166,7 @@ public class ShovelingRequest {
     public void setShovelerNumber(String shovelerNumber) {
         this.shovelerNumber = shovelerNumber;
     }
-      
+
     public void setRequestDate(String requestDate) {
         this.requestDate = requestDate;
     }

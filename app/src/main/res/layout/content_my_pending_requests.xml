@@ -35,6 +35,15 @@
             android:textColor="@color/white"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
+        <ImageButton
+            android:id="@+id/add"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="addPostButton"
+            android:layout_gravity="right"
+            app:srcCompat="@android:drawable/ic_input_add" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_myRequest"
             android:layout_width="match_parent"

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="project.ecse428.mcgill.ca.snowmore.AcceptedRequestsTab"
+    tools:context="project.ecse428.mcgill.ca.snowmore.ShovelerAcceptedRequests"
     tools:showIn="@layout/activity_my_accepted_requests">
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -48,12 +48,12 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/requestsButton"
+                android:id="@+id/requestsButton2"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="requestsButton"
-                android:text="Back to Pending"
+                android:text="All Pendings"
                 android:textColor="#0000FF"
                 android:textStyle="bold" />
 
